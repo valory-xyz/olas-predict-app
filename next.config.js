@@ -42,7 +42,7 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/agents',
+        destination: '/questions',
         permanent: false,
       },
     ];

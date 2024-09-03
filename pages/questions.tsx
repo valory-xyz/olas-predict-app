@@ -1,3 +1,4 @@
+import { Flex } from 'antd';
 import styled from 'styled-components';
 
 const Title = styled.h1`
@@ -8,12 +9,12 @@ const Title = styled.h1`
   line-height: 150%; /* 36px */
 `;
 
-const AgentsPage = () => {
+const QuestionsPage = () => {
   return (
-    <>
+    <Flex vertical gap={40} align="center">
       <Title>AI agents predict the future.</Title>
-    </>
+    </Flex>
   );
 };
 
-export default AgentsPage;
+export default QuestionsPage;
