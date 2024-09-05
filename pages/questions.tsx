@@ -1,18 +1,89 @@
-import { Flex } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+import { Flex, Segmented } from 'antd';
+import { getMarkets } from 'graphql/queries';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
+
+import { Pagination } from 'components/Pagination';
+import { QuestionCard } from 'components/QuestionCard';
+import { SkeletonCard } from 'components/QuestionCard/SkeletonCard';
+import { STATE_FILTER_VALUES } from 'constants/filters';
+import { PAGE_QUERY_PARAM, STATE_QUERY_PARAM } from 'constants/index';
+
+const Filters = styled(Segmented)`
+  margin-bottom: -16px;
+  align-self: end;
+`;
 
 const Title = styled.h1`
   font-family: 'Anonymous Pro';
   font-size: 24px;
   font-style: italic;
   font-weight: 700;
-  line-height: 150%; /* 36px */
+  line-height: 36px;
 `;
 
+const ITEMS_PER_PAGE = 5;
+
 const QuestionsPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const stateParam = searchParams.get(STATE_QUERY_PARAM) || STATE_FILTER_VALUES[0].value;
+  const pageParam = searchParams.get(PAGE_QUERY_PARAM);
+  const page = pageParam ? +pageParam : 1;
+
+  // Current page data
+  const { data, isLoading } = useQuery({
+    queryKey: ['getMarkets', page, stateParam],
+    queryFn: async () =>
+      getMarkets({
+        first: ITEMS_PER_PAGE,
+        skip: (page - 1) * ITEMS_PER_PAGE,
+        ...(STATE_FILTER_VALUES.find((item) => item.value === stateParam)?.when || {}),
+      }),
+  });
+
+  const markets = data?.fixedProductMarketMakers;
+
+  // Next page data
+  const nextPage = page * ITEMS_PER_PAGE;
+  const { data: marketsNextPage } = useQuery({
+    queryKey: ['getMarkets', nextPage, stateParam],
+    queryFn: async () =>
+      getMarkets({
+        first: ITEMS_PER_PAGE,
+        skip: nextPage,
+        ...(STATE_FILTER_VALUES.find((item) => item.value === stateParam)?.when || {}),
+      }),
+  });
+
+  const hasMoreMarkets = marketsNextPage && marketsNextPage.fixedProductMarketMakers.length !== 0;
+
+  const handleFilterChange = (value: unknown) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (value === STATE_FILTER_VALUES[0].value) params.delete(STATE_QUERY_PARAM);
+    else params.set(STATE_QUERY_PARAM, `${value}`);
+
+    const newParams = params.toString();
+    router.replace(`${newParams ? `?${newParams}` : ''}`);
+  };
+
   return (
-    <Flex vertical gap={40} align="center">
+    <Flex vertical gap={40} align="center" className="flex-auto">
       <Title>AI agents predict the future.</Title>
+
+      <Filters value={stateParam} onChange={handleFilterChange} options={STATE_FILTER_VALUES} />
+
+      {isLoading &&
+        Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+          <SkeletonCard key={Number(index)} />
+        ))}
+
+      {markets?.map((market) => <QuestionCard market={market} key={market.id} />)}
+
+      <Pagination hasMore={!!hasMoreMarkets} />
     </Flex>
   );
 };

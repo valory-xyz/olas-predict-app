@@ -17,6 +17,12 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .ant-segmented,
+  .ant-segmented .ant-segmented-thumb,
+  .ant-segmented .ant-segmented-item {
+    border-radius: 38px;
+  }
+
   a {
     color: ${COLOR.TEXT_PRIMARY};
   }
@@ -51,8 +57,14 @@ export const GlobalStyle = createGlobalStyle`
   .text-center {
     text-align: center;
   }
-
   .items-center {
     align-items: center;
+  }
+
+  .flex-auto {
+    flex: auto;
+  }
+  .full-width {
+    width: 100% !important;
   }
 `;

@@ -18,7 +18,7 @@
       "constants/*": ["constants/*"],
       "images/*": ["public/images/*"],
       "hooks/*": ["hooks/*"],
-      "types": ["types/*"],
+      "types": ["types/index"],
       "utils/*": ["utils/*"]
     },
     "resolveJsonModule": true,
