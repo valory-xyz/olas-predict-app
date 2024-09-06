@@ -5,6 +5,12 @@ import { AnswerType } from 'types';
 
 import { QUESTION_IMAGE_SIZE } from 'constants/index';
 
+const CARD_BACKGROUNDS_BY_TYPE = {
+  predicted_right: "url('images/questions/right.png')",
+  predicted_wrong: "url('images/questions/wrong.png')",
+  ongoing: "url('images/questions/ongoing.png')",
+};
+
 export const Card = styled.div<{ type: AnswerType }>`
   display: flex;
   flex-direction: column;
@@ -12,6 +18,7 @@ export const Card = styled.div<{ type: AnswerType }>`
   width: 100%;
   padding: 32px;
   border-radius: 16px;
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
@@ -23,16 +30,11 @@ export const Card = styled.div<{ type: AnswerType }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: ${({ type }) =>
-      type === 'predicted_right'
-        ? "url('images/questions/right.png')"
-        : type === 'predicted_wrong'
-          ? "url('images/questions/wrong.png')"
-          : "url('images/questions/ongoing.png')"};
+    background-image: ${({ type }) => CARD_BACKGROUNDS_BY_TYPE[type]};
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: ${({ type }) => (type === 'ongoing' ? 0.5 : 0.8)};
+    opacity: ${({ type }) => (type === 'ongoing' ? 0.5 : 0.9)};
     z-index: 1;
   }
 
@@ -61,6 +63,12 @@ export const Title = styled.h2`
   text-align: left;
 `;
 
+const ANSWER_BACKGROUNDS_BY_TYPE = {
+  predicted_right: 'rgba(0, 153, 65, 0.4)',
+  predicted_wrong: 'rgba(153, 0, 59, 0.4)',
+  ongoing: 'rgba(255, 255, 255, 0.1)',
+};
+
 export const PredictedAnswer = styled.div<{ type: AnswerType }>`
   display: flex;
   align-items: center;
@@ -68,12 +76,7 @@ export const PredictedAnswer = styled.div<{ type: AnswerType }>`
   width: max-content;
   padding: 6px 16px 6px 16px;
   border-radius: 2px 0px 0px 0px;
-  background: ${({ type }) =>
-    type === 'predicted_right'
-      ? 'rgba(0, 153, 65, 0.4)'
-      : type === 'predicted_wrong'
-        ? 'rgba(153, 0, 59, 0.4)'
-        : 'rgba(255, 255, 255, 0.1)'};
+  background: ${({ type }) => ANSWER_BACKGROUNDS_BY_TYPE[type]};
 `;
 
 export const ProofLink = styled.a`
@@ -98,7 +101,7 @@ export const ProgressBarLoader = styled(Skeleton.Input)`
   }
 `;
 
-export const RightLine = styled.div`
+export const RightLine = styled.div<{ type: AnswerType }>`
   background: rgba(0, 0, 0, 0.3);
   flex-grow: 1;
   height: 24px;
@@ -110,6 +113,8 @@ export const RightLine = styled.div`
     position: absolute;
     top: 2px;
     right: 8px;
+    z-index: 1;
+    mix-blend-mode: ${({ type }) => (type === 'ongoing' ? 'normal' : 'difference')};
   }
 `;
 

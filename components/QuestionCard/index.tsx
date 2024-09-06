@@ -5,8 +5,8 @@ import { fromHex } from 'viem';
 
 import { Answer } from './Answer';
 import { Countdown } from './Countdown';
+import { LoaderCard } from './LoaderCard';
 import { PredictionBar } from './PredictionBar';
-import { SkeletonCard } from './SkeletonCard';
 import { Thumbnail } from './Thumbnail';
 import { useOutcomeTokenMarginalPrices } from './hooks';
 import { Card, Title } from './styles';
@@ -58,7 +58,7 @@ export const QuestionCard = ({ market }: QuestionCardProps) => {
   const answer = getAnswer(predictedAnswerIndex, currentAnswerIndex, market.outcomes);
 
   if (isLoading) {
-    return <SkeletonCard />;
+    return <LoaderCard />;
   }
 
   return (

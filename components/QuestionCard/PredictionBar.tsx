@@ -25,7 +25,7 @@ type ProgressBarProps = {
   outcomes: FixedProductMarketMaker['outcomes'];
 };
 
-const getPercentage = (value: string) => Math.round(parseFloat(value) * 100 * 100) / 100;
+const getPercentage = (value: string): number => +(parseFloat(value) * 100).toFixed(2);
 
 const ProgressBar = ({
   leftPercentage,
@@ -37,7 +37,7 @@ const ProgressBar = ({
 
   return (
     <ProgressBarContainer>
-      <RightLine>
+      <RightLine type={type}>
         <LeftLine width={leftPercentage} type={type}>
           <span>
             {outcomes?.[0] || ''} {hasOutcomePercentages ? leftPercentage : 'NA'}%

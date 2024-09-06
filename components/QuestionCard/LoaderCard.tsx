@@ -2,7 +2,7 @@ import { Flex, Skeleton } from 'antd';
 
 import { Card, ThumbnailLoader } from './styles';
 
-export const SkeletonCard = () => {
+export const LoaderCard = () => {
   return (
     <Card type="ongoing">
       <Flex gap={24}>

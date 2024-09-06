@@ -62,8 +62,6 @@ const marketDataFragment = gql`
   }
 `;
 
-//
-
 const getMarketsQuery = (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
 ) => gql`
