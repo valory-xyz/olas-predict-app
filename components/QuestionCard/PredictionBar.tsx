@@ -94,8 +94,10 @@ const AgentsBets = ({ marketId }: { marketId: FixedProductMarketMaker['id'] }) =
 
   return (
     <Flex justify="space-between">
-      {Object.values(data).map(({ agents, totalBets }) => (
-        <Text type="secondary">{getAgentsBetsText(agents.length, totalBets.toFixed(2))}</Text>
+      {Object.values(data).map(({ agents, totalBets }, index) => (
+        <Text type="secondary" key={index}>
+          {getAgentsBetsText(agents.length, totalBets.toFixed(2))}
+        </Text>
       ))}
     </Flex>
   );
