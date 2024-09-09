@@ -1,7 +1,7 @@
 import { gql, request } from 'graphql-request';
 
 import {
-  CREATOR_ADDRESS,
+  CREATOR_ADDRESSES,
   OMEN_SUBGRAPH_URL,
   OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL,
 } from 'constants/index';
@@ -79,7 +79,7 @@ const getMarketsQuery = (
       orderDirection: desc
       where: {
         outcomeSlotCount: 2,
-        creator: "${CREATOR_ADDRESS}",
+        creator_in: [${CREATOR_ADDRESSES.map((address) => `"${address}"`)}],
         ${params.openingTimestamp_gt ? 'openingTimestamp_gt: $openingTimestamp_gt' : ''}
         ${params.answerFinalizedTimestamp_lt ? 'answerFinalizedTimestamp_lt: $answerFinalizedTimestamp_lt' : ''}
         ${params.scaledLiquidityParameter_gt !== undefined ? 'scaledLiquidityParameter_gt: $scaledLiquidityParameter_gt' : ''}
@@ -113,6 +113,8 @@ const getMarketTradesQuery = gql`
       outcomeIndex
       outcomeTokensTraded
       transactionHash
+      collateralAmountUSD
+      feeAmount
       fpmm {
         outcomes
       }

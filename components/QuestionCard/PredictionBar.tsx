@@ -1,6 +1,9 @@
-import { Flex, Typography } from 'antd';
+import { useQuery } from '@tanstack/react-query';
+import { Flex, Skeleton, Typography } from 'antd';
+import { getMarketTrades } from 'graphql/queries';
 import { FixedProductMarketMaker } from 'graphql/types';
 import { AnswerType } from 'types';
+import { formatUnits } from 'viem';
 
 import { LeftLine, ProgressBarContainer, RightLine } from './styles';
 
@@ -13,6 +16,7 @@ const CAPTIONS_BY_TYPE = {
 };
 
 type PredictionBarProps = {
+  marketId: FixedProductMarketMaker['id'];
   type: AnswerType;
   outcomeTokenMarginalPrices: FixedProductMarketMaker['outcomeTokenMarginalPrices'];
   outcomes: FixedProductMarketMaker['outcomes'];
@@ -51,7 +55,54 @@ const ProgressBar = ({
   );
 };
 
+const getAgentsBetsText = (agentsNum: number, totalBets: string) =>
+  `${agentsNum} AI agent${agentsNum == 1 ? '' : 's'} bet $${totalBets}`;
+
+const AgentsBets = ({ marketId }: { marketId: FixedProductMarketMaker['id'] }) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['getMarketTrades', marketId],
+    queryFn: async () =>
+      getMarketTrades({
+        first: 100,
+        fpmm: marketId,
+      }),
+    select: (data) => {
+      return data.fpmmTrades.reduce<Record<string, { agents: string[]; totalBets: number }>>(
+        (res, trade) => {
+          const answerIndex = trade.outcomeIndex;
+          const betAmount =
+            parseFloat(trade.collateralAmountUSD) - parseFloat(formatUnits(trade.feeAmount, 18));
+          res[answerIndex].agents.push(trade.creator.id);
+          res[answerIndex].totalBets += betAmount;
+
+          return res;
+        },
+        { '0': { agents: [], totalBets: 0 }, '1': { agents: [], totalBets: 0 } },
+      );
+    },
+  });
+
+  if (isLoading)
+    return (
+      <Flex justify="space-between">
+        <Skeleton.Input active size="small" />
+        <Skeleton.Input active size="small" />
+      </Flex>
+    );
+
+  if (!data) return null;
+
+  return (
+    <Flex justify="space-between">
+      {Object.values(data).map(({ agents, totalBets }) => (
+        <Text type="secondary">{getAgentsBetsText(agents.length, totalBets.toFixed(2))}</Text>
+      ))}
+    </Flex>
+  );
+};
+
 export const PredictionBar = ({
+  marketId,
   type,
   outcomeTokenMarginalPrices,
   outcomes,
@@ -70,6 +121,7 @@ export const PredictionBar = ({
         type={type}
         outcomes={outcomes}
       />
+      <AgentsBets marketId={marketId} />
     </Flex>
   );
 };

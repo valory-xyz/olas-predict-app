@@ -71,6 +71,7 @@ export const QuestionCard = ({ market }: QuestionCardProps) => {
         </Flex>
       </Flex>
       <PredictionBar
+        marketId={market.id}
         type={answerType}
         outcomes={market.outcomes}
         outcomeTokenMarginalPrices={outcomeTokenMarginalPrices}
