@@ -1,6 +1,6 @@
 import { Flex, Skeleton } from 'antd';
 
-import { Card, ThumbnailLoader } from './styles';
+import { Card, ThumbnailLoader } from 'components/shared/styles';
 
 export const LoaderCard = () => {
   return (

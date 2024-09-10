@@ -4,6 +4,7 @@ import { Clock } from 'lucide-react';
 import styled from 'styled-components';
 
 import { COLOR } from 'constants/theme';
+import { formatTimestamp } from 'utils/time';
 
 const { Countdown: AntdCountdown } = Statistic;
 
@@ -31,24 +32,6 @@ const Root = styled.div`
     color: ${COLOR.SECONDARY};
   }
 `;
-
-function formatTimestamp(ms: number) {
-  const date = new Date(ms);
-
-  // get hours and minutes, and determine AM/PM
-  let hours = date.getHours();
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12 || 12; // convert to 12-hour format
-
-  const formattedDate = date.toLocaleString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
-  return `${hours}:${minutes} ${ampm} ${formattedDate}`;
-}
 
 export const Countdown = ({ openingTimestamp }: CountdownProps) => {
   const deadline = +openingTimestamp * 1000;
