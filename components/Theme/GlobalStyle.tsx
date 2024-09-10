@@ -23,6 +23,13 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 38px;
   }
 
+  .ant-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+  }
+
   a {
     color: ${COLOR.TEXT_PRIMARY};
   }

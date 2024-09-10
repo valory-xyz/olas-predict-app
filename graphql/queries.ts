@@ -12,6 +12,7 @@ import {
   OmenThumbnailMapping,
   OutcomeTokenMarginalPricesResponse,
   Query,
+  QueryFixedProductMarketMakerArgs,
   QueryFixedProductMarketMakersArgs,
   QueryFpmmTradesArgs,
 } from './types';
@@ -22,6 +23,7 @@ const marketDataFragment = gql`
     collateralVolume
     collateralToken
     creationTimestamp
+    creator
     lastActiveDay
     outcomeTokenAmounts
     runningDailyVolumeByHour
@@ -141,6 +143,17 @@ const getMarketThumbnailQuery = gql`
   }
 `;
 
+const getMarketQuery = gql`
+  query GetMarket($id: ID!) {
+    fixedProductMarketMaker(id: $id) {
+      ...marketData
+      __typename
+    }
+  }
+
+  ${marketDataFragment}
+`;
+
 export const getMarkets = async (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
 ) =>
@@ -162,3 +175,6 @@ export const getMarketThumbnail = async (params: { id: string }) =>
     getMarketThumbnailQuery,
     params,
   );
+
+export const getMarket = async (params: QueryFixedProductMarketMakerArgs) =>
+  request<Pick<Query, 'fixedProductMarketMaker'>>(OMEN_SUBGRAPH_URL, getMarketQuery, params);

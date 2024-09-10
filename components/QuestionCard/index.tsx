@@ -9,10 +9,10 @@ import { Countdown } from 'components/shared/Countdown';
 import { PredictionBar } from 'components/shared/PredictionBar';
 import { Thumbnail } from 'components/shared/Thumbnail';
 import { Card, QuestionTitle } from 'components/shared/styles';
+import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
 
 import { LoaderCard } from './LoaderCard';
-import { useOutcomeTokenMarginalPrices } from './hooks';
 
 const StyledLink = styled(Link)`
   &:hover {

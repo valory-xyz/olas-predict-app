@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { AnswerType } from 'types';
 
 import { QUESTION_IMAGE_SIZE } from 'constants/index';
+import { COLOR } from 'constants/theme';
 
 const ANSWER_BACKGROUNDS_BY_TYPE = {
   predicted_right: 'rgba(0, 153, 65, 0.4)',
@@ -12,9 +13,9 @@ const ANSWER_BACKGROUNDS_BY_TYPE = {
 };
 
 const CARD_BACKGROUNDS_BY_TYPE = {
-  predicted_right: "url('images/questions/right.png')",
-  predicted_wrong: "url('images/questions/wrong.png')",
-  ongoing: "url('images/questions/ongoing.png')",
+  predicted_right: "url('/images/questions/right.png')",
+  predicted_wrong: "url('/images/questions/wrong.png')",
+  ongoing: "url('/images/questions/ongoing.png')",
 };
 
 export const Card = styled.div<{ type: AnswerType }>`
@@ -72,7 +73,7 @@ export const ProofLink = styled.a`
   display: flex;
   gap: 4px;
   align-items: center;
-  color: rgba(255, 255, 255, 0.75);
+  color: ${COLOR.SECONDARY};
 `;
 
 export const ProgressBarContainer = styled.div`

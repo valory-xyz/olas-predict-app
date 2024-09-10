@@ -3,7 +3,6 @@ import { ThemeConfig, theme } from 'antd';
 export const COLOR = {
   PRIMARY: '#884dff',
   SECONDARY: 'rgba(255, 255, 255, 0.75)',
-
   TEXT_PRIMARY: '#fff',
 };
 
@@ -26,6 +25,11 @@ export const THEME_CONFIG: ThemeConfig = {
       trackBg: 'rgba(0, 0, 0, 0.20)',
       itemColor: COLOR.TEXT_PRIMARY,
       borderRadius: 38,
+    },
+    Tag: {
+      defaultBg: 'rgba(223, 229, 238, 0.1)',
+      borderRadiusSM: 30,
+      fontSizeSM: 16,
     },
   },
   algorithm: theme.darkAlgorithm,
