@@ -4,15 +4,15 @@ import { FixedProductMarketMaker, FpmmTrade_OrderBy, OrderDirection } from 'grap
 
 import { publicClient } from 'constants/viemClient';
 
+/**
+ * Ongoing markets have this data in fixedProductMarketMakers, but closed ones don't.
+ * Request it from the last trade
+ */
 export const useOutcomeTokenMarginalPrices = (market: FixedProductMarketMaker) => {
   const { id, outcomeTokenMarginalPrices } = market;
-  /**
-   * Closed markets don't have bets in percentage,
-   * request it from the last trade
-   */
   const { data: trade, isLoading: isLastTradeLoading } = useQuery({
     queryKey: ['getLastMarketTrade', id],
-    enabled: outcomeTokenMarginalPrices === null,
+    enabled: !outcomeTokenMarginalPrices,
     queryFn: async () =>
       getMarketTrades({
         first: 1,

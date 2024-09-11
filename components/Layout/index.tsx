@@ -13,7 +13,7 @@ export const CustomLayout = styled(AntdLayout)`
   min-height: 100vh;
   padding: 0 24px;
   overflow: auto;
-  background-image: url('images/background.png');
+  background-image: url('/images/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
