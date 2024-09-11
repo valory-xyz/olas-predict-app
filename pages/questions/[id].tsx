@@ -10,7 +10,7 @@ const QuestionPage = () => {
   const params = useParams();
   const id = params?.id;
   const { data, isLoading } = useQuery({
-    enabled: typeof id === 'string',
+    enabled: !!id,
     queryKey: ['getMarket', id],
     queryFn: async () => getMarket({ id: `${id}`.toLowerCase() }),
     select: (data) => data.fixedProductMarketMaker,

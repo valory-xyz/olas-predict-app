@@ -12,7 +12,7 @@ export const useOutcomeTokenMarginalPrices = (market: FixedProductMarketMaker) =
   const { id, outcomeTokenMarginalPrices } = market;
   const { data: trade, isLoading: isLastTradeLoading } = useQuery({
     queryKey: ['getLastMarketTrade', id],
-    enabled: outcomeTokenMarginalPrices === null,
+    enabled: !outcomeTokenMarginalPrices,
     queryFn: async () =>
       getMarketTrades({
         first: 1,
