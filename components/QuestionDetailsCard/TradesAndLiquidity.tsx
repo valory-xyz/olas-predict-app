@@ -33,7 +33,7 @@ export const TradesAndLiquidity = ({ marketId, type }: TradesAndLiquidityProps) 
   };
 
   return (
-    <Flex gap={12}>
+    <Flex gap={12} wrap>
       <Tag icon={<HandCoins {...iconProps} />}>{`${trades} trade${trades > 1 ? 's' : ''}`}</Tag>
       <Tag icon={<CircleDollarSign {...iconProps} />}>{`$${liquidity.toFixed(2)} liquidity`}</Tag>
     </Flex>

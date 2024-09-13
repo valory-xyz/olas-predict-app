@@ -77,7 +77,7 @@ const getMarketsQuery = (
     fixedProductMarketMakers(
       first: $first
       skip: $skip
-      orderBy: creationTimestamp
+      orderBy: usdRunningDailyVolume
       orderDirection: desc
       where: {
         outcomeSlotCount: 2,
