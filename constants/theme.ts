@@ -4,6 +4,7 @@ export const COLOR = {
   PRIMARY: '#884dff',
   SECONDARY: 'rgba(255, 255, 255, 0.75)',
   TEXT_PRIMARY: '#fff',
+  BACKGROUND: '#2f1d57',
 };
 
 export const BREAK_POINT = {

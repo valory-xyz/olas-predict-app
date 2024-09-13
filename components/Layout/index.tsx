@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { MENU_MAX_WIDTH } from 'constants/index';
-import { MEDIA_QUERY } from 'constants/theme';
+import { COLOR, MEDIA_QUERY } from 'constants/theme';
 import { useScreen } from 'hooks/useScreen';
 
 import { Footer } from './Footer';
@@ -15,7 +15,7 @@ export const CustomLayout = styled(AntdLayout)`
   min-height: 100vh;
   padding: 0 24px;
   overflow: auto;
-  background-color: #2f1d57;
+  background-color: ${COLOR.BACKGROUND};
   background-image: url('/images/background.png');
   background-size: cover;
   background-position: center;
