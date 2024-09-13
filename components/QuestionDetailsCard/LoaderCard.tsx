@@ -1,21 +1,21 @@
 import { Flex, Skeleton } from 'antd';
 
 import { Card, ThumbnailLoader } from 'components/shared/styles';
+import { useScreen } from 'hooks/useScreen';
 
 export const LoaderCard = () => {
+  const { isMobile } = useScreen();
   return (
     <Card type="ongoing">
       <Flex gap={24} justify="space-between">
         <Flex vertical gap={16} className="flex-auto">
-          <Flex justify="space-between">
-            <Skeleton.Input active />
-            <Skeleton.Input active />
-          </Flex>
+          <Skeleton.Input active />
+          {isMobile && <ThumbnailLoader active />}
           <Skeleton.Input active size="small" className="full-width" />
           <Skeleton.Input active size="small" className="full-width" />
           <Skeleton.Input active size="large" />
         </Flex>
-        <ThumbnailLoader active />
+        {!isMobile && <ThumbnailLoader active />}
       </Flex>
       <Skeleton.Input active />
       <Flex vertical gap={14}>

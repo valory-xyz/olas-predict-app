@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-import { COLOR } from 'constants/theme';
+import { COLOR, MEDIA_QUERY } from 'constants/theme';
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -15,6 +15,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    ${MEDIA_QUERY.mobile} {
+      font-size: 14px;
+    }
   }
 
   .ant-segmented,
@@ -28,6 +32,12 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
     gap: 6px;
     padding: 6px 10px;
+  }
+
+  span.ant-typography {
+    ${MEDIA_QUERY.mobile} {
+      font-size: 14px;
+    }
   }
 
   a {
@@ -61,8 +71,14 @@ export const GlobalStyle = createGlobalStyle`
     display: block;
   }
 
+  .text-start {
+    text-align: start
+  }
   .text-center {
     text-align: center;
+  }
+  .text-end {
+    text-align: end;
   }
   .items-center {
     align-items: center;

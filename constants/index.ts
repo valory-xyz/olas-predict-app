@@ -1,6 +1,8 @@
 export const APP_NAME = 'Olas Predict';
 
 export const QUESTION_IMAGE_SIZE = 120;
+export const QUESTION_IMAGE_MOBILE_SIZE = 180;
+export const MENU_MAX_WIDTH = 224;
 
 export const PAGE_QUERY_PARAM = 'page';
 export const STATE_QUERY_PARAM = 'state';

@@ -3,7 +3,7 @@ import { FixedProductMarketMaker } from 'graphql/types';
 import { Clock } from 'lucide-react';
 import styled from 'styled-components';
 
-import { COLOR } from 'constants/theme';
+import { COLOR, MEDIA_QUERY } from 'constants/theme';
 import { formatTimestamp } from 'utils/time';
 
 const { Countdown: AntdCountdown } = Statistic;
@@ -28,8 +28,16 @@ const Root = styled.div`
   .ant-statistic-content-value {
     font-size: 16px;
     font-weight: 500;
-    line-height: 24px;
+    line-height: 1.5;
     color: ${COLOR.SECONDARY};
+
+    ${MEDIA_QUERY.mobile} {
+      font-size: 14px;
+    }
+  }
+
+  ${MEDIA_QUERY.mobile} {
+    font-size: 14px;
   }
 `;
 

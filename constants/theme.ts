@@ -4,6 +4,17 @@ export const COLOR = {
   PRIMARY: '#884dff',
   SECONDARY: 'rgba(255, 255, 255, 0.75)',
   TEXT_PRIMARY: '#fff',
+  BACKGROUND: '#2f1d57',
+};
+
+export const BREAK_POINT = {
+  sm: '576px',
+  xl: '1240px',
+};
+
+export const MEDIA_QUERY = {
+  mobile: `@media only screen and (max-width: ${BREAK_POINT.sm})`,
+  laptop: `@media only screen and (max-width: ${BREAK_POINT.xl})`,
 };
 
 export const THEME_CONFIG: ThemeConfig = {
@@ -17,6 +28,9 @@ export const THEME_CONFIG: ThemeConfig = {
     fontFamily: '"Inter", sans-serif',
   },
   components: {
+    Grid: {
+      sizeXL: parseInt(BREAK_POINT.xl, 10),
+    },
     Spin: {
       colorPrimary: COLOR.TEXT_PRIMARY,
     },

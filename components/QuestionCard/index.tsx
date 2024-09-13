@@ -8,13 +8,14 @@ import { Answer } from 'components/shared/Answer';
 import { Countdown } from 'components/shared/Countdown';
 import { PredictionBar } from 'components/shared/PredictionBar';
 import { Thumbnail } from 'components/shared/Thumbnail';
-import { Card, QuestionTitle } from 'components/shared/styles';
+import { Card, CardHeader, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
 
 import { LoaderCard } from './LoaderCard';
 
 const StyledLink = styled(Link)`
+  width: 100%;
   &:hover {
     color: inherit;
   }
@@ -42,13 +43,13 @@ export const QuestionCard = ({ market }: QuestionCardProps) => {
   return (
     <StyledLink href={`/questions/${market.id}`}>
       <Card type={answerType}>
-        <Flex gap={24}>
+        <CardHeader gap={24}>
           <Thumbnail marketId={market.id} />
           <Flex vertical gap={16}>
             <QuestionTitle>{market.title}</QuestionTitle>
             <Answer type={answerType} answer={answer} questionId={market.question?.id} />
           </Flex>
-        </Flex>
+        </CardHeader>
         <PredictionBar
           marketId={market.id}
           type={answerType}

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMarketThumbnail } from 'graphql/queries';
 
-import { QUESTION_IMAGE_SIZE } from 'constants/index';
+import { QUESTION_IMAGE_MOBILE_SIZE } from 'constants/index';
 import { byte32ToIPFSCIDV0 } from 'utils/ipfs';
 
 import { ThumbnailImage, ThumbnailLoader } from './styles';
@@ -22,15 +22,17 @@ export const Thumbnail = ({ marketId }: ImageProps) => {
     ? byte32ToIPFSCIDV0(thumbnailData.omenThumbnailMapping.image_hash.slice(2))
     : null;
 
-  if (!ipfsHash) {
-    return <ThumbnailLoader active={isLoading} />;
+  if (isLoading) {
+    return <ThumbnailLoader active />;
   }
+
+  if (!ipfsHash) return null;
 
   return (
     <ThumbnailImage
       src={`https://ipfs.io/ipfs/${ipfsHash}`}
-      width={QUESTION_IMAGE_SIZE}
-      height={QUESTION_IMAGE_SIZE}
+      width={QUESTION_IMAGE_MOBILE_SIZE}
+      height={QUESTION_IMAGE_MOBILE_SIZE}
       alt="Thumbnail image"
     />
   );

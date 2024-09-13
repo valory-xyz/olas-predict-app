@@ -1,10 +1,10 @@
-import { Skeleton } from 'antd';
+import { Flex, Skeleton } from 'antd';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { AnswerType } from 'types';
 
-import { QUESTION_IMAGE_SIZE } from 'constants/index';
-import { COLOR } from 'constants/theme';
+import { QUESTION_IMAGE_MOBILE_SIZE, QUESTION_IMAGE_SIZE } from 'constants/index';
+import { COLOR, MEDIA_QUERY } from 'constants/theme';
 
 const ANSWER_BACKGROUNDS_BY_TYPE = {
   predicted_right: 'rgba(0, 153, 65, 0.4)',
@@ -49,6 +49,16 @@ export const Card = styled.div<{ type: AnswerType }>`
     position: relative;
     z-index: 2;
   }
+
+  ${MEDIA_QUERY.mobile} {
+    padding: 16px;
+  }
+`;
+
+export const CardHeader = styled(Flex)`
+  ${MEDIA_QUERY.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const QuestionTitle = styled.h2`
@@ -57,6 +67,11 @@ export const QuestionTitle = styled.h2`
   line-height: 36px;
   letter-spacing: -0.03em;
   text-align: left;
+
+  ${MEDIA_QUERY.mobile} {
+    font-size: 18px;
+    line-height: 27px;
+  }
 `;
 
 export const PredictedAnswer = styled.div<{ type: AnswerType }>`
@@ -67,6 +82,14 @@ export const PredictedAnswer = styled.div<{ type: AnswerType }>`
   padding: 6px 16px 6px 16px;
   border-radius: 2px 0px 0px 0px;
   background: ${({ type }) => ANSWER_BACKGROUNDS_BY_TYPE[type]};
+
+  ${MEDIA_QUERY.mobile} {
+    width: 100%;
+    justify-content: center;
+    .ant-typography {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const ProofLink = styled.a`
@@ -74,6 +97,7 @@ export const ProofLink = styled.a`
   gap: 4px;
   align-items: center;
   color: ${COLOR.SECONDARY};
+  z-index: 10;
 `;
 
 export const ProgressBarContainer = styled.div`
@@ -131,9 +155,22 @@ export const ThumbnailLoader = styled(Skeleton.Image)`
   &.ant-skeleton.ant-skeleton-element .ant-skeleton-image {
     width: ${QUESTION_IMAGE_SIZE}px;
     height: ${QUESTION_IMAGE_SIZE}px;
+
+    ${MEDIA_QUERY.mobile} {
+      width: 100%;
+      height: ${QUESTION_IMAGE_MOBILE_SIZE}px;
+    }
   }
 `;
 
 export const ThumbnailImage = styled(Image)`
+  height: ${QUESTION_IMAGE_SIZE}px;
+  width: ${QUESTION_IMAGE_SIZE}px;
   border-radius: 6px;
+
+  ${MEDIA_QUERY.mobile} {
+    width: 100%;
+    height: ${QUESTION_IMAGE_MOBILE_SIZE}px;
+    object-fit: cover;
+  }
 `;

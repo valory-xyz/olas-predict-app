@@ -32,7 +32,11 @@ export const Answer = ({ answer, type, questionId }: AnswerProps) => {
           Final answer - <b>{answer}</b>
         </Text>
       </PredictedAnswer>
-      <ProofLink target="_blank" href={`${REALITY_QUESTION_URL}${questionId}`}>
+      <ProofLink
+        target="_blank"
+        href={`${REALITY_QUESTION_URL}${questionId}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         Proof <ArrowUpRight />
       </ProofLink>
     </Flex>
