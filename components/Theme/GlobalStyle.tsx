@@ -39,6 +39,10 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 14px;
     }
   }
+  
+  .g2-tooltip {
+    background-color: ${COLOR.TEXT_PRIMARY} !important;
+  }
 
   a {
     color: ${COLOR.TEXT_PRIMARY};

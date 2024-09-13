@@ -2,7 +2,8 @@ import { Flex, Skeleton, Typography } from 'antd';
 import { FixedProductMarketMaker } from 'graphql/types';
 import { AnswerType } from 'types';
 
-import { useMarketTrades } from 'hooks/useMarketTrades';
+import { useAgentsBets } from 'hooks/useAgentsBets';
+import { convertToPercentage } from 'utils/questions';
 
 import { LeftLine, ProgressBarContainer, RightLine } from './styles';
 
@@ -27,8 +28,6 @@ type ProgressBarProps = {
   type: AnswerType;
   outcomes: FixedProductMarketMaker['outcomes'];
 };
-
-const getPercentage = (value: string): number => +(parseFloat(value) * 100).toFixed(2);
 
 const ProgressBar = ({
   leftPercentage,
@@ -58,7 +57,7 @@ const getAgentsBetsText = (agentsNum: number, totalBets: string) =>
   `${agentsNum} AI agent${agentsNum == 1 ? '' : 's'} bet $${totalBets}`;
 
 const AgentsBets = ({ marketId }: { marketId: FixedProductMarketMaker['id'] }) => {
-  const { data, isLoading } = useMarketTrades(marketId);
+  const { data, isLoading } = useAgentsBets(marketId);
 
   if (isLoading)
     return (
@@ -89,7 +88,7 @@ export const PredictionBar = ({
 }: PredictionBarProps) => {
   let leftPercentage;
   if (outcomeTokenMarginalPrices?.[0]) {
-    leftPercentage = getPercentage(outcomeTokenMarginalPrices[0]);
+    leftPercentage = convertToPercentage(outcomeTokenMarginalPrices[0]);
   }
 
   return (

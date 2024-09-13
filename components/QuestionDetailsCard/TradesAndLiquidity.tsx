@@ -4,7 +4,7 @@ import { CircleDollarSign, HandCoins } from 'lucide-react';
 import { AnswerType } from 'types';
 
 import { COLOR } from 'constants/theme';
-import { useMarketTrades } from 'hooks/useMarketTrades';
+import { useAgentsBets } from 'hooks/useAgentsBets';
 
 type TradesAndLiquidityProps = {
   marketId: FixedProductMarketMaker['id'];
@@ -12,7 +12,7 @@ type TradesAndLiquidityProps = {
 };
 
 export const TradesAndLiquidity = ({ marketId, type }: TradesAndLiquidityProps) => {
-  const { data, isLoading } = useMarketTrades(marketId);
+  const { data, isLoading } = useAgentsBets(marketId);
 
   if (isLoading) return <Skeleton.Input active size="large" />;
   if (!data) return null;

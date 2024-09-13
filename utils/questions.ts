@@ -31,3 +31,5 @@ export const getAnswer = (
   if (predictedAnswerIndex !== null) return outcomes[predictedAnswerIndex];
   return 'NA';
 };
+
+export const convertToPercentage = (value: string): number => +(parseFloat(value) * 100).toFixed(2);

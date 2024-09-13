@@ -5012,8 +5012,9 @@ export type Sdk = ReturnType<typeof getSdk>;
 /**
  * Custom types
  */
-export type OutcomeTokenMarginalPricesResponse = {
-  fixedProductMarketMaker: { outcomeTokenMarginalPrices: string[] };
-};
+export type OutcomeTokenMarginalPricesResponse = Record<
+  string,
+  { outcomeTokenMarginalPrices: string[] }
+>;
 
 export type OmenThumbnailMapping = { omenThumbnailMapping: { image_hash: string } };
