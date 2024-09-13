@@ -3,7 +3,7 @@ import { FixedProductMarketMaker } from 'graphql/types';
 import { AnswerType } from 'types';
 
 import { useAgentsBets } from 'hooks/useAgentsBets';
-import { getPercentage } from 'utils/questions';
+import { convertToPercentage } from 'utils/questions';
 
 import { LeftLine, ProgressBarContainer, RightLine } from './styles';
 
@@ -88,7 +88,7 @@ export const PredictionBar = ({
 }: PredictionBarProps) => {
   let leftPercentage;
   if (outcomeTokenMarginalPrices?.[0]) {
-    leftPercentage = getPercentage(outcomeTokenMarginalPrices[0]);
+    leftPercentage = convertToPercentage(outcomeTokenMarginalPrices[0]);
   }
 
   return (

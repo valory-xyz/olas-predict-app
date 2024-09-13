@@ -32,4 +32,4 @@ export const getAnswer = (
   return 'NA';
 };
 
-export const getPercentage = (value: string): number => +(parseFloat(value) * 100).toFixed(2);
+export const convertToPercentage = (value: string): number => +(parseFloat(value) * 100).toFixed(2);

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { Card } from 'components/shared/styles';
 import { COLOR } from 'constants/theme';
 import { useMarketTrades } from 'hooks/useMarketTrades';
-import { getPercentage } from 'utils/questions';
+import { convertToPercentage } from 'utils/questions';
 
 const LineChart = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
   ssr: false,
@@ -31,7 +31,7 @@ const CHART_CONFIG = {
   },
 };
 
-const LegendColor = styled.div`
+const Legend = styled.div`
   width: 32px;
   height: 6px;
   background-color: ${COLOR.TEXT_PRIMARY};
@@ -61,6 +61,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
       // Get all block numbers of trades based on their creation timestamps.
       const timestamps = tradesData.fpmmTrades.map((trade) => trade.creationTimestamp);
       if (timestamps.length === 0) return;
+
       const blockByTimestamps = await getBlocksByTimestamps({ timestamps });
       if (!blockByTimestamps) return;
 
@@ -87,7 +88,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
   const data = outcomesHistory
     ? outcomesHistory.map((item) => ({
         timestamp: new Date(item.time * 1000),
-        value: getPercentage(item[0]),
+        value: convertToPercentage(item[0]),
       }))
     : [];
 
@@ -99,7 +100,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
         Probability trend
       </Title>
       <Flex gap={16} align="center">
-        <LegendColor />
+        <Legend />
         <Text>{outcomes ? outcomes[0] : 'NA'}</Text>
       </Flex>
 

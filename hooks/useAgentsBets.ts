@@ -29,7 +29,7 @@ export const useAgentsBets = (marketId: string) => {
       return res;
     }, {});
 
-    // Convert Set to array
+    // Convert to AgentsBets
     const formattedAgentsTrades: AgentsBets = Object.keys(agentsTrades).reduce((acc, key) => {
       acc[key] = {
         agents: Array.from(agentsTrades[key].agents),
