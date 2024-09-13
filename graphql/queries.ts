@@ -4,9 +4,11 @@ import {
   CREATOR_ADDRESSES,
   OMEN_SUBGRAPH_URL,
   OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL,
+  XDAI_BLOCKS_SUBGRAPH_URL,
 } from 'constants/index';
 
 import {
+  FixedProductMarketMaker,
   FixedProductMarketMaker_Filter,
   FpmmTrade_Filter,
   OmenThumbnailMapping,
@@ -127,11 +129,13 @@ const getMarketTradesQuery = gql`
   }
 `;
 
-const getMarginalPriceQuery = gql`
-  query marginalPricesByBlockNumber($id: ID!, $block: Int) {
-    fixedProductMarketMaker(id: $id, block: { number: $block }) {
-      outcomeTokenMarginalPrices
-    }
+const getMarginalPriceQuery = (blockNumbers: number[]) => gql`
+  query MarginalPricesByBlockNumber($id: ID!, $block: Int) {
+    ${blockNumbers.map(
+      (block) => `_${block}: fixedProductMarketMaker(id: $id, block: { number: ${block} }) {
+        outcomeTokenMarginalPrices
+      }`,
+    )}
   }
 `;
 
@@ -154,6 +158,18 @@ const getMarketQuery = gql`
   ${marketDataFragment}
 `;
 
+const getBlocksQuery = (timestamps: number[]) => gql`
+  query GetBlocks {
+    ${timestamps.map(
+      (timestamp) => `_${timestamp}: blocks(where: {timestamp: ${timestamp}}, first: 1) {
+        number
+      }`,
+    )}
+  }
+
+  ${marketDataFragment}
+`;
+
 export const getMarkets = async (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
 ) =>
@@ -166,10 +182,17 @@ export const getMarkets = async (
 export const getMarketTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Filter) =>
   request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getMarketTradesQuery, params);
 
-export const getMarginalPrice = async (params: { id: string; block: number }) =>
-  request<OutcomeTokenMarginalPricesResponse>(OMEN_SUBGRAPH_URL, getMarginalPriceQuery, params);
+export const getMarginalPrices = async (params: {
+  id: FixedProductMarketMaker['id'];
+  blockNumbers: number[];
+}) =>
+  request<OutcomeTokenMarginalPricesResponse>(
+    OMEN_SUBGRAPH_URL,
+    getMarginalPriceQuery(params.blockNumbers),
+    { id: params.id },
+  );
 
-export const getMarketThumbnail = async (params: { id: string }) =>
+export const getMarketThumbnail = async (params: { id: FixedProductMarketMaker['id'] }) =>
   request<OmenThumbnailMapping>(
     OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL,
     getMarketThumbnailQuery,
@@ -178,3 +201,9 @@ export const getMarketThumbnail = async (params: { id: string }) =>
 
 export const getMarket = async (params: QueryFixedProductMarketMakerArgs) =>
   request<Pick<Query, 'fixedProductMarketMaker'>>(OMEN_SUBGRAPH_URL, getMarketQuery, params);
+
+export const getBlocksByTimestamps = async ({ timestamps }: { timestamps: number[] }) =>
+  request<Record<string, { number: string }[]>>(
+    XDAI_BLOCKS_SUBGRAPH_URL,
+    getBlocksQuery(timestamps),
+  );

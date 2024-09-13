@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMarginalPrice, getMarketTrades } from 'graphql/queries';
+import { getMarginalPrices, getMarketTrades } from 'graphql/queries';
 import { FixedProductMarketMaker, FpmmTrade_OrderBy, OrderDirection } from 'graphql/types';
 
 import { publicClient } from 'constants/viemClient';
@@ -34,11 +34,11 @@ export const useOutcomeTokenMarginalPrices = (market: FixedProductMarketMaker) =
       const receipt = await publicClient.getTransactionReceipt({ hash: lastTradeTransactionHash });
       if (!receipt) return;
 
-      const marginalPricesResponse = await getMarginalPrice({
+      const marginalPricesResponse = await getMarginalPrices({
         id,
-        block: Number(receipt.blockNumber),
+        blockNumbers: [Number(receipt.blockNumber)],
       });
-      return marginalPricesResponse.fixedProductMarketMaker.outcomeTokenMarginalPrices;
+      return Object.values(marginalPricesResponse)[0].outcomeTokenMarginalPrices;
     },
   });
 

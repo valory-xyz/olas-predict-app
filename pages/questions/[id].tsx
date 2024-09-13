@@ -3,6 +3,7 @@ import { Flex } from 'antd';
 import { getMarket } from 'graphql/queries';
 import { useParams } from 'next/navigation';
 
+import { Probability } from 'components/Probability';
 import { QuestionDetailsCard } from 'components/QuestionDetailsCard';
 import { LoaderCard } from 'components/QuestionDetailsCard/LoaderCard';
 
@@ -28,6 +29,7 @@ const QuestionPage = () => {
   return (
     <Flex vertical gap={40} align="center" className="flex-auto">
       <QuestionDetailsCard market={data} />
+      <Probability marketId={data.id} outcomes={data.outcomes} />
     </Flex>
   );
 };
