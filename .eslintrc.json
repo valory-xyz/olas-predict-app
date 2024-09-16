@@ -22,9 +22,19 @@
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "no-console": ["error", { "allow": ["error"] }],
     "prettier/prettier": ["error", {
-      "endOfLine": "auto",
       "semi": true,
-      "singleQuote": true
+      "trailingComma": "all",
+      "singleQuote": true,
+      "printWidth": 100,
+      "tabWidth": 2,
+      "importOrderSeparation": true,
+      "importOrderSortSpecifiers": true,
+      "importOrder": [
+        "<THIRD_PARTY_MODULES>",
+        "^(store|components|constants|utils|hooks|context|types)/(.*)$",
+        "^[./]"
+      ],
+      "plugins": ["@trivago/prettier-plugin-sort-imports"]
     }],
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
