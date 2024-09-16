@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { AnswerType } from 'types';
 
-import { QUESTION_IMAGE_MOBILE_SIZE, QUESTION_IMAGE_SIZE } from 'constants/index';
+import { CHART_HEIGHT, QUESTION_IMAGE_MOBILE_SIZE, QUESTION_IMAGE_SIZE } from 'constants/index';
 import { COLOR, MEDIA_QUERY } from 'constants/theme';
 
 const ANSWER_BACKGROUNDS_BY_TYPE = {
@@ -173,4 +173,11 @@ export const ThumbnailImage = styled(Image)`
     height: ${QUESTION_IMAGE_MOBILE_SIZE}px;
     object-fit: cover;
   }
+`;
+
+export const NoDataContainer = styled.div`
+  display: flex;
+  height: ${CHART_HEIGHT}px;
+  align-items: center;
+  justify-content: center;
 `;

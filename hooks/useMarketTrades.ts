@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getMarketTrades } from 'graphql/queries';
-import { FpmmTrade_OrderBy } from 'graphql/types';
+import { FpmmTrade_OrderBy, OrderDirection } from 'graphql/types';
 
 export const useMarketTrades = (marketId: string) => {
   const { data, isLoading } = useQuery({
@@ -10,6 +10,7 @@ export const useMarketTrades = (marketId: string) => {
         first: 1000,
         fpmm: marketId,
         orderBy: FpmmTrade_OrderBy.CreationTimestamp,
+        orderDirection: OrderDirection.Desc,
       }),
   });
 

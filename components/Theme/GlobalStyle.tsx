@@ -39,6 +39,16 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 14px;
     }
   }
+
+  .ant-timeline {
+    .ant-timeline-item-tail {
+      inset-inline-start: 7px;
+    }
+    .ant-timeline-item-head {
+      height: 16px;
+      width: 16px;
+    }
+  }
   
   .g2-tooltip {
     background-color: ${COLOR.TEXT_PRIMARY} !important;

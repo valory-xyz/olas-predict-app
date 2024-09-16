@@ -5,7 +5,8 @@ import { FixedProductMarketMaker } from 'graphql/types';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
-import { Card } from 'components/shared/styles';
+import { Card, NoDataContainer } from 'components/shared/styles';
+import { CHART_HEIGHT } from 'constants/index';
 import { COLOR } from 'constants/theme';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { convertToPercentage } from 'utils/questions';
@@ -15,8 +16,6 @@ const LineChart = dynamic(() => import('@ant-design/plots').then((mod) => mod.Li
 });
 
 const { Title, Text } = Typography;
-
-const CHART_HEIGHT = 230;
 
 const CHART_CONFIG = {
   xField: 'timestamp',
@@ -37,13 +36,6 @@ const Legend = styled.div`
   background-color: ${COLOR.TEXT_PRIMARY};
 `;
 
-const NoDataContainer = styled.div`
-  display: flex;
-  height: ${CHART_HEIGHT}px;
-  align-items: center;
-  justify-content: center;
-`;
-
 type ProbabilityProps = {
   marketId: FixedProductMarketMaker['id'];
   outcomes: FixedProductMarketMaker['outcomes'];
@@ -59,7 +51,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
       if (!tradesData) return;
 
       // Get all block numbers of trades based on their creation timestamps.
-      const timestamps = tradesData.fpmmTrades.map((trade) => trade.creationTimestamp);
+      const timestamps = tradesData.fpmmTrades.reverse().map((trade) => trade.creationTimestamp);
       if (timestamps.length === 0) return;
 
       const blockByTimestamps = await getBlocksByTimestamps({ timestamps });
