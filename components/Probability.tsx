@@ -51,7 +51,9 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
       if (!tradesData) return;
 
       // Get all block numbers of trades based on their creation timestamps.
-      const timestamps = tradesData.fpmmTrades.reverse().map((trade) => trade.creationTimestamp);
+      const timestamps = [...tradesData.fpmmTrades]
+        .reverse()
+        .map((trade) => trade.creationTimestamp);
       if (timestamps.length === 0) return;
 
       const blockByTimestamps = await getBlocksByTimestamps({ timestamps });

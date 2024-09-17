@@ -31,12 +31,12 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
     const betAmount = parseFloat(item.collateralAmountUSD).toFixed(5);
 
     const outcomeValue =
-      item.fpmm.outcomes && item.outcomeIndex ? item.fpmm.outcomes[item.outcomeIndex] : 'NA';
+      item.fpmm.outcomes && item.outcomeIndex ? item.fpmm.outcomes[item.outcomeIndex] : null;
 
     return {
       id: item.id,
       name: getAgentName(item.creator.id),
-      value: `$${betAmount} ${outcomeValue}`,
+      value: outcomeValue ? `$${betAmount} ${outcomeValue}` : 'NA',
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
       time: new Date(item.creationTimestamp * 1000).toLocaleString(),
       txHash: item.transactionHash,
@@ -98,13 +98,17 @@ export const Activity = ({ marketId }: ActivityProps) => {
           items={trades.map((item) => ({
             children: (
               <Flex vertical gap={8} key={item.id}>
-                <a
-                  href={`${GNOSIS_SCAN_URL}/tx/${item.txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <b>Agent {item.name}</b> purchased <b>{item.value}</b> tokens.
-                </a>
+                <Text>
+                  <b>Agent {item.name}</b> purchased{' '}
+                  <a
+                    href={`${GNOSIS_SCAN_URL}/tx/${item.txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <b>{item.value}</b>
+                  </a>{' '}
+                  tokens.
+                </Text>
                 <Text type="secondary" title={item.time}>
                   {item.timeAgo}
                 </Text>
