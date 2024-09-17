@@ -45,6 +45,11 @@ export const THEME_CONFIG: ThemeConfig = {
       borderRadiusSM: 30,
       fontSizeSM: 16,
     },
+    Timeline: {
+      dotBorderWidth: 4,
+      dotBg: COLOR.TEXT_PRIMARY,
+      lineWidth: 4,
+    },
   },
   algorithm: theme.darkAlgorithm,
 };
