@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import { LoadingError } from 'components/ErrorState';
 import { Pagination } from 'components/Pagination';
 import { QuestionCard } from 'components/QuestionCard';
 import { LoaderCard } from 'components/QuestionCard/LoaderCard';
@@ -47,7 +48,7 @@ const QuestionsPage = () => {
   const page = pageParam ? +pageParam : 1;
 
   // Current page data
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['getMarkets', page, stateParam],
     queryFn: async () =>
       getMarkets({
@@ -87,17 +88,22 @@ const QuestionsPage = () => {
   return (
     <Flex vertical gap={isMobile ? 16 : 40} align="center" className="flex-auto">
       <Title>AI agents predict the future.</Title>
+      {isError ? (
+        <LoadingError />
+      ) : (
+        <>
+          <Filters value={stateParam} onChange={handleFilterChange} options={STATE_FILTER_VALUES} />
 
-      <Filters value={stateParam} onChange={handleFilterChange} options={STATE_FILTER_VALUES} />
+          {isLoading &&
+            Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+              <LoaderCard key={Number(index)} />
+            ))}
 
-      {isLoading &&
-        Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
-          <LoaderCard key={Number(index)} />
-        ))}
+          {markets?.map((market) => <QuestionCard market={market} key={market.id} />)}
 
-      {markets?.map((market) => <QuestionCard market={market} key={market.id} />)}
-
-      <Pagination hasMore={!!hasMoreMarkets} />
+          <Pagination hasMore={!!hasMoreMarkets} />
+        </>
+      )}
     </Flex>
   );
 };

@@ -50,6 +50,11 @@ export const THEME_CONFIG: ThemeConfig = {
       dotBg: COLOR.TEXT_PRIMARY,
       lineWidth: 4,
     },
+    Button: {
+      defaultBg: 'transparent',
+      defaultHoverBg: 'rgba(0, 0, 0, 0.20)',
+      defaultBorderColor: COLOR.TEXT_PRIMARY,
+    },
   },
   algorithm: theme.darkAlgorithm,
 };
