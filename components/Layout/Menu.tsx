@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { MENU_MAX_WIDTH, QUESTIONS_PAGE_URL } from 'constants/index';
+import { MENU_MAX_WIDTH } from 'constants/index';
 import { MEDIA_QUERY } from 'constants/theme';
 import { useDropdown } from 'hooks/useDropdown';
 
@@ -57,7 +57,7 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
 
 const MenuContent = ({ closeDropdown }: { closeDropdown?: () => void }) => (
   <>
-    <Link href={QUESTIONS_PAGE_URL} onClick={closeDropdown}>
+    <Link href={'/questions'} onClick={closeDropdown}>
       Questions
     </Link>
     <a

@@ -5,7 +5,6 @@ import { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
 
 import { Card } from 'components/shared/styles';
-import { QUESTIONS_PAGE_URL } from 'constants/index';
 import { MEDIA_QUERY } from 'constants/theme';
 import { useScreen } from 'hooks/useScreen';
 
@@ -27,7 +26,6 @@ const Content = styled.div`
   max-width: 350px;
   align-items: center;
   align-self: center;
-
   padding: 24px;
 
   > svg {
@@ -121,7 +119,7 @@ export const QuestionNotFoundError = () => {
     <ErrorState
       title="404 | Question not found"
       description="The question you’re looking for doesn’t exist or was deleted."
-      button={{ text: 'Go home', onClick: () => router.push(QUESTIONS_PAGE_URL) }}
+      button={{ text: 'Go home', onClick: () => router.push('/questions') }}
       icon={Frown}
     />
   );
