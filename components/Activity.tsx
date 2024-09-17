@@ -2,9 +2,9 @@ import { Flex, Spin, Timeline, Typography } from 'antd';
 import { FixedProductMarketMaker, FpmmTrade } from 'graphql/types';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { formatUnits } from 'viem';
 
 import { Card, NoDataContainer } from 'components/shared/styles';
+import { GNOSIS_SCAN_URL } from 'constants/index';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { getAgentName } from 'utils/agents';
 import { getTimeAgo } from 'utils/time';
@@ -23,12 +23,12 @@ type ActivityItem = {
   value: string;
   timeAgo: string;
   time: string;
+  txHash: string;
 };
 
 const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
   return trades.map((item) => {
-    const betAmount =
-      parseFloat(item.collateralAmountUSD) - parseFloat(formatUnits(item.feeAmount, 18));
+    const betAmount = parseFloat(item.collateralAmountUSD).toFixed(5);
 
     const outcomeValue =
       item.fpmm.outcomes && item.outcomeIndex ? item.fpmm.outcomes[item.outcomeIndex] : 'NA';
@@ -36,9 +36,10 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
     return {
       id: item.id,
       name: getAgentName(item.creator.id),
-      value: `$${betAmount.toFixed(5)} ${outcomeValue}`,
+      value: `$${betAmount} ${outcomeValue}`,
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
       time: new Date(item.creationTimestamp * 1000).toLocaleString(),
+      txHash: item.transactionHash,
     };
   });
 };
@@ -97,9 +98,13 @@ export const Activity = ({ marketId }: ActivityProps) => {
           items={trades.map((item) => ({
             children: (
               <Flex vertical gap={8} key={item.id}>
-                <Text>
+                <a
+                  href={`${GNOSIS_SCAN_URL}/tx/${item.txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <b>Agent {item.name}</b> purchased <b>{item.value}</b> tokens.
-                </Text>
+                </a>
                 <Text type="secondary" title={item.time}>
                   {item.timeAgo}
                 </Text>
