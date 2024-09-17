@@ -42,7 +42,7 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/questions',
+        destination: '/questions?state=opened',
         permanent: false,
       },
     ];

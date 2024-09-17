@@ -1,5 +1,7 @@
 const nowTimestamp = Math.floor(Date.now() / 1000);
 
+export const DEFAULT_STATE_FILTER = 'opened';
+
 export const STATE_FILTER_VALUES = [
   { label: 'All', value: 'all' },
   {

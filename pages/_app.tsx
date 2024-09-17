@@ -3,6 +3,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import ErrorBoundary from 'components/ErrorBoundary';
 import { Layout } from 'components/Layout';
 import { AutonolasThemeProvider } from 'components/Theme';
 import { GlobalStyle } from 'components/Theme/GlobalStyle';
@@ -20,7 +21,9 @@ const PredictApp = ({ Component, pageProps }: AppProps) => (
     <AutonolasThemeProvider>
       <QueryClientProvider client={queryClient}>
         <Layout>
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </Layout>
         <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
       </QueryClientProvider>

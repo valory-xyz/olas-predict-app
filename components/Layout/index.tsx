@@ -34,9 +34,12 @@ export const CustomLayout = styled(AntdLayout)`
     z-index: 1;
   }
 
-  .ant-layout.ant-layout-has-sider .ant-layout-content {
+  .ant-layout-content {
     display: flex;
     flex-direction: column;
+  }
+
+  .ant-layout.ant-layout-has-sider .ant-layout-content {
     left: -${MENU_MAX_WIDTH}px;
     margin-left: ${MENU_MAX_WIDTH}px;
     width: 100%;

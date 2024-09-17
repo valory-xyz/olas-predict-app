@@ -57,7 +57,7 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
 
 const MenuContent = ({ closeDropdown }: { closeDropdown?: () => void }) => (
   <>
-    <Link href="/questions" onClick={closeDropdown}>
+    <Link href={'/questions'} onClick={closeDropdown}>
       Questions
     </Link>
     <a
