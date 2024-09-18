@@ -1,5 +1,6 @@
 # Olas Predict App
-Use this template to quickly spin up a Olas-branded frontend.
+
+This repo contains the UI for the [Olas Predict](https://olas.network/agent-economies/predict)
 
 ## Tech Stack
 - NodeJS (20.16 LTS)
@@ -14,10 +15,10 @@ Use this template to quickly spin up a Olas-branded frontend.
 
 `yarn`
 
-### To run the development server:
+### Start the app
 
 `yarn dev`
 
-### To build:
+### Build the app
 
 `yarn run build`
