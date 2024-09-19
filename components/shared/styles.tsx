@@ -114,7 +114,6 @@ export const LeftLine = styled.div<{ width: number; type: AnswerType }>`
       ? 'linear-gradient(180deg, #884DFF 0%, #6A38FF 100%)'
       : 'linear-gradient(180deg, #ffffff 0%, #bfbfbf 100%)'};
   height: 24px;
-  padding: 0px 156px 0px 0px;
   border-radius: 2px;
   position: absolute;
   left: 0;
@@ -123,29 +122,25 @@ export const LeftLine = styled.div<{ width: number; type: AnswerType }>`
   align-items: center;
   gap: 4px;
   z-index: 1;
-
-  > span {
-    font-weight: 500;
-    position: absolute;
-    top: 2px;
-    left: 8px;
-    color: white;
-    mix-blend-mode: ${({ type }) => (type === 'ongoing' ? 'normal' : 'difference')};
-  }
 `;
 
-export const RightLine = styled.div<{ type: AnswerType }>`
+export const RightLine = styled.div`
   background: rgba(0, 0, 0, 0.3);
   flex-grow: 1;
   height: 24px;
   border-radius: 2px;
   position: relative;
+`;
 
+export const OutcomesValues = styled.div<{ type: AnswerType }>`
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  right: 8px;
   > span {
     font-weight: 500;
-    position: absolute;
-    top: 2px;
-    right: 8px;
     z-index: 1;
     mix-blend-mode: ${({ type }) => (type === 'ongoing' ? 'normal' : 'difference')};
   }
