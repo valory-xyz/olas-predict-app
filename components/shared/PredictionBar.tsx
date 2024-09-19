@@ -5,7 +5,7 @@ import { AnswerType } from 'types';
 import { useAgentsBets } from 'hooks/useAgentsBets';
 import { convertToPercentage } from 'utils/questions';
 
-import { LeftLine, ProgressBarContainer, RightLine } from './styles';
+import { LeftLine, OutcomesValues, ProgressBarContainer, RightLine } from './styles';
 
 const { Text } = Typography;
 
@@ -39,16 +39,17 @@ const ProgressBar = ({
 
   return (
     <ProgressBarContainer>
-      <RightLine type={type}>
-        <LeftLine width={leftPercentage} type={type}>
-          <span>
-            {outcomes?.[0] || ''} {hasOutcomePercentages ? leftPercentage : 'NA'}%
-          </span>
-        </LeftLine>
+      <RightLine>
+        <LeftLine width={leftPercentage} type={type} />
+      </RightLine>
+      <OutcomesValues type={type}>
+        <span>
+          {outcomes?.[0] || ''} {hasOutcomePercentages ? leftPercentage : 'NA'}%
+        </span>
         <span>
           {outcomes?.[1] || ''} {hasOutcomePercentages ? rightPercentage : 'NA'}%
         </span>
-      </RightLine>
+      </OutcomesValues>
     </ProgressBarContainer>
   );
 };
