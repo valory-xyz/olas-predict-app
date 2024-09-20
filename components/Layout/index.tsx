@@ -43,7 +43,8 @@ export const CustomLayout = styled(AntdLayout)`
     left: -${MENU_MAX_WIDTH}px;
     margin-left: ${MENU_MAX_WIDTH}px;
     width: 100%;
-    padding: 40px 0px;
+    /* padding: 40px 0px; */ // uncomment when the beta banner is removed
+    padding: 56px 0px 40px;
     min-height: 100vh;
     position: absolute;
   }
@@ -60,6 +61,16 @@ const ContentInner = styled.div`
   margin: 0 auto;
   max-width: 720px;
   width: 100%;
+`;
+
+const BetaBanner = styled.div`
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: -24px;
+  right: -24px;
 `;
 
 type LayoutProps = {
@@ -79,6 +90,7 @@ export const Layout = ({ children }: LayoutProps) => {
         )}
         <Content>
           <ContentInner>
+            <BetaBanner>Beta</BetaBanner>
             {!isDesktop && <MobileMenu />}
             {children}
           </ContentInner>
