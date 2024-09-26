@@ -5018,3 +5018,26 @@ export type OutcomeTokenMarginalPricesResponse = Record<
 >;
 
 export type OmenThumbnailMapping = { omenThumbnailMapping: { image_hash: string } };
+
+
+export type AgentsGlobal = {
+  global : {
+    id: string;
+    totalTraderAgents: number
+    totalActiveTraderAgents: number
+  }
+}
+
+export type TraderAgent = {
+  id: string;
+  firstParticipation: string;
+  lastActive: string;
+  totalBets: number;
+  totalTraded: string;
+  totalPayout: string;
+  blockNumber: string;
+  blockTimestamp: string;
+  transactionHash: string;
+}
+
+export type TraderAgents = { traderAgents:  Array<TraderAgent>}

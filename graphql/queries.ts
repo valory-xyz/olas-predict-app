@@ -2,12 +2,14 @@ import { gql, request } from 'graphql-request';
 
 import {
   CREATOR_ADDRESSES,
+  OLAS_AGENTS_SUBGRAPH_URL,
   OMEN_SUBGRAPH_URL,
   OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL,
   XDAI_BLOCKS_SUBGRAPH_URL,
 } from 'constants/index';
 
 import {
+  AgentsGlobal,
   FixedProductMarketMaker,
   FixedProductMarketMaker_Filter,
   FpmmTrade_Filter,
@@ -17,6 +19,7 @@ import {
   QueryFixedProductMarketMakerArgs,
   QueryFixedProductMarketMakersArgs,
   QueryFpmmTradesArgs,
+  TraderAgents,
 } from './types';
 
 const marketDataFragment = gql`
@@ -170,6 +173,24 @@ const getBlocksQuery = (timestamps: number[]) => gql`
   ${marketDataFragment}
 `;
 
+const getGlobalQuery = gql`
+  query GetAgentsGlobal {
+    global(id: "") {
+      id
+      totalActiveTraderAgents
+    }
+  }
+`;
+
+const getTraderAgentsQuery = gql`
+  query GetOlasTraderAgents($first: Int!, $skip: Int!) {
+    traderAgents(first: $first, skip: $skip, orderBy: totalBets, orderDirection: desc) {
+      id
+      totalBets
+    }
+  }
+`;
+
 export const getMarkets = async (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
 ) =>
@@ -207,3 +228,9 @@ export const getBlocksByTimestamps = async ({ timestamps }: { timestamps: number
     XDAI_BLOCKS_SUBGRAPH_URL,
     getBlocksQuery(timestamps),
   );
+
+export const getGlobal = async () =>
+  request<AgentsGlobal>(OLAS_AGENTS_SUBGRAPH_URL, getGlobalQuery);
+
+export const getTraderAgents = async (params: { first: number; skip: number }) =>
+  request<TraderAgents>(OLAS_AGENTS_SUBGRAPH_URL, getTraderAgentsQuery, params);

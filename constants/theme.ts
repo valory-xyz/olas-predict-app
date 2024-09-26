@@ -55,6 +55,12 @@ export const THEME_CONFIG: ThemeConfig = {
       defaultHoverBg: 'rgba(0, 0, 0, 0.20)',
       defaultBorderColor: COLOR.TEXT_PRIMARY,
     },
+    Table: {
+      borderColor: 'rgba(255, 255, 255, 0.1)',
+      headerBg: 'rgba(255, 255, 255, 0.05)',
+      headerColor: 'rgba(255, 255, 255, 0.5)',
+      rowHoverBg: 'rgba(255, 255, 255, 0.05)',
+    },
   },
   algorithm: theme.darkAlgorithm,
 };

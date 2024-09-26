@@ -49,6 +49,28 @@ export const GlobalStyle = createGlobalStyle`
       width: 16px;
     }
   }
+
+  .ant-table-wrapper .ant-table {
+    background: transparent;
+  }
+  .ant-table-thead .ant-table-cell {
+    font-size: 14px;
+  }
+  .ant-table-pagination .ant-pagination-item {
+    background-color: transparent;
+    > a {
+      color: ${COLOR.SECONDARY};
+    }
+
+    &.ant-pagination-item-active {
+      border: 1px solid rgba(255, 255, 255, 0.50);
+      background-color: rgba(255, 255, 255, 0.10);
+      > a {
+        color: ${COLOR.TEXT_PRIMARY};
+      }
+    }
+
+  }
   
   .g2-tooltip {
     background-color: ${COLOR.TEXT_PRIMARY} !important;
