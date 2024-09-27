@@ -30,4 +30,4 @@ export const OMEN_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/
 export const OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/EWN14ciGK53PpUiKSm7kMWQ6G4iz3tDrRLyZ1iXMQEdu`;
 export const XDAI_BLOCKS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/D58aXwnRLfosFtRaVJAbAjjvKZ11bEsbdiDLkJJRdSC9`;
 export const OLAS_AGENTS_SUBGRAPH_URL =
-  'https://api.studio.thegraph.com/query/67875/olas-agents/v0.0.19';
+  'https://api.studio.thegraph.com/query/67875/olas-agents/v0.0.25';

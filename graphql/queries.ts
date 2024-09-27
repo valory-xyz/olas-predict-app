@@ -184,7 +184,13 @@ const getGlobalQuery = gql`
 
 const getTraderAgentsQuery = gql`
   query GetOlasTraderAgents($first: Int!, $skip: Int!) {
-    traderAgents(first: $first, skip: $skip, orderBy: totalBets, orderDirection: desc) {
+    traderAgents(
+      first: $first
+      skip: $skip
+      orderBy: totalBets
+      orderDirection: desc
+      where: { totalBets_gt: 0 }
+    ) {
       id
       totalBets
     }

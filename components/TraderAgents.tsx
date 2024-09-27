@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 import { Card } from 'components/shared/styles';
+import { GNOSIS_SCAN_URL } from 'constants/index';
 import { getAgentName } from 'utils/agents';
 
 const { Title, Text, Paragraph } = Typography;
@@ -60,10 +61,16 @@ export const TraderAgents = () => {
             dataIndex: 'id',
             key: 'name',
             render: (id) => (
-              <Flex gap={12}>
-                <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                <b>{getAgentName(id, 'trader')}</b>
-              </Flex>
+              <a
+                href={`${GNOSIS_SCAN_URL}/address/${id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Flex gap={12}>
+                  <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
+                  <b>{getAgentName(id, 'trader')}</b>
+                </Flex>
+              </a>
             ),
           },
           {
