@@ -21,6 +21,14 @@ export const CREATORS: Record<string, { name: string; image: string }> = {
 
 export const CREATOR_ADDRESSES = Object.keys(CREATORS);
 
+export const BROKEN_MARKETS = [
+  '0xe7ed8a5f2f0f17f7d584ae8ddd0592d1ac67791f',
+  '0xbfa584b29891941c8950ce975c1f7fa595ce1b99',
+];
+
+export const INVALID_ANSWER_HEX =
+  '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
+
 export const REALITY_QUESTION_URL =
   'https://reality.eth.limo/app/#!/network/100/question/0x79e32ae03fb27b07c89c0c568f80287c01ca2e57-';
 export const GNOSIS_SCAN_URL = 'https://gnosisscan.io';

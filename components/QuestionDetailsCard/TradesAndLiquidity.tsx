@@ -8,24 +8,17 @@ import { useAgentsBets } from 'hooks/useAgentsBets';
 
 type TradesAndLiquidityProps = {
   marketId: FixedProductMarketMaker['id'];
+  usdVolume: FixedProductMarketMaker['usdVolume'];
   type: AnswerType;
 };
 
-export const TradesAndLiquidity = ({ marketId, type }: TradesAndLiquidityProps) => {
+export const TradesAndLiquidity = ({ marketId, usdVolume, type }: TradesAndLiquidityProps) => {
   const { data, isLoading } = useAgentsBets(marketId);
 
   if (isLoading) return <Skeleton.Input active size="large" />;
   if (!data) return null;
 
-  const { trades, liquidity } = Object.values(data).reduce(
-    (res, { agents, totalBets }) => {
-      res.trades += agents.length;
-      res.liquidity += totalBets;
-
-      return res;
-    },
-    { trades: 0, liquidity: 0 },
-  );
+  const trades = Object.values(data).reduce((sum, { agents }) => (sum += agents.length), 0);
 
   const iconProps = {
     size: 20,
@@ -35,7 +28,9 @@ export const TradesAndLiquidity = ({ marketId, type }: TradesAndLiquidityProps) 
   return (
     <Flex gap={12} wrap>
       <Tag icon={<HandCoins {...iconProps} />}>{`${trades} trade${trades > 1 ? 's' : ''}`}</Tag>
-      <Tag icon={<CircleDollarSign {...iconProps} />}>{`$${liquidity.toFixed(2)} liquidity`}</Tag>
+      <Tag
+        icon={<CircleDollarSign {...iconProps} />}
+      >{`$${Number(usdVolume).toFixed(2)} liquidity`}</Tag>
     </Flex>
   );
 };

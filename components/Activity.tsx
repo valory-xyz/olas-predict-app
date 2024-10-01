@@ -1,5 +1,5 @@
 import { Flex, Spin, Timeline, Typography } from 'antd';
-import { FixedProductMarketMaker, FpmmTrade } from 'graphql/types';
+import { FixedProductMarketMaker, FpmmTrade, TradeType } from 'graphql/types';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -23,6 +23,7 @@ type ActivityItem = {
   value: string;
   timeAgo: string;
   time: string;
+  type: TradeType;
   txHash: string;
 };
 
@@ -39,6 +40,7 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
       value: outcomeValue ? `$${betAmount} ${outcomeValue}` : 'NA',
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
       time: new Date(item.creationTimestamp * 1000).toLocaleString(),
+      type: item.type,
       txHash: item.transactionHash,
     };
   });
@@ -99,7 +101,7 @@ export const Activity = ({ marketId }: ActivityProps) => {
             children: (
               <Flex vertical gap={8} key={item.id}>
                 <Text>
-                  <b>Agent {item.name}</b> purchased{' '}
+                  <b>Agent {item.name}</b> {item.type === TradeType.Buy ? 'purchased' : 'sold'}{' '}
                   <a
                     href={`${GNOSIS_SCAN_URL}/tx/${item.txHash}`}
                     target="_blank"

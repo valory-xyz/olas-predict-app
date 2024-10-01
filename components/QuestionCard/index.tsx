@@ -56,7 +56,10 @@ export const QuestionCard = ({ market }: QuestionCardProps) => {
           outcomes={market.outcomes}
           outcomeTokenMarginalPrices={outcomeTokenMarginalPrices}
         />
-        <Countdown openingTimestamp={market.openingTimestamp} />
+        <Countdown
+          openingTimestamp={market.openingTimestamp}
+          answerFinalizedTimestamp={market.answerFinalizedTimestamp}
+        />
       </Card>
     </StyledLink>
   );

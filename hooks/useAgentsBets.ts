@@ -1,3 +1,4 @@
+import { TradeType } from 'graphql/types';
 import { useMemo } from 'react';
 import { formatUnits } from 'viem';
 
@@ -16,15 +17,21 @@ export const useAgentsBets = (marketId: string) => {
 
     const agentsTrades = tradesData.fpmmTrades.reduce<AgentsBetsSet>((res, trade) => {
       const answerIndex = trade.outcomeIndex;
-      const betAmount =
-        parseFloat(trade.collateralAmountUSD) - parseFloat(formatUnits(trade.feeAmount, 18));
 
       if (!res[answerIndex]) {
         res[answerIndex] = { agents: new Set(), totalBets: 0 };
       }
-
+      // add agent address
       res[answerIndex].agents.add(trade.creator.id.toLowerCase());
-      res[answerIndex].totalBets += betAmount;
+      // add trade value
+      const betAmountWithoutFee =
+        parseFloat(trade.collateralAmountUSD) - parseFloat(formatUnits(trade.feeAmount, 18));
+      if (trade.type === TradeType.Buy) {
+        res[answerIndex].totalBets += betAmountWithoutFee;
+      }
+      if (trade.type === TradeType.Sell) {
+        res[answerIndex].totalBets -= betAmountWithoutFee;
+      }
 
       return res;
     }, {});
