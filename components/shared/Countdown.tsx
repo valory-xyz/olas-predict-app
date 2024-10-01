@@ -10,6 +10,7 @@ const { Countdown: AntdCountdown } = Statistic;
 
 type CountdownProps = {
   openingTimestamp: FixedProductMarketMaker['openingTimestamp'];
+  answerFinalizedTimestamp: FixedProductMarketMaker['answerFinalizedTimestamp'];
 };
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
@@ -41,7 +42,7 @@ const Root = styled.div`
   }
 `;
 
-export const Countdown = ({ openingTimestamp }: CountdownProps) => {
+export const Countdown = ({ openingTimestamp, answerFinalizedTimestamp }: CountdownProps) => {
   const deadline = +openingTimestamp * 1000;
   const now = Date.now();
 
@@ -64,7 +65,9 @@ export const Countdown = ({ openingTimestamp }: CountdownProps) => {
         to find out the truth
       </Root>
     );
+  } else if (answerFinalizedTimestamp) {
+    return <Root>Resolved on {formatTimestamp(answerFinalizedTimestamp * 1000)}</Root>;
   } else {
-    return <Root>Resolved on {formatTimestamp(deadline)}</Root>;
+    return null;
   }
 };

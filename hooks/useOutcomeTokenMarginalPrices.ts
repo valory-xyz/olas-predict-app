@@ -1,8 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMarginalPrices, getMarketTrades } from 'graphql/queries';
-import { FixedProductMarketMaker, FpmmTrade_OrderBy, OrderDirection } from 'graphql/types';
+import { getMarketLiquidity } from 'graphql/queries';
+import { FixedProductMarketMaker, FpmmLiquidity_OrderBy, OrderDirection } from 'graphql/types';
+import { useMemo } from 'react';
 
-import { publicClient } from 'constants/viemClient';
+function convertLiquidityToMarginalPrices(values: string[]) {
+  const bigIntValues = values.map((value) => BigInt(value));
+  const total = bigIntValues.reduce((acc, value) => acc + value, BigInt(0));
+  const prices = bigIntValues.map((value) => (Number(value) / Number(total)).toFixed(18));
+  return prices;
+}
 
 /**
  * Ongoing markets have this data in fixedProductMarketMakers, but closed ones don't.
@@ -10,40 +16,29 @@ import { publicClient } from 'constants/viemClient';
  */
 export const useOutcomeTokenMarginalPrices = (market: FixedProductMarketMaker) => {
   const { id, outcomeTokenMarginalPrices } = market;
-  const { data: trade, isLoading: isLastTradeLoading } = useQuery({
-    queryKey: ['getLastMarketTrade', id],
+  const { data: lastLiquidity, isLoading: isLastLiquidityLoading } = useQuery({
+    queryKey: ['getLastMarketLiquidity', id],
     enabled: !outcomeTokenMarginalPrices,
     queryFn: async () =>
-      getMarketTrades({
+      getMarketLiquidity({
         first: 1,
         fpmm: id,
-        orderBy: FpmmTrade_OrderBy.CreationTimestamp,
+        orderBy: FpmmLiquidity_OrderBy.CreationTimestamp,
         orderDirection: OrderDirection.Desc,
       }),
   });
 
-  const { data: lastTradeMarginalPrices, isLoading: isLastTradeMarginalPricesLoading } = useQuery({
-    queryKey: ['getLastTradeMarginalPrices', id],
-    enabled: !!trade,
-    queryFn: async (): Promise<string[] | undefined> => {
-      if (!trade) return;
-
-      const lastTradeTransactionHash = trade.fpmmTrades[0]?.transactionHash;
-      if (!lastTradeTransactionHash) return;
-
-      const receipt = await publicClient.getTransactionReceipt({ hash: lastTradeTransactionHash });
-      if (!receipt) return;
-
-      const marginalPricesResponse = await getMarginalPrices({
-        id,
-        blockNumbers: [Number(receipt.blockNumber)],
-      });
-      return Object.values(marginalPricesResponse)[0].outcomeTokenMarginalPrices;
-    },
-  });
+  const lastLiquidityPrices = useMemo(() => {
+    const lastLiquidityTokenAmounts = lastLiquidity?.fpmmLiquidities[0].outcomeTokenAmounts;
+    if (!lastLiquidityTokenAmounts) return undefined;
+    return convertLiquidityToMarginalPrices(
+      // The probabilities are always reversed
+      [...lastLiquidityTokenAmounts].reverse(),
+    );
+  }, [lastLiquidity]);
 
   return {
-    data: outcomeTokenMarginalPrices || lastTradeMarginalPrices,
-    isLoading: isLastTradeLoading || isLastTradeMarginalPricesLoading,
+    data: outcomeTokenMarginalPrices || lastLiquidityPrices,
+    isLoading: isLastLiquidityLoading,
   };
 };

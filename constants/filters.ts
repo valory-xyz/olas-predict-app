@@ -1,3 +1,5 @@
+import { FixedProductMarketMaker_OrderBy, OrderDirection } from 'graphql/types';
+
 const nowTimestamp = Math.floor(Date.now() / 1000);
 
 export const DEFAULT_STATE_FILTER = 'opened';
@@ -7,7 +9,9 @@ export const STATE_FILTER_VALUES = [
   {
     label: 'Opened',
     value: 'opened',
-    when: {
+    params: {
+      orderBy: FixedProductMarketMaker_OrderBy.UsdRunningDailyVolume,
+      orderDirection: OrderDirection.Desc,
       openingTimestamp_gt: nowTimestamp,
       scaledLiquidityParameter_gt: 0,
     },
@@ -15,7 +19,9 @@ export const STATE_FILTER_VALUES = [
   {
     label: 'Closed',
     value: 'closed',
-    when: {
+    params: {
+      orderBy: FixedProductMarketMaker_OrderBy.AnswerFinalizedTimestamp,
+      orderDirection: OrderDirection.Desc,
       answerFinalizedTimestamp_lt: nowTimestamp,
     },
   },

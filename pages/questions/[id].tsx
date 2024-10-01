@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Flex } from 'antd';
 import { getMarket } from 'graphql/queries';
+import { FixedProductMarketMaker } from 'graphql/types';
 import { useParams } from 'next/navigation';
 
 import { Activity } from 'components/Activity';
@@ -8,6 +9,13 @@ import { LoadingError, QuestionNotFoundError } from 'components/ErrorState';
 import { Probability } from 'components/Probability';
 import { QuestionDetailsCard } from 'components/QuestionDetailsCard';
 import { LoaderCard } from 'components/QuestionDetailsCard/LoaderCard';
+import { BROKEN_MARKETS, INVALID_ANSWER_HEX } from 'constants/index';
+
+const isMarketBroken = (market: FixedProductMarketMaker) =>
+  BROKEN_MARKETS.indexOf(market.id) !== -1;
+
+const isMarketInvalid = (market: FixedProductMarketMaker) =>
+  market.currentAnswer === INVALID_ANSWER_HEX;
 
 const QuestionPage = () => {
   const params = useParams();
@@ -30,6 +38,7 @@ const QuestionPage = () => {
 
   if (isFetched) {
     if (!data) return <QuestionNotFoundError />;
+    if (isMarketInvalid(data) || isMarketBroken(data)) return <QuestionNotFoundError />;
 
     return (
       <Flex vertical gap={40} align="center" className="flex-auto">

@@ -1,7 +1,9 @@
 import { gql, request } from 'graphql-request';
 
 import {
+  BROKEN_MARKETS,
   CREATOR_ADDRESSES,
+  INVALID_ANSWER_HEX,
   OLAS_AGENTS_SUBGRAPH_URL,
   OMEN_SUBGRAPH_URL,
   OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL,
@@ -18,6 +20,7 @@ import {
   Query,
   QueryFixedProductMarketMakerArgs,
   QueryFixedProductMarketMakersArgs,
+  QueryFpmmLiquiditiesArgs,
   QueryFpmmTradesArgs,
   TraderAgents,
 } from './types';
@@ -28,6 +31,7 @@ const marketDataFragment = gql`
     collateralVolume
     collateralToken
     creationTimestamp
+    answerFinalizedTimestamp
     creator
     lastActiveDay
     outcomeTokenAmounts
@@ -78,17 +82,27 @@ const getMarketsQuery = (
     $openingTimestamp_gt: Int
     $answerFinalizedTimestamp_lt: Int
     $scaledLiquidityParameter_gt: Int
+    $orderBy: String
+    $orderDirection: String
   ) {
     fixedProductMarketMakers(
       first: $first
       skip: $skip
-      orderBy: usdRunningDailyVolume
-      orderDirection: desc
+      orderBy: $orderBy
+      orderDirection: $orderDirection
       where: {
-        outcomeSlotCount: 2,
-        creator_in: [${CREATOR_ADDRESSES.map((address) => `"${address}"`)}],
+        outcomeSlotCount: 2
+        id_not_in: [${BROKEN_MARKETS.map((address) => `"${address}"`)}]
+        creator_in: [${CREATOR_ADDRESSES.map((address) => `"${address}"`)}]
         ${params.openingTimestamp_gt ? 'openingTimestamp_gt: $openingTimestamp_gt' : ''}
-        ${params.answerFinalizedTimestamp_lt ? 'answerFinalizedTimestamp_lt: $answerFinalizedTimestamp_lt' : ''}
+        ${
+          params.answerFinalizedTimestamp_lt
+            ? `
+          answerFinalizedTimestamp_lt: $answerFinalizedTimestamp_lt,
+          currentAnswer_not: "${INVALID_ANSWER_HEX}"
+          `
+            : ''
+        }
         ${params.scaledLiquidityParameter_gt !== undefined ? 'scaledLiquidityParameter_gt: $scaledLiquidityParameter_gt' : ''}
       }
     ) {
@@ -122,12 +136,35 @@ const getMarketTradesQuery = gql`
       transactionHash
       collateralAmountUSD
       feeAmount
+      type
       fpmm {
         outcomes
       }
       creator {
         id
       }
+    }
+  }
+`;
+
+const getMarketLiquidityQuery = gql`
+  query GetMarketLiquidity(
+    $first: Int!
+    $fpmm: ID!
+    $skip: Int
+    $orderBy: String
+    $orderDirection: String
+  ) {
+    fpmmLiquidities(
+      where: { fpmm: $fpmm }
+      first: $first
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
+      id
+      outcomeTokenAmounts
+      creationTimestamp
     }
   }
 `;
@@ -208,6 +245,9 @@ export const getMarkets = async (
 
 export const getMarketTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Filter) =>
   request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getMarketTradesQuery, params);
+
+export const getMarketLiquidity = async (params: QueryFpmmLiquiditiesArgs & FpmmTrade_Filter) =>
+  request<Pick<Query, 'fpmmLiquidities'>>(OMEN_SUBGRAPH_URL, getMarketLiquidityQuery, params);
 
 export const getMarginalPrices = async (params: {
   id: FixedProductMarketMaker['id'];

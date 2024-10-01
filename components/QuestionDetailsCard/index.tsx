@@ -50,7 +50,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
         </Flex>
         {!isMobile && <Thumbnail marketId={market.id} />}
       </Flex>
-      <TradesAndLiquidity marketId={market.id} type={answerType} />
+      <TradesAndLiquidity marketId={market.id} usdVolume={market.usdVolume} type={answerType} />
       <Creator address={market.creator} />
       <PredictionBar
         marketId={market.id}
@@ -58,7 +58,10 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
         outcomes={market.outcomes}
         outcomeTokenMarginalPrices={outcomeTokenMarginalPrices}
       />
-      <Countdown openingTimestamp={market.openingTimestamp} />
+      <Countdown
+        openingTimestamp={market.openingTimestamp}
+        answerFinalizedTimestamp={market.answerFinalizedTimestamp}
+      />
     </Card>
   );
 };

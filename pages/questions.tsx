@@ -54,7 +54,7 @@ const QuestionsPage = () => {
       getMarkets({
         first: ITEMS_PER_PAGE,
         skip: (page - 1) * ITEMS_PER_PAGE,
-        ...(STATE_FILTER_VALUES.find((item) => item.value === stateParam)?.when || {}),
+        ...(STATE_FILTER_VALUES.find((item) => item.value === stateParam)?.params || {}),
       }),
   });
 
@@ -68,7 +68,7 @@ const QuestionsPage = () => {
       getMarkets({
         first: ITEMS_PER_PAGE,
         skip: nextPage,
-        ...(STATE_FILTER_VALUES.find((item) => item.value === stateParam)?.when || {}),
+        ...(STATE_FILTER_VALUES.find((item) => item.value === stateParam)?.params || {}),
       }),
   });
 
