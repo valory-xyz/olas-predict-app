@@ -15,7 +15,7 @@ import { wagmiConfig } from 'constants/wagmiConfig';
 import { getAgentName } from 'utils/agents';
 import { getIpfsResponse } from 'utils/ipfs';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 const Tag = styled.div`
   display: flex;
