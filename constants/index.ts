@@ -8,7 +8,7 @@ export const CHART_HEIGHT = 230;
 export const PAGE_QUERY_PARAM = 'page';
 export const STATE_QUERY_PARAM = 'state';
 
-export const NA = 'N/A';
+export const NA = 'n/a';
 
 export const CREATORS: Record<string, { name: string; image: string }> = {
   '0x89c5cc945dd550bcffb72fe42bff002429f46fec': {

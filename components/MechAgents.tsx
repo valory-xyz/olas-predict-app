@@ -9,7 +9,7 @@ import { UsePublicClientReturnType, usePublicClient } from 'wagmi';
 
 import { Card } from 'components/shared/styles';
 import { AGENT_REGISTRY_ABI, AGENT_REGISTRY_ADDRESS } from 'constants/contracts/agentRegistry';
-import { GNOSIS_SCAN_URL, NA } from 'constants/index';
+import { GNOSIS_SCAN_URL } from 'constants/index';
 import { COLOR } from 'constants/theme';
 import { wagmiConfig } from 'constants/wagmiConfig';
 import { getAgentName } from 'utils/agents';
@@ -124,7 +124,7 @@ export const MechAgents = () => {
           });
         });
 
-        return result;
+        return result.filter((item) => Array.isArray(item.tools));
       }
     },
     refetchOnWindowFocus: false,
@@ -168,18 +168,13 @@ export const MechAgents = () => {
             title: 'Tools in use',
             dataIndex: 'tools',
             key: 'tools',
-            render: (tools) => {
-              if (Array.isArray(tools)) {
-                return (
-                  <Flex gap={12} wrap>
-                    {tools.map((item) => (
-                      <Tag key={item}>{item}</Tag>
-                    ))}
-                  </Flex>
-                );
-              }
-              return <Text type="secondary">{NA}</Text>;
-            },
+            render: (tools) => (
+              <Flex gap={12} wrap>
+                {tools.map((item: string) => (
+                  <Tag key={item}>{item}</Tag>
+                ))}
+              </Flex>
+            ),
           },
         ]}
         loading={isLoading}
