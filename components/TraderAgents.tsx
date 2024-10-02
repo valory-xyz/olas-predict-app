@@ -54,7 +54,7 @@ export const TraderAgents = () => {
             key: 'rank',
             className: 'text-end',
             width: 50,
-            render: (_, record, index) => index + 1,
+            render: (_, record, index) => (page - 1) * ITEMS_PER_PAGE + index + 1,
           },
           {
             title: 'Name',

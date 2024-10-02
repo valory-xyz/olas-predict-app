@@ -8,7 +8,7 @@ export const COLOR = {
 
   BLACK_TRANSPARENT_3: 'rgba(0, 0, 0, 0.03)',
   BLACK_TRANSPARENT_20: 'rgba(0, 0, 0, 0.20)',
-  BLACK_TRANSPARENT_33: 'rgba(0, 0, 0, 0.33)',
+  BLACK_TRANSPARENT_30: 'rgba(0, 0, 0, 0.30)',
   BLACK_TRANSPARENT_50: 'rgba(0, 0, 0, 0.50)',
 
   WHITE_TRANSPARENT_5: 'rgba(255, 255, 255, 0.05)',

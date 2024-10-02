@@ -125,7 +125,7 @@ export const LeftLine = styled.div<{ width: number; type: AnswerType }>`
 `;
 
 export const RightLine = styled.div`
-  background: ${COLOR.BLACK_TRANSPARENT_3};
+  background: ${COLOR.BLACK_TRANSPARENT_30};
   flex-grow: 1;
   height: 24px;
   border-radius: 2px;

@@ -21,7 +21,7 @@ const MobileCard = styled(Flex)<{ isOpen?: boolean }>`
   max-width: 100%;
   border-radius: ${({ isOpen }) => (isOpen ? '12px 12px 0 0' : '12px')};
   transition: border-radius 0.3s ease;
-  background: ${COLOR.BLACK_TRANSPARENT_33};
+  background: ${COLOR.BLACK_TRANSPARENT_30};
   backdrop-filter: blur(3px);
   will-change: backdrop-filter;
   padding: 12px 24px;
