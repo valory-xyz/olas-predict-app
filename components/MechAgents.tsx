@@ -46,7 +46,6 @@ async function fetchHashes(agents: MechAgent[], client: UsePublicClientReturnTyp
   const hashes = hashesResult.map((item) => {
     if (item.status === 'fulfilled' && !!item.value) {
       const [numHashes, agentHashes] = item.value as [bigint, string[]];
-
       return agentHashes[Number(numHashes) - 1];
     }
     return null;
@@ -100,32 +99,31 @@ export const MechAgents = () => {
     queryKey: ['getMechAgents'],
     queryFn: async () => {
       const data = await getMechAgents();
-      if (data.createMeches.length > 0) {
-        // get ipfs hashes for each agent
-        const hashes = await fetchHashes(data.createMeches, client);
+      if (data.createMeches.length === 0) return undefined;
+      // get ipfs hashes for each agent
+      const hashes = await fetchHashes(data.createMeches, client);
 
-        // request data from ipfs to get the tools
-        const ipfsPromises = hashes.map((item) =>
-          item ? getIpfsResponse(item) : Promise.resolve(null),
-        );
-        const ipfsResult = await Promise.allSettled(ipfsPromises);
-        const tools = ipfsResult.map((item) => {
-          if (item.status === 'fulfilled' && !!item.value) {
-            return item.value.tools;
-          }
-          return null;
+      // request data from ipfs to get the tools
+      const ipfsPromises = hashes.map((item) =>
+        item ? getIpfsResponse(item) : Promise.resolve(null),
+      );
+      const ipfsResult = await Promise.allSettled(ipfsPromises);
+      const tools = ipfsResult.map((item) => {
+        if (item.status === 'fulfilled' && !!item.value) {
+          return item.value.tools;
+        }
+        return null;
+      });
+
+      const result: (MechAgent & { tools: string[] })[] = [];
+      data.createMeches.forEach((agent, index) => {
+        result.push({
+          ...agent,
+          tools: tools[index],
         });
+      });
 
-        const result: (MechAgent & { tools: string[] })[] = [];
-        data.createMeches.forEach((agent, index) => {
-          result.push({
-            ...agent,
-            tools: tools[index],
-          });
-        });
-
-        return result.filter((item) => Array.isArray(item.tools));
-      }
+      return result.filter((item) => Array.isArray(item.tools));
     },
     refetchOnWindowFocus: false,
     staleTime: Infinity,
