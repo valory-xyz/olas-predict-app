@@ -5,6 +5,7 @@ import {
   CREATOR_ADDRESSES,
   INVALID_ANSWER_HEX,
   OLAS_AGENTS_SUBGRAPH_URL,
+  OLAS_MECH_SUBGRAPH_URL,
   OMEN_SUBGRAPH_URL,
   OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL,
   XDAI_BLOCKS_SUBGRAPH_URL,
@@ -12,9 +13,11 @@ import {
 
 import {
   AgentsGlobal,
+  CreatorAgents,
   FixedProductMarketMaker,
   FixedProductMarketMaker_Filter,
   FpmmTrade_Filter,
+  MechAgents,
   OmenThumbnailMapping,
   OutcomeTokenMarginalPricesResponse,
   Query,
@@ -234,6 +237,26 @@ const getTraderAgentsQuery = gql`
   }
 `;
 
+const getCreatorAgentsQuery = gql`
+  query GetOlasCreatorAgents {
+    creatorAgents(orderBy: totalQuestions, orderDirection: desc) {
+      id
+      totalQuestions
+      blockTimestamp
+    }
+  }
+`;
+
+const getMechAgentsQuery = gql`
+  {
+    createMeches(first: 10, orderBy: agentId, order: ASC) {
+      id
+      mech
+      agentId
+    }
+  }
+`;
+
 export const getMarkets = async (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
 ) =>
@@ -280,3 +303,9 @@ export const getGlobal = async () =>
 
 export const getTraderAgents = async (params: { first: number; skip: number }) =>
   request<TraderAgents>(OLAS_AGENTS_SUBGRAPH_URL, getTraderAgentsQuery, params);
+
+export const getCreatorAgents = async () =>
+  request<CreatorAgents>(OLAS_AGENTS_SUBGRAPH_URL, getCreatorAgentsQuery);
+
+export const getMechAgents = async () =>
+  request<MechAgents>(OLAS_MECH_SUBGRAPH_URL, getMechAgentsQuery);

@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
 import { Card, NoDataContainer } from 'components/shared/styles';
-import { CHART_HEIGHT } from 'constants/index';
+import { CHART_HEIGHT, NA } from 'constants/index';
 import { COLOR } from 'constants/theme';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { convertToPercentage } from 'utils/questions';
@@ -95,7 +95,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
       </Title>
       <Flex gap={16} align="center">
         <Legend />
-        <Text>{outcomes ? outcomes[0] : 'NA'}</Text>
+        <Text>{outcomes ? outcomes[0] : NA}</Text>
       </Flex>
 
       {isLoading && (
@@ -121,7 +121,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
                 const value = items[0].value;
                 return (
                   <div key={title}>
-                    <b>{`${outcomes ? outcomes[0] : 'NA'} ${value}%`}</b>
+                    <b>{`${outcomes ? outcomes[0] : NA} ${value}%`}</b>
                     <br />
                     {title}
                   </div>
