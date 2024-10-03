@@ -85,6 +85,7 @@ const getMarketsQuery = (
     $openingTimestamp_gt: Int
     $answerFinalizedTimestamp_lt: Int
     $scaledLiquidityParameter_gt: Int
+    $usdVolume_gt: Int
     $orderBy: String
     $orderDirection: String
   ) {
@@ -98,6 +99,7 @@ const getMarketsQuery = (
         id_not_in: [${BROKEN_MARKETS.map((address) => `"${address}"`)}]
         creator_in: [${CREATOR_ADDRESSES.map((address) => `"${address}"`)}]
         ${params.openingTimestamp_gt ? 'openingTimestamp_gt: $openingTimestamp_gt' : ''}
+        ${params.usdVolume_gt ? 'usdVolume_gt: $usdVolume_gt' : ''}
         ${
           params.answerFinalizedTimestamp_lt
             ? `

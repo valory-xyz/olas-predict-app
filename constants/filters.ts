@@ -14,6 +14,7 @@ export const STATE_FILTER_VALUES = [
       orderDirection: OrderDirection.Desc,
       openingTimestamp_gt: nowTimestamp,
       scaledLiquidityParameter_gt: 0,
+      usdVolume_gt: 10,
     },
   },
   {
@@ -23,6 +24,7 @@ export const STATE_FILTER_VALUES = [
       orderBy: FixedProductMarketMaker_OrderBy.AnswerFinalizedTimestamp,
       orderDirection: OrderDirection.Desc,
       answerFinalizedTimestamp_lt: nowTimestamp,
+      usdVolume_gt: 10,
     },
   },
 ];
