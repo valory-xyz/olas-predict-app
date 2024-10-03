@@ -24,7 +24,6 @@ export const STATE_FILTER_VALUES = [
       orderBy: FixedProductMarketMaker_OrderBy.AnswerFinalizedTimestamp,
       orderDirection: OrderDirection.Desc,
       answerFinalizedTimestamp_lt: nowTimestamp,
-      usdVolume_gt: 10,
     },
   },
 ];
