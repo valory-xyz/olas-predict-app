@@ -5041,3 +5041,21 @@ export type TraderAgent = {
 }
 
 export type TraderAgents = { traderAgents:  Array<TraderAgent>}
+
+export type CreatorAgent = {
+  id: string;
+  totalQuestions: number;
+  blockNumber: string;
+  blockTimestamp: string;
+  transactionHash: string;
+};
+
+export type CreatorAgents = { creatorAgents: Array<CreatorAgent> };
+
+export type MechAgent = {
+  id: string;
+  agentId: string;
+  mech: string;
+};
+
+export type MechAgents = { createMeches: Array<MechAgent> };

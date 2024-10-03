@@ -22,7 +22,7 @@ const Root = styled.div`
   gap: 6px;
   padding: 12px 8px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.2);
+  background: ${COLOR.BLACK_TRANSPARENT_20};
   color: ${COLOR.SECONDARY};
 
   .ant-statistic-content,

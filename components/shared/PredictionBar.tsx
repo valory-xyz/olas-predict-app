@@ -2,6 +2,7 @@ import { Flex, Skeleton, Typography } from 'antd';
 import { FixedProductMarketMaker } from 'graphql/types';
 import { AnswerType } from 'types';
 
+import { NA } from 'constants/index';
 import { useAgentsBets } from 'hooks/useAgentsBets';
 import { convertToPercentage } from 'utils/questions';
 
@@ -46,10 +47,10 @@ const ProgressBar = ({
       </RightLine>
       <OutcomesValues type={type}>
         <Text ellipsis style={ELLIPSIS_TEXT_STYLE}>
-          {outcomes?.[0] || ''} {hasOutcomePercentages ? leftPercentage : 'NA'}%
+          {outcomes?.[0] || ''} {hasOutcomePercentages ? leftPercentage : NA}%
         </Text>
         <Text ellipsis style={ELLIPSIS_TEXT_STYLE}>
-          {outcomes?.[1] || ''} {hasOutcomePercentages ? rightPercentage : 'NA'}%
+          {outcomes?.[1] || ''} {hasOutcomePercentages ? rightPercentage : NA}%
         </Text>
       </OutcomesValues>
     </ProgressBarContainer>

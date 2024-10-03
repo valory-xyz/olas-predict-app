@@ -1,6 +1,8 @@
 import { FixedProductMarketMaker } from 'graphql/types';
 import { AnswerType } from 'types';
 
+import { NA } from 'constants/index';
+
 export const getPredictedAnswerIndex = (
   outcomeTokenMarginalPrices: FixedProductMarketMaker['outcomeTokenMarginalPrices'],
 ) => {
@@ -26,10 +28,10 @@ export const getAnswer = (
   currentAnswerIndex: number | null,
   outcomes: FixedProductMarketMaker['outcomes'],
 ): string => {
-  if (!outcomes) return 'NA';
+  if (!outcomes) return NA;
   if (currentAnswerIndex !== null) return outcomes[currentAnswerIndex];
   if (predictedAnswerIndex !== null) return outcomes[predictedAnswerIndex];
-  return 'NA';
+  return NA;
 };
 
 export const convertToPercentage = (value: string): number => +(parseFloat(value) * 100).toFixed(2);

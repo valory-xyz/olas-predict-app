@@ -5,6 +5,16 @@ export const COLOR = {
   SECONDARY: 'rgba(255, 255, 255, 0.75)',
   TEXT_PRIMARY: '#fff',
   BACKGROUND: '#2f1d57',
+
+  BLACK_TRANSPARENT_3: 'rgba(0, 0, 0, 0.03)',
+  BLACK_TRANSPARENT_20: 'rgba(0, 0, 0, 0.20)',
+  BLACK_TRANSPARENT_30: 'rgba(0, 0, 0, 0.30)',
+  BLACK_TRANSPARENT_50: 'rgba(0, 0, 0, 0.50)',
+
+  WHITE_TRANSPARENT_5: 'rgba(255, 255, 255, 0.05)',
+  WHITE_TRANSPARENT_10: 'rgba(255, 255, 255, 0.1)',
+  WHITE_TRANSPARENT_20: 'rgba(255, 255, 255, 0.2)',
+  WHITE_TRANSPARENT_50: 'rgba(255, 255, 255, 0.50)',
 };
 
 export const BREAK_POINT = {
@@ -35,8 +45,8 @@ export const THEME_CONFIG: ThemeConfig = {
       colorPrimary: COLOR.TEXT_PRIMARY,
     },
     Segmented: {
-      itemSelectedBg: 'rgba(255, 255, 255, 0.20)',
-      trackBg: 'rgba(0, 0, 0, 0.20)',
+      itemSelectedBg: COLOR.WHITE_TRANSPARENT_20,
+      trackBg: COLOR.BLACK_TRANSPARENT_20,
       itemColor: COLOR.TEXT_PRIMARY,
       borderRadius: 38,
     },
@@ -52,14 +62,14 @@ export const THEME_CONFIG: ThemeConfig = {
     },
     Button: {
       defaultBg: 'transparent',
-      defaultHoverBg: 'rgba(0, 0, 0, 0.20)',
+      defaultHoverBg: COLOR.BLACK_TRANSPARENT_20,
       defaultBorderColor: COLOR.TEXT_PRIMARY,
     },
     Table: {
-      borderColor: 'rgba(255, 255, 255, 0.1)',
-      headerBg: 'rgba(255, 255, 255, 0.05)',
-      headerColor: 'rgba(255, 255, 255, 0.5)',
-      rowHoverBg: 'rgba(255, 255, 255, 0.05)',
+      borderColor: COLOR.WHITE_TRANSPARENT_10,
+      headerBg: COLOR.WHITE_TRANSPARENT_5,
+      headerColor: COLOR.WHITE_TRANSPARENT_50,
+      rowHoverBg: COLOR.WHITE_TRANSPARENT_5,
     },
   },
   algorithm: theme.darkAlgorithm,

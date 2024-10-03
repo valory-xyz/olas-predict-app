@@ -56,7 +56,7 @@ export const GlobalStyle = createGlobalStyle`
   .ant-table-thead .ant-table-cell {
     font-size: 14px;
     &::before {
-      background-color: rgba(255, 255, 255, 0.1) !important
+      background-color: ${COLOR.WHITE_TRANSPARENT_10} !important
     }
   }
   .ant-table-pagination .ant-pagination-item {
@@ -66,8 +66,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     &.ant-pagination-item-active {
-      border: 1px solid rgba(255, 255, 255, 0.50);
-      background-color: rgba(255, 255, 255, 0.10);
+      border: 1px solid ${COLOR.WHITE_TRANSPARENT_50};
+      background-color: ${COLOR.WHITE_TRANSPARENT_10};
       > a {
         color: ${COLOR.TEXT_PRIMARY};
       }

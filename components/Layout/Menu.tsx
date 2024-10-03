@@ -5,13 +5,13 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import { MENU_MAX_WIDTH } from 'constants/index';
-import { MEDIA_QUERY } from 'constants/theme';
+import { COLOR, MEDIA_QUERY } from 'constants/theme';
 import { useDropdown } from 'hooks/useDropdown';
 
 const Card = styled(Flex)`
   max-width: ${MENU_MAX_WIDTH}px;
   border-radius: 12px;
-  background: rgba(0, 0, 0, 0.2);
+  background: ${COLOR.BLACK_TRANSPARENT_20};
   backdrop-filter: blur(3px);
   will-change: backdrop-filter;
   padding: 24px;
@@ -21,7 +21,7 @@ const MobileCard = styled(Flex)<{ isOpen?: boolean }>`
   max-width: 100%;
   border-radius: ${({ isOpen }) => (isOpen ? '12px 12px 0 0' : '12px')};
   transition: border-radius 0.3s ease;
-  background: rgba(0, 0, 0, 0.33);
+  background: ${COLOR.BLACK_TRANSPARENT_30};
   backdrop-filter: blur(3px);
   will-change: backdrop-filter;
   padding: 12px 24px;
@@ -45,7 +45,7 @@ const Backdrop = styled.div<{ isOpen: boolean }>`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: ${COLOR.BLACK_TRANSPARENT_50};
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
   backdrop-filter: ${({ isOpen }) => (isOpen ? 'blur(10px)' : 'none')};

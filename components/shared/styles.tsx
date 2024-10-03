@@ -9,7 +9,7 @@ import { COLOR, MEDIA_QUERY } from 'constants/theme';
 const ANSWER_BACKGROUNDS_BY_TYPE = {
   predicted_right: 'rgba(0, 153, 65, 0.4)',
   predicted_wrong: 'rgba(153, 0, 59, 0.4)',
-  ongoing: 'rgba(255, 255, 255, 0.1)',
+  ongoing: COLOR.WHITE_TRANSPARENT_10,
 };
 
 const CARD_BACKGROUNDS_BY_TYPE = {
@@ -26,7 +26,7 @@ export const Card = styled.div<{ type: AnswerType }>`
   padding: 32px;
   border-radius: 16px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${COLOR.WHITE_TRANSPARENT_10};
   position: relative;
   overflow: hidden;
 
@@ -125,7 +125,7 @@ export const LeftLine = styled.div<{ width: number; type: AnswerType }>`
 `;
 
 export const RightLine = styled.div`
-  background: rgba(0, 0, 0, 0.3);
+  background: ${COLOR.BLACK_TRANSPARENT_30};
   flex-grow: 1;
   height: 24px;
   border-radius: 2px;

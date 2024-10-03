@@ -8,6 +8,8 @@ export const CHART_HEIGHT = 230;
 export const PAGE_QUERY_PARAM = 'page';
 export const STATE_QUERY_PARAM = 'state';
 
+export const NA = 'n/a';
+
 export const CREATORS: Record<string, { name: string; image: string }> = {
   '0x89c5cc945dd550bcffb72fe42bff002429f46fec': {
     name: 'Quickstart',
@@ -32,6 +34,7 @@ export const INVALID_ANSWER_HEX =
 export const REALITY_QUESTION_URL =
   'https://reality.eth.limo/app/#!/network/100/question/0x79e32ae03fb27b07c89c0c568f80287c01ca2e57-';
 export const GNOSIS_SCAN_URL = 'https://gnosisscan.io';
+export const IPFS_GATEWAY_URL = 'https://gateway.autonolas.tech/ipfs/';
 
 const SUBGRAPH_API_KEY = process.env.NEXT_PUBLIC_SUBGRAPH_API_KEY;
 export const OMEN_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/9fUVQpFwzpdWS9bq5WkAnmKbNNcoBwatMR4yZq81pbbz`;
@@ -39,3 +42,4 @@ export const OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL = `https://gateway-arbitrum.net
 export const XDAI_BLOCKS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/D58aXwnRLfosFtRaVJAbAjjvKZ11bEsbdiDLkJJRdSC9`;
 export const OLAS_AGENTS_SUBGRAPH_URL =
   'https://api.studio.thegraph.com/query/67875/olas-agents/v0.0.25';
+export const OLAS_MECH_SUBGRAPH_URL = 'https://api.studio.thegraph.com/query/57238/mech/v0.0.1';

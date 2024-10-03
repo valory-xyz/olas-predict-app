@@ -64,7 +64,7 @@ const ContentInner = styled.div`
 `;
 
 const BetaBanner = styled.div`
-  background: rgba(255, 255, 255, 0.2);
+  background: ${COLOR.WHITE_TRANSPARENT_20};
   padding: 10px;
   text-align: center;
   position: absolute;

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Card, NoDataContainer } from 'components/shared/styles';
-import { GNOSIS_SCAN_URL } from 'constants/index';
+import { GNOSIS_SCAN_URL, NA } from 'constants/index';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { getAgentName } from 'utils/agents';
 import { getTimeAgo } from 'utils/time';
@@ -37,7 +37,7 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
     return {
       id: item.id,
       name: getAgentName(item.creator.id, 'trader'),
-      value: outcomeValue ? `$${betAmount} ${outcomeValue}` : 'NA',
+      value: outcomeValue ? `$${betAmount} ${outcomeValue}` : NA,
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
       time: new Date(item.creationTimestamp * 1000).toLocaleString(),
       type: item.type,
