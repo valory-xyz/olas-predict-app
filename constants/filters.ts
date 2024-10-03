@@ -10,7 +10,7 @@ export const STATE_FILTER_VALUES = [
     label: 'Opened',
     value: 'opened',
     params: {
-      orderBy: FixedProductMarketMaker_OrderBy.UsdRunningDailyVolume,
+      orderBy: FixedProductMarketMaker_OrderBy.UsdVolume,
       orderDirection: OrderDirection.Desc,
       openingTimestamp_gt: nowTimestamp,
       scaledLiquidityParameter_gt: 0,

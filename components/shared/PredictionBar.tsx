@@ -29,6 +29,8 @@ type ProgressBarProps = {
   outcomes: FixedProductMarketMaker['outcomes'];
 };
 
+const ELLIPSIS_TEXT_STYLE = { maxWidth: '30%' };
+
 const ProgressBar = ({
   leftPercentage,
   type,
@@ -43,12 +45,12 @@ const ProgressBar = ({
         <LeftLine width={leftPercentage} type={type} />
       </RightLine>
       <OutcomesValues type={type}>
-        <span>
+        <Text ellipsis style={ELLIPSIS_TEXT_STYLE}>
           {outcomes?.[0] || ''} {hasOutcomePercentages ? leftPercentage : 'NA'}%
-        </span>
-        <span>
+        </Text>
+        <Text ellipsis style={ELLIPSIS_TEXT_STYLE}>
           {outcomes?.[1] || ''} {hasOutcomePercentages ? rightPercentage : 'NA'}%
-        </span>
+        </Text>
       </OutcomesValues>
     </ProgressBarContainer>
   );

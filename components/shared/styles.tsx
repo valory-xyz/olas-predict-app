@@ -136,7 +136,6 @@ export const OutcomesValues = styled.div<{ type: AnswerType }>`
   display: flex;
   justify-content: space-between;
   position: absolute;
-  top: 2px;
   left: 8px;
   right: 8px;
   > span {

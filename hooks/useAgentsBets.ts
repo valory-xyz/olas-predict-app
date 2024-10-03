@@ -15,26 +15,25 @@ export const useAgentsBets = (marketId: string) => {
       return { '0': { agents: [], totalBets: 0 }, '1': { agents: [], totalBets: 0 } };
     }
 
-    const agentsTrades = tradesData.fpmmTrades.reduce<AgentsBetsSet>((res, trade) => {
-      const answerIndex = trade.outcomeIndex;
+    const agentsTrades = tradesData.fpmmTrades.reduce<AgentsBetsSet>(
+      (res, trade) => {
+        const answerIndex = trade.outcomeIndex;
+        // add agent address
+        res[answerIndex].agents.add(trade.creator.id.toLowerCase());
+        // add trade value
+        const betAmountWithoutFee =
+          parseFloat(trade.collateralAmountUSD) - parseFloat(formatUnits(trade.feeAmount, 18));
+        if (trade.type === TradeType.Buy) {
+          res[answerIndex].totalBets += betAmountWithoutFee;
+        }
+        if (trade.type === TradeType.Sell) {
+          res[answerIndex].totalBets -= betAmountWithoutFee;
+        }
 
-      if (!res[answerIndex]) {
-        res[answerIndex] = { agents: new Set(), totalBets: 0 };
-      }
-      // add agent address
-      res[answerIndex].agents.add(trade.creator.id.toLowerCase());
-      // add trade value
-      const betAmountWithoutFee =
-        parseFloat(trade.collateralAmountUSD) - parseFloat(formatUnits(trade.feeAmount, 18));
-      if (trade.type === TradeType.Buy) {
-        res[answerIndex].totalBets += betAmountWithoutFee;
-      }
-      if (trade.type === TradeType.Sell) {
-        res[answerIndex].totalBets -= betAmountWithoutFee;
-      }
-
-      return res;
-    }, {});
+        return res;
+      },
+      { '0': { agents: new Set(), totalBets: 0 }, '1': { agents: new Set(), totalBets: 0 } },
+    );
 
     // Convert to AgentsBets
     const formattedAgentsTrades: AgentsBets = Object.keys(agentsTrades).reduce((acc, key) => {
