@@ -6,13 +6,13 @@ import { AnswerType } from 'types';
 import { COLOR } from 'constants/theme';
 import { useAgentsBets } from 'hooks/useAgentsBets';
 
-type TradesAndLiquidityProps = {
+type TradesAndVolumeProps = {
   marketId: FixedProductMarketMaker['id'];
   usdVolume: FixedProductMarketMaker['usdVolume'];
   type: AnswerType;
 };
 
-export const TradesAndLiquidity = ({ marketId, usdVolume, type }: TradesAndLiquidityProps) => {
+export const TradesAndVolume = ({ marketId, usdVolume, type }: TradesAndVolumeProps) => {
   const { data, isLoading } = useAgentsBets(marketId);
 
   if (isLoading) return <Skeleton.Input active size="large" />;
@@ -30,7 +30,7 @@ export const TradesAndLiquidity = ({ marketId, usdVolume, type }: TradesAndLiqui
       <Tag icon={<HandCoins {...iconProps} />}>{`${trades} trade${trades > 1 ? 's' : ''}`}</Tag>
       <Tag
         icon={<CircleDollarSign {...iconProps} />}
-      >{`$${Number(usdVolume).toFixed(2)} liquidity`}</Tag>
+      >{`$${Number(usdVolume).toFixed(2)} volume`}</Tag>
     </Flex>
   );
 };

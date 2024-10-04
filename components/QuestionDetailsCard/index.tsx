@@ -14,7 +14,7 @@ import { getTimeAgo } from 'utils/time';
 
 import { Creator } from './Creator';
 import { LoaderCard } from './LoaderCard';
-import { TradesAndLiquidity } from './TradesAndLiquidity';
+import { TradesAndVolume } from './TradesAndVolume';
 
 const { Text } = Typography;
 
@@ -50,7 +50,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
         </Flex>
         {!isMobile && <Thumbnail marketId={market.id} />}
       </Flex>
-      <TradesAndLiquidity marketId={market.id} usdVolume={market.usdVolume} type={answerType} />
+      <TradesAndVolume marketId={market.id} usdVolume={market.usdVolume} type={answerType} />
       <Creator address={market.creator} />
       <PredictionBar
         marketId={market.id}
