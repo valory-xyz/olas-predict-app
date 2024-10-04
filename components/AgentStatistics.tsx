@@ -27,11 +27,11 @@ type AgentStatisticsProps = {
   agent: TraderAgent;
 };
 
-interface UserBets extends UserPosition {
+type UserBets = UserPosition & {
   fpmmTrades: FpmmTrade[];
   fpmm: FixedProductMarketMaker;
   condition: Condition;
-}
+};
 
 const Statistic = ({
   title,
