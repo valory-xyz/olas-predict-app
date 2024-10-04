@@ -4,7 +4,7 @@ import { getMarket } from 'graphql/queries';
 import { FixedProductMarketMaker } from 'graphql/types';
 import { useParams } from 'next/navigation';
 
-import { Activity } from 'components/Activity';
+import { MarketActivity } from 'components/Activity/MarketActivity';
 import { LoadingError, QuestionNotFoundError } from 'components/ErrorState';
 import { Probability } from 'components/Probability';
 import { QuestionDetailsCard } from 'components/QuestionDetailsCard';
@@ -44,7 +44,7 @@ const QuestionPage = () => {
       <Flex vertical gap={40} align="center" className="flex-auto">
         <QuestionDetailsCard market={data} />
         <Probability marketId={data.id} outcomes={data.outcomes} />
-        <Activity marketId={data.id} />
+        <MarketActivity marketId={data.id} />
       </Flex>
     );
   }
