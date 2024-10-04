@@ -25,10 +25,9 @@ export const Activity = <T,>({
   const [trades, setTrades] = useState<T[]>([]);
 
   useEffect(() => {
-    if (data) {
-      const lastTrades = data.fpmmTrades.slice(0, PAGE_SIZE);
-      setTrades(getActivityItems(lastTrades));
-    }
+    if (!data) return;
+    const lastTrades = data.fpmmTrades.slice(0, PAGE_SIZE);
+    setTrades(getActivityItems(lastTrades));
   }, [data, getActivityItems]);
 
   const loadMoreData = () => {
