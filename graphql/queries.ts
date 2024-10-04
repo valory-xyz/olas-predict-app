@@ -182,6 +182,45 @@ const getMarketUserTradesQuery = gql`
   }
 `;
 
+const getUserTradesQuery = gql`
+  query GetUserTrades(
+    $creator: ID!
+    $first: Int!
+    $skip: Int
+    $orderBy: String
+    $orderDirection: String
+  ) {
+    fpmmTrades(
+      where: { creator: $creator }
+      first: $first
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
+      creator {
+        id
+      }
+      fpmm {
+        id
+        outcomes
+      }
+      title
+      outcomeIndex
+      id
+      feeAmount
+      collateralAmount
+      collateralAmountUSD
+      collateralToken
+      outcomeTokenMarginalPrice
+      outcomeTokensTraded
+      oldOutcomeTokenMarginalPrice
+      transactionHash
+      creationTimestamp
+      type
+    }
+  }
+`;
+
 const getMarketLiquidityQuery = gql`
   query GetMarketLiquidity(
     $first: Int!
@@ -388,6 +427,9 @@ export const getMarketTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Fi
 
 export const getMarketUserTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Filter) =>
   request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getMarketUserTradesQuery, params);
+
+export const getUserTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Filter) =>
+  request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getUserTradesQuery, params);
 
 export const getMarketLiquidity = async (params: QueryFpmmLiquiditiesArgs & FpmmTrade_Filter) =>
   request<Pick<Query, 'fpmmLiquidities'>>(OMEN_SUBGRAPH_URL, getMarketLiquidityQuery, params);

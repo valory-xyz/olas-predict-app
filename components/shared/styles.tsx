@@ -171,7 +171,8 @@ export const ThumbnailImage = styled(Image)`
 
 export const NoDataContainer = styled.div`
   display: flex;
-  height: ${CHART_HEIGHT}px;
+  max-height: ${CHART_HEIGHT}px;
+  height: 100%;
   align-items: center;
   justify-content: center;
 `;

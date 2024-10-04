@@ -3,6 +3,7 @@ import { Flex } from 'antd';
 import { getTraderAgent } from 'graphql/queries';
 import { useParams } from 'next/navigation';
 
+import { AgentActivity } from 'components/Activity/AgentActivity';
 import { AgentDetailsCard } from 'components/AgentDetailsCard';
 import { LoaderCard } from 'components/AgentDetailsCard/LoaderCard';
 import { AgentStatistics } from 'components/AgentStatistics';
@@ -34,6 +35,7 @@ const AgentPage = () => {
       <Flex vertical gap={40} align="center" className="flex-auto">
         <AgentDetailsCard agent={data} />
         <AgentStatistics agent={data} />
+        <AgentActivity agentId={data.id} />
       </Flex>
     );
   }
