@@ -1,5 +1,6 @@
 import { Flex, Spin, Timeline, Typography } from 'antd';
 import { FixedProductMarketMaker, FpmmTrade, TradeType } from 'graphql/types';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -19,6 +20,7 @@ type ActivityProps = {
 
 type ActivityItem = {
   id: string;
+  creator: string;
   name: string;
   value: string;
   timeAgo: string;
@@ -36,6 +38,7 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
 
     return {
       id: item.id,
+      creator: item.creator.id,
       name: getAgentName(item.creator.id, 'trader'),
       value: outcomeValue ? `$${betAmount} ${outcomeValue}` : NA,
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
@@ -101,7 +104,10 @@ export const Activity = ({ marketId }: ActivityProps) => {
             children: (
               <Flex vertical gap={8} key={item.id}>
                 <Text>
-                  <b>Agent {item.name}</b> {item.type === TradeType.Buy ? 'purchased' : 'sold'}{' '}
+                  <Link href={`/agents/${item.creator}`}>
+                    <b>Agent {item.name}</b>
+                  </Link>{' '}
+                  {item.type === TradeType.Buy ? 'purchased' : 'sold'}{' '}
                   <a
                     href={`${GNOSIS_SCAN_URL}/tx/${item.txHash}`}
                     target="_blank"

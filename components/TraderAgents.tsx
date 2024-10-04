@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { Flex, Table, Typography } from 'antd';
 import { getGlobal, getTraderAgents } from 'graphql/queries';
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 import { Card } from 'components/shared/styles';
-import { GNOSIS_SCAN_URL } from 'constants/index';
 import { getAgentName } from 'utils/agents';
 
 const { Title, Text, Paragraph } = Typography;
@@ -61,16 +61,12 @@ export const TraderAgents = () => {
             dataIndex: 'id',
             key: 'name',
             render: (id) => (
-              <a
-                href={`${GNOSIS_SCAN_URL}/address/${id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href={`/agents/${id}`}>
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
                   <b>{getAgentName(id, 'trader')}</b>
                 </Flex>
-              </a>
+              </Link>
             ),
           },
           {
