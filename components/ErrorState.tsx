@@ -122,7 +122,7 @@ export const QuestionNotFoundError = () => {
   return (
     <ErrorState
       title="404 | Question not found"
-      description="The question you’re looking for doesn’t exist or was deleted."
+      description="The question you're looking for doesn't exist or was deleted."
       buttons={[{ text: 'Go home', onClick: () => router.push('/questions') }]}
       icon={Frown}
     />
@@ -134,7 +134,7 @@ export const AgentNotFoundError = () => {
   return (
     <ErrorState
       title="404 | Agent not found"
-      description="The agent you’re looking for doesn’t exist."
+      description="This address probably doesn't belong to an Olas agent."
       buttons={[
         { text: 'Go home', onClick: () => router.push('/questions') },
         { text: 'See existing agents', onClick: () => router.push('/agents') },
