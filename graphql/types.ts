@@ -5030,6 +5030,7 @@ export type AgentsGlobal = {
 
 export type TraderAgent = {
   id: string;
+  serviceId: number;
   firstParticipation: string;
   lastActive: string;
   totalBets: number;
@@ -5059,3 +5060,142 @@ export type MechAgent = {
 };
 
 export type MechAgents = { createMeches: Array<MechAgent> };
+
+/**
+ * Conditional tokens
+ */
+export enum UserPosition_OrderBy {
+  Balance = 'balance',
+  Id = 'id',
+  Position = 'position',
+  PositionActiveValue = 'position__activeValue',
+  PositionCollateralTokenAddress = 'position__collateralTokenAddress',
+  PositionConditionIdsStr = 'position__conditionIdsStr',
+  PositionCreateTimestamp = 'position__createTimestamp',
+  PositionId = 'position__id',
+  PositionLifetimeValue = 'position__lifetimeValue',
+  PositionPositionId = 'position__positionId',
+  PositionWrappedTokenAddress = 'position__wrappedTokenAddress',
+  TotalBalance = 'totalBalance',
+  User = 'user',
+  UserFirstParticipation = 'user__firstParticipation',
+  UserId = 'user__id',
+  UserLastActive = 'user__lastActive',
+  WrappedBalance = 'wrappedBalance',
+}
+
+export type User_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<User_Filter>>>;
+  firstParticipation?: InputMaybe<Scalars['BigInt']['input']>;
+  firstParticipation_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  firstParticipation_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  firstParticipation_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  firstParticipation_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  firstParticipation_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  firstParticipation_not?: InputMaybe<Scalars['BigInt']['input']>;
+  firstParticipation_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  lastActive?: InputMaybe<Scalars['BigInt']['input']>;
+  lastActive_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  lastActive_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  lastActive_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  lastActive_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  lastActive_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  lastActive_not?: InputMaybe<Scalars['BigInt']['input']>;
+  lastActive_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<User_Filter>>>;
+  userPositions_?: InputMaybe<UserPosition_Filter>;
+};
+
+export type UserPosition_Filter = {
+  user_?: InputMaybe<User_Filter>;
+};
+
+export type QueryUserPositionArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type QueryUserPositionsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<UserPosition_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<UserPosition_Filter>;
+};
+
+export type CollateralToken = {
+  __typename?: 'CollateralToken';
+  activeAmount: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  mergedAmount: Scalars['BigInt']['output'];
+  positions?: Maybe<Array<Position>>;
+  redeemedAmount: Scalars['BigInt']['output'];
+  splitAmount: Scalars['BigInt']['output'];
+};
+
+export type Collection = {
+  __typename?: 'Collection';
+  conditionIds: Array<Scalars['ID']['output']>;
+  conditionIdsStr: Scalars['String']['output'];
+  conditions: Array<Condition>;
+  id: Scalars['ID']['output'];
+  indexSets: Array<Scalars['BigInt']['output']>;
+  multiplicities: Array<Scalars['Int']['output']>;
+  positions?: Maybe<Array<Position>>;
+};
+
+export type WrappedToken = {
+  __typename?: 'WrappedToken';
+  id: Scalars['ID']['output'];
+  position: Position;
+};
+
+export type Position = {
+  __typename?: 'Position';
+  activeValue: Scalars['BigInt']['output'];
+  collateralToken: CollateralToken;
+  collateralTokenAddress: Scalars['String']['output'];
+  collection: Collection;
+  conditionIds: Array<Scalars['ID']['output']>;
+  conditionIdsStr: Scalars['String']['output'];
+  conditions: Array<Condition>;
+  createTimestamp: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  indexSets: Array<Scalars['BigInt']['output']>;
+  lifetimeValue: Scalars['BigInt']['output'];
+  multiplicities: Array<Scalars['Int']['output']>;
+  positionId: Scalars['String']['output'];
+  wrappedTokenAddress?: Maybe<Scalars['String']['output']>;
+  wrappedTokens: Array<WrappedToken>;
+};
+
+export type User = {
+  __typename?: 'User';
+  firstParticipation: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  lastActive: Scalars['BigInt']['output'];
+  userPositions?: Maybe<Array<UserPosition>>;
+};
+
+export type UserPosition = {
+  __typename?: 'UserPosition';
+  balance: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  position: Position;
+  totalBalance: Scalars['BigInt']['output'];
+  user: User;
+  wrappedBalance: Scalars['BigInt']['output'];
+};

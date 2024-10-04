@@ -1,4 +1,4 @@
-import { Button, Typography } from 'antd';
+import { Button, Flex, Typography } from 'antd';
 import { AlertTriangle, Frown, LucideProps, Unplug } from 'lucide-react';
 import { useRouter } from 'next/router';
 import { ForwardRefExoticComponent, RefAttributes } from 'react';
@@ -43,10 +43,10 @@ type IconType = ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttribut
 type ErrorStateProps = {
   title: string;
   description: string;
-  button: {
+  buttons: {
     text: string;
     onClick: () => void;
-  };
+  }[];
   icon: IconType;
 };
 
@@ -69,7 +69,7 @@ const GradientIcon = ({ size, Icon }: { size: number; Icon: IconType }) => (
   </svg>
 );
 
-export const ErrorState = ({ title, description, button, icon }: ErrorStateProps) => {
+export const ErrorState = ({ title, description, buttons, icon }: ErrorStateProps) => {
   const { isMobile } = useScreen();
   return (
     <StyledCard type="ongoing">
@@ -81,9 +81,13 @@ export const ErrorState = ({ title, description, button, icon }: ErrorStateProps
         <Paragraph type="secondary" className="text-center">
           {description}
         </Paragraph>
-        <Button size="large" onClick={button.onClick}>
-          {button.text}
-        </Button>
+        <Flex gap={16} wrap align="center" justify="center">
+          {buttons.map((button, index) => (
+            <Button key={index} size="large" onClick={button.onClick}>
+              {button.text}
+            </Button>
+          ))}
+        </Flex>
       </Content>
     </StyledCard>
   );
@@ -95,7 +99,7 @@ export const CommonError = () => {
     <ErrorState
       title="Error"
       description="Something went wrong. Please, try refreshing the page."
-      button={{ text: 'Refresh page', onClick: () => router.reload() }}
+      buttons={[{ text: 'Refresh page', onClick: () => router.reload() }]}
       icon={AlertTriangle}
     />
   );
@@ -107,7 +111,7 @@ export const LoadingError = () => {
     <ErrorState
       title="Error loading data"
       description="Something went wrong while loading data. Please, try refreshing the page."
-      button={{ text: 'Refresh page', onClick: () => router.reload() }}
+      buttons={[{ text: 'Refresh page', onClick: () => router.reload() }]}
       icon={Unplug}
     />
   );
@@ -119,7 +123,22 @@ export const QuestionNotFoundError = () => {
     <ErrorState
       title="404 | Question not found"
       description="The question you’re looking for doesn’t exist or was deleted."
-      button={{ text: 'Go home', onClick: () => router.push('/questions') }}
+      buttons={[{ text: 'Go home', onClick: () => router.push('/questions') }]}
+      icon={Frown}
+    />
+  );
+};
+
+export const AgentNotFoundError = () => {
+  const router = useRouter();
+  return (
+    <ErrorState
+      title="404 | Agent not found"
+      description="The agent you’re looking for doesn’t exist."
+      buttons={[
+        { text: 'Go home', onClick: () => router.push('/questions') },
+        { text: 'See existing agents', onClick: () => router.push('/agents') },
+      ]}
       icon={Frown}
     />
   );

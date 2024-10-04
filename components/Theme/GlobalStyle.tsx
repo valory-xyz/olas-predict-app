@@ -98,8 +98,14 @@ export const GlobalStyle = createGlobalStyle`
   .mb-4 {
     margin-bottom: 4px !important;
   }
+  .mb-8 {
+    margin-bottom: 8px !important;
+  }
   .ml-4 {
     margin-left: 4px !important;
+  }
+  .ml-auto {
+    margin-left: auto;
   }
 
   .flex {

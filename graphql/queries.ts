@@ -2,6 +2,7 @@ import { gql, request } from 'graphql-request';
 
 import {
   BROKEN_MARKETS,
+  CONDITIONAL_TOKENS_SUBGRAPH_URL,
   CREATOR_ADDRESSES,
   INVALID_ANSWER_HEX,
   OLAS_AGENTS_SUBGRAPH_URL,
@@ -21,11 +22,16 @@ import {
   OmenThumbnailMapping,
   OutcomeTokenMarginalPricesResponse,
   Query,
+  QueryConditionArgs,
   QueryFixedProductMarketMakerArgs,
   QueryFixedProductMarketMakersArgs,
   QueryFpmmLiquiditiesArgs,
   QueryFpmmTradesArgs,
+  QueryUserPositionArgs,
+  QueryUserPositionsArgs,
+  TraderAgent,
   TraderAgents,
+  UserPosition,
 } from './types';
 
 const marketDataFragment = gql`
@@ -50,6 +56,7 @@ const marketDataFragment = gql`
     curatedByDxDao
     klerosTCRregistered
     outcomeTokenMarginalPrices
+    currentAnswer
     condition {
       id
       oracle
@@ -146,6 +153,29 @@ const getMarketTradesQuery = gql`
       creator {
         id
       }
+    }
+  }
+`;
+
+const getMarketUserTradesQuery = gql`
+  query GetMarketUserTrades($creator: ID!, $fpmm: ID!, $outcomeIndex_in: [BigInt!]) {
+    fpmmTrades(where: { fpmm: $fpmm, creator: $creator, outcomeIndex_in: $outcomeIndex_in }) {
+      creator {
+        id
+      }
+      title
+      outcomeIndex
+      id
+      feeAmount
+      collateralAmount
+      collateralAmountUSD
+      collateralToken
+      outcomeTokenMarginalPrice
+      outcomeTokensTraded
+      oldOutcomeTokenMarginalPrice
+      transactionHash
+      creationTimestamp
+      type
     }
   }
 `;
@@ -257,6 +287,91 @@ const getMechAgentsQuery = gql`
   }
 `;
 
+const getTraderAgentQuery = gql`
+  query GetOlasTraderAgent($id: ID!) {
+    traderAgent(id: $id) {
+      id
+      firstParticipation
+      totalBets
+    }
+  }
+`;
+
+const getAgentLastTradeTimestampQuery = gql`
+  query GetAgentLastTradeTimestamp($creator: ID!) {
+    fpmmTrades(
+      where: { creator: $creator }
+      first: 1
+      orderBy: creationTimestamp
+      orderDirection: desc
+    ) {
+      id
+      creationTimestamp
+    }
+  }
+`;
+
+const getUserPositionsQuery = gql`
+  query OmenGetMyMarkets($id: ID!) {
+    userPositions(
+      where: { user_: { id: $id } }
+      orderBy: position__createTimestamp
+      orderDirection: desc
+    ) {
+      id
+      balance
+      totalBalance
+      wrappedBalance
+      user {
+        firstParticipation
+        lastActive
+      }
+      position {
+        id
+        activeValue
+        conditionIdsStr
+        indexSets
+        multiplicities
+        wrappedTokenAddress
+        collateralTokenAddress
+        createTimestamp
+        collateralToken {
+          activeAmount
+          mergedAmount
+          redeemedAmount
+          splitAmount
+        }
+        conditions {
+          id
+          oracle
+          outcomes
+          outcomeSlotCount
+          payouts
+          payoutNumerators
+          payoutDenominator
+          questionId
+          resolved
+          resolveTimestamp
+          resolveTransaction
+          createTimestamp
+        }
+      }
+    }
+  }
+`;
+
+const getConditionMarketQuery = gql`
+  query OmenConditionsQuery($id: ID!) {
+    conditions(where: { id: $id }) {
+      fixedProductMarketMakers {
+        ...marketData
+      }
+    }
+  }
+
+  ${marketDataFragment}
+`;
+
 export const getMarkets = async (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
 ) =>
@@ -268,6 +383,9 @@ export const getMarkets = async (
 
 export const getMarketTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Filter) =>
   request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getMarketTradesQuery, params);
+
+export const getMarketUserTrades = async (params: QueryFpmmTradesArgs & FpmmTrade_Filter) =>
+  request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getMarketUserTradesQuery, params);
 
 export const getMarketLiquidity = async (params: QueryFpmmLiquiditiesArgs & FpmmTrade_Filter) =>
   request<Pick<Query, 'fpmmLiquidities'>>(OMEN_SUBGRAPH_URL, getMarketLiquidityQuery, params);
@@ -309,3 +427,23 @@ export const getCreatorAgents = async () =>
 
 export const getMechAgents = async () =>
   request<MechAgents>(OLAS_MECH_SUBGRAPH_URL, getMechAgentsQuery);
+
+export const getTraderAgent = async (params: { id: string }) =>
+  request<{ traderAgent: TraderAgent | null }>(
+    OLAS_AGENTS_SUBGRAPH_URL,
+    getTraderAgentQuery,
+    params,
+  );
+
+export const getAgentLastTradeTimestamp = async (params: { creator: string }) =>
+  request<Pick<Query, 'fpmmTrades'>>(OMEN_SUBGRAPH_URL, getAgentLastTradeTimestampQuery, params);
+
+export const getUserPositions = async (params: QueryUserPositionArgs & QueryUserPositionsArgs) =>
+  request<{ userPositions: Array<UserPosition> }>(
+    CONDITIONAL_TOKENS_SUBGRAPH_URL,
+    getUserPositionsQuery,
+    params,
+  );
+
+export const getConditionMarket = async (params: QueryConditionArgs) =>
+  request<Pick<Query, 'conditions'>>(OMEN_SUBGRAPH_URL, getConditionMarketQuery, params);
