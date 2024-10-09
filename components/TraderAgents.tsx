@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Flex, Table, Typography } from 'antd';
+import { Button, Flex, Table, Typography } from 'antd';
 import { getGlobal, getTraderAgents } from 'graphql/queries';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
@@ -37,9 +37,16 @@ export const TraderAgents = () => {
   return (
     <Card type="ongoing">
       <Flex vertical gap={12}>
-        <Title level={4} className="m-0">
-          Trader agents
-        </Title>
+        <Flex justify="space-between">
+          <Title level={4} className="m-0">
+            Trader agents
+          </Title>
+
+          <Link href="/agents/trader-agents-breakdown">
+            <Button>View breakdown</Button>
+          </Link>
+        </Flex>
+
         <Paragraph type="secondary" className="m-0">
           These agents watch for new questions being created on Omen by Creator agents. When they
           see one, they spring into action, and pay Mechs to go off and help them research the
