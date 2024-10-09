@@ -90,7 +90,7 @@ export const Chart = () => {
     // Add bullet
     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/#Bullets
     const circleTemplate = am5.Template.new({});
-    circleTemplate.adapters.add('fill', function (fill, target) {
+    circleTemplate.adapters.add('fill' as keyof am5.IEntitySettings, function (fill, target) {
       const dataItem = target.dataItem;
       if (dataItem) {
         return am5.Color.fromString(dataItem.dataContext.color);
@@ -154,6 +154,12 @@ export const Chart = () => {
         orientation: 'vertical',
       }),
     );
+
+    // change the color of the axes label
+    xAxis.get('renderer').labels.template.set('fill', am5.color(0xffffff));
+    yAxis.get('renderer').labels.template.set('fill', am5.color(0xffffff));
+
+    root.interfaceColors.set('grid', am5.color(0xffffff));
 
     // Make stuff animate on load
     // https://www.amcharts.com/docs/v5/concepts/animations/
