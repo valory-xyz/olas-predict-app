@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Button, Flex, Table, Typography } from 'antd';
-import { getGlobal, getTraderAgents } from 'graphql/queries';
+import { getAllTraderAgents, getGlobal, getTraderAgents } from 'graphql/queries';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
@@ -28,6 +28,13 @@ export const TraderAgents = () => {
         skip: (page - 1) * ITEMS_PER_PAGE,
       }),
   });
+
+  const { data: agentsAllData, isLoading } = useQuery({
+    queryKey: ['getAllTraderAgents'],
+    queryFn: async () => getAllTraderAgents(),
+  });
+
+  console.log(agentsAllData);
 
   const data = useMemo(() => {
     if (!agentsData) return [];

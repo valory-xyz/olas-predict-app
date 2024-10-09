@@ -38,11 +38,18 @@ export const Chart = () => {
       am5hierarchy.Pack.new(root, {
         maskContent: false, //!important with zoomable containers
         topDepth: 1,
-        valueField: 'value',
-        categoryField: 'name',
+        valueField: 'totalBets',
+        categoryField: 'id',
         childDataField: 'children',
+        nodePadding: 12,
       }),
     );
+
+    series.circles.template.setAll({
+      fillOpacity: 0.7,
+      strokeWidth: 1,
+      strokeOpacity: 0,
+    });
 
     series.data.setAll([
       {
@@ -59,7 +66,7 @@ export const Chart = () => {
     };
   }, []);
 
-  return <div id="chartdiv" style={{ width: '100%', height: '500px' }}></div>;
+  return <div id="chartdiv" style={{ width: '100%', height: '640px' }}></div>;
 };
 
 export default Chart;
