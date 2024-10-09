@@ -3,9 +3,12 @@
 import * as am5 from '@amcharts/amcharts5';
 import * as am5hierarchy from '@amcharts/amcharts5/hierarchy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
+import { TraderAgent } from 'graphql/types';
 import { useLayoutEffect } from 'react';
 
 import chartData from './chart-data.json';
+
+type TraderAgentInfo = Pick<TraderAgent, 'id' | 'totalBets'>;
 
 export const Chart = () => {
   useLayoutEffect(() => {
@@ -49,6 +52,26 @@ export const Chart = () => {
       fillOpacity: 0.7,
       strokeWidth: 1,
       strokeOpacity: 0,
+    });
+    series.circles.template.adapters.add('fill', (fill, target) => {
+      const dataItem = target.dataItem;
+      if (dataItem) {
+        const totalBets = (dataItem.dataContext as TraderAgentInfo).totalBets;
+        if (totalBets < 100) {
+          return am5.color(0x0000ff); // blue
+        } else if (totalBets > 100 && totalBets < 200) {
+          return am5.color(0x00ff00); // green
+        } else if (totalBets >= 200 && totalBets < 300) {
+          return am5.color(0xffff00); // yellow
+        } else if (totalBets >= 300 && totalBets < 400) {
+          return am5.color(0xffa500); // orange
+        } else if (totalBets >= 400 && totalBets < 500) {
+          return am5.color(0xff0000); // red
+        } else if (totalBets >= 500) {
+          return am5.color(0x8a2be2); // blueviolet
+        }
+      }
+      return fill;
     });
 
     series.data.setAll([
