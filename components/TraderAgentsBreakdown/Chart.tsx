@@ -1,8 +1,8 @@
 'use client';
 
 import * as am5 from '@amcharts/amcharts5';
+import * as am5hierarchy from '@amcharts/amcharts5/hierarchy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
-import * as am5xy from '@amcharts/amcharts5/xy';
 import { useLayoutEffect } from 'react';
 
 import chartData from './chart-data.json';
@@ -17,154 +17,43 @@ export const Chart = () => {
     // https://www.amcharts.com/docs/v5/concepts/themes/
     root.setThemes([am5themes_Animated.new(root)]);
 
-    // Create chart
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/
-    const chart = root.container.children.push(
-      am5xy.XYChart.new(root, {
-        panX: true,
-        panY: true,
-        wheelY: 'zoomXY',
-        pinchZoomX: true,
-        pinchZoomY: true,
+    const zoomableContainer = root.container.children.push(
+      am5.ZoomableContainer.new(root, {
+        width: am5.p100,
+        height: am5.p100,
+        wheelable: true,
+        pinchZoom: true,
       }),
     );
 
-    // Create axes
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-    const xAxis = chart.xAxes.push(
-      am5xy.ValueAxis.new(root, {
-        renderer: am5xy.AxisRendererX.new(root, {}),
-        tooltip: am5.Tooltip.new(root, {}),
+    const zoomTools = zoomableContainer.children.push(
+      am5.ZoomTools.new(root, {
+        target: zoomableContainer,
       }),
-    );
-
-    xAxis.children.moveValue(
-      am5.Label.new(root, {
-        text: 'GDP per Capita, USD',
-        x: am5.p50,
-        centerX: am5.p50,
-      }),
-      xAxis.children.length - 1,
-    );
-
-    const yAxis = chart.yAxes.push(
-      am5xy.ValueAxis.new(root, {
-        renderer: am5xy.AxisRendererY.new(root, {
-          inversed: false,
-        }),
-        tooltip: am5.Tooltip.new(root, {}),
-      }),
-    );
-
-    yAxis.children.moveValue(
-      am5.Label.new(root, {
-        rotation: -90,
-        text: 'Life expectancy, years',
-        y: am5.p50,
-        centerX: am5.p50,
-      }),
-      0,
     );
 
     // Create series
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-    const series = chart.series.push(
-      am5xy.LineSeries.new(root, {
-        calculateAggregates: true,
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: 'y',
-        valueXField: 'x',
+    // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
+    const series = zoomableContainer.contents.children.push(
+      am5hierarchy.Pack.new(root, {
+        maskContent: false, //!important with zoomable containers
+        topDepth: 1,
         valueField: 'value',
-        seriesTooltipTarget: 'bullet',
-        tooltip: am5.Tooltip.new(root, {
-          pointerOrientation: 'horizontal',
-          labelText:
-            "[bold]{title}[/]\nLife expectancy: {valueY.formatNumber('#.0')}\nGDP: {valueX.formatNumber('#,###.')}\nPopulation: {value.formatNumber('#,###.')}",
-        }),
+        categoryField: 'name',
+        childDataField: 'children',
       }),
     );
 
-    series.strokes.template.set('visible', false);
-
-    // Add bullet
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/#Bullets
-    const circleTemplate = am5.Template.new({});
-    circleTemplate.adapters.add('fill' as keyof am5.IEntitySettings, function (fill, target) {
-      const dataItem = target.dataItem;
-      if (dataItem) {
-        return am5.Color.fromString(dataItem.dataContext.color);
-      }
-      return fill;
-    });
-    series.bullets.push(function () {
-      const bulletCircle = am5.Circle.new(
-        root,
-        {
-          radius: 5,
-          fill: series.get('fill'),
-          fillOpacity: 0.8,
-        },
-        circleTemplate,
-      );
-      return am5.Bullet.new(root, {
-        sprite: bulletCircle,
-      });
-    });
-
-    // Add heat rule
-    // https://www.amcharts.com/docs/v5/concepts/settings/heat-rules/
-    series.set('heatRules', [
+    series.data.setAll([
       {
-        target: circleTemplate,
-        min: 3,
-        max: 60,
-        dataField: 'value',
-        key: 'radius',
+        name: 'root',
+        children: chartData,
       },
     ]);
 
-    // Set data
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/#Setting_data
-    series.data.setAll(chartData);
-
-    // Add cursor
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-    chart.set(
-      'cursor',
-      am5xy.XYCursor.new(root, {
-        xAxis: xAxis,
-        yAxis: yAxis,
-        snapToSeries: [series],
-      }),
-    );
-
-    // Add scrollbars
-    // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-    chart.set(
-      'scrollbarX',
-      am5.Scrollbar.new(root, {
-        orientation: 'horizontal',
-      }),
-    );
-
-    chart.set(
-      'scrollbarY',
-      am5.Scrollbar.new(root, {
-        orientation: 'vertical',
-      }),
-    );
-
-    // change the color of the axes label
-    xAxis.get('renderer').labels.template.set('fill', am5.color(0xffffff));
-    yAxis.get('renderer').labels.template.set('fill', am5.color(0xffffff));
-
-    root.interfaceColors.set('grid', am5.color(0xffffff));
-
     // Make stuff animate on load
-    // https://www.amcharts.com/docs/v5/concepts/animations/
-    series.appear(1000);
-    chart.appear(1000, 100);
+    series.appear(1000, 100);
+
     return () => {
       root.dispose();
     };
