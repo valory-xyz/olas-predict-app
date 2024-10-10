@@ -6,9 +6,7 @@ import {
   FixedProductMarketMaker_OrderBy,
   OrderDirection,
 } from 'graphql/types';
-import Link from 'next/link';
 import { useState } from 'react';
-import styled from 'styled-components';
 import { fromHex } from 'viem';
 
 import { LoadingError } from 'components/ErrorState';
@@ -24,13 +22,6 @@ import {
 } from 'utils/questions';
 
 const { Title, Paragraph } = Typography;
-
-const StyledLink = styled(Link)`
-  width: 100%;
-  &:hover {
-    color: inherit;
-  }
-`;
 
 const Loader = () => (
   <Row>
@@ -67,13 +58,16 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
     : 50;
 
   return (
-    <StyledLink href={`/questions/${market.id}`} style={{ width: '50%' }}>
-      <Card type={answerType}>
-        <CardHeader gap={24}>
-          <Flex vertical gap={16}>
-            <QuestionTitle style={{ fontSize: 16, lineHeight: '1.2' }}>
-              {market.title}
-            </QuestionTitle>
+    <Card
+      type={answerType}
+      style={{
+        height: '100%',
+      }}
+    >
+      <CardHeader gap={24} style={{ height:'100%' }}>
+        <Flex vertical gap={16}>
+          <QuestionTitle style={{ fontSize: 16, lineHeight: '1.4' }}>{market.title}</QuestionTitle>
+          <Flex vertical gap={10} style={{ marginTop:'auto' }}>
             <Answer type={answerType} answer={answer} questionId={market.question?.id} />
             <ProgressBar
               leftPercentage={leftPercentage}
@@ -82,16 +76,20 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
               hasOutcomePercentages={typeof leftPercentage === 'number'}
             />
           </Flex>
-        </CardHeader>
-      </Card>
-    </StyledLink>
+        </Flex>
+      </CardHeader>
+    </Card>
   );
 };
 
 const articleTitle =
   'Hurricane Milton: nearly 3 million without power in Florida as category 3 storm makes landfall';
-const articleParagraph =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec eros vitae est efficitur a nec est. Sed pretium faucibus eros, et libero dapibusvel. Quisque dui tortor, porta finibus ligula id, condimentum semper libero. Donec ipsum at augue aliquam accumsan vitae at metus. Fusceat lacus egetporta.';
+const articleParagraph = `Hurricane Milton made landfall in Florida, bringing with it catastrophic conditions that have left a significant mark on the state. The powerful storm caused widespread damage, characterized by extensive power outages, severe storm surges, and considerable property destruction. As the recovery efforts unfold, the prediction markets provide valuable insights into the unfolding situation and the anticipated challenges ahead.
+Upon Hurricane Milton's impact, prediction markets set the probability of storm surges exceeding 5 feet at 0.9, corroborating the catastrophic surge reported in the article. The storm surges have not only inundated homes and businesses but have also disrupted transportation networks, complicating rescue and recovery operations.
+The hurricane was classified as a Category 3 event at landfall, with prediction markets reflecting a high 0.85 probability, underscoring the severe weather conditions. This indicates a strong consensus that the hurricane's intensity contributed significantly to the damage experienced in affected regions. As a result, efforts are being concentrated on repairing infrastructure and providing immediate relief to those hit hardest by the storm.
+Regarding power outages, prediction markets estimated a 0.7 probability that 80% of affected residents in Sarasota will have their power restored within two weeks. Power companies and emergency services are working around the clock to achieve this target, with crews mobilized from across the country to assist in the restoration efforts. This probability suggests a cautiously optimistic outlook, but it also emphasizes the challenges faced by utility companies in dealing with widespread outages and damaged infrastructure.
+In terms of property damage, the prediction markets had anticipated a high volume of insurance claims, with a probability of 0.8 for claims surpassing 100,000 by October 17, 2024. This expectation aligns with the reports of substantial structural damage in affected areas, as residents begin to assess their losses and file claims. The insurance industry is bracing for a wave of claims that may impact the market significantly, with ongoing assessments guiding future probability adjustments.
+In conclusion, the prediction markets provide a robust framework for understanding the immediate and ongoing impacts of Hurricane Milton. The probabilities associated with storm surges, power restoration, and insurance claims have not only highlighted the storm's severity but also the formidable recovery efforts required. As Florida moves forward, these markets will continue to play a crucial role in shaping expectations and guiding responses in the face of this natural disaster.`;
 const articleUrl =
   'https://www.theguardian.com/us-news/2024/oct/09/hurricane-milton-makes-landfall-florida';
 const marketId1 = '0xe8c725b66d02dd97242c00c872ae43885693c701';
@@ -120,14 +118,14 @@ const ArticlesPage = () => {
       ) : (
         <>
           <Flex vertical gap={12} align="center">
-            <Title>
+            <Title style={{ fontSize: 32 }}>
               {articleTitle}
               <a target="_blank" href={articleUrl}>
                 ↗
               </a>
             </Title>
             <Paragraph>
-              {showAll ? articleParagraph : `${articleParagraph.substring(0, 250)}`}
+              {showAll ? articleParagraph : `${articleParagraph.substring(0, 240)}...`}
             </Paragraph>
             <a onClick={() => setShowAll(!showAll)}>Show {showAll ? 'less' : 'more'}</a>
 
