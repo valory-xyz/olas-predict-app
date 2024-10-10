@@ -63,6 +63,9 @@ const MenuContent = ({ closeDropdown }: { closeDropdown?: () => void }) => (
     <Link href={'/agents'} onClick={closeDropdown}>
       Agents
     </Link>
+    <Link href={'/articles'} onClick={closeDropdown}>
+      Articles
+    </Link>
     <a
       target="_blank"
       className="flex items-center"
