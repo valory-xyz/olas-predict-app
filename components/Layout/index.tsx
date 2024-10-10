@@ -87,13 +87,13 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <CustomLayout>
       <AntdLayout hasSider={isDesktop}>
-        {isDesktop && !isFullWidthPage && (
+        {isDesktop && (
           <Sider width={MENU_MAX_WIDTH}>
             <Menu />
           </Sider>
         )}
         <Content>
-          <ContentInner maxWidth={isFullWidthPage ? 1024 : undefined}>
+          <ContentInner maxWidth={isFullWidthPage ? 980 : undefined}>
             <BetaBanner>Beta</BetaBanner>
             {!isDesktop && <MobileMenu />}
             {children}

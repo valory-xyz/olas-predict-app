@@ -1,306 +1,178 @@
 [
-    {
-        "__typename": "FixedProductMarketMaker",
-        "answerFinalizedTimestamp": null,
-        "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
-        "category": "sports",
-        "collateralToken": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
-        "collateralVolume": "41936790263941820634",
-        "condition": {
-            "__typename": "Condition",
-            "id": "0xaaf8063d48415d96625148f546fad71f364e7461b28ed9b8fd0339331adeb618",
-            "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
-            "scalarHigh": null,
-            "scalarLow": null
-        },
-        "creationTimestamp": "1728180290",
-        "creator": "0x89c5cc945dd550bcffb72fe42bff002429f46fec",
-        "curatedByDxDao": false,
-        "currentAnswer": null,
-        "id": "0xa8a32f9709f2992118f841c857cb435e43e11cfd",
-        "klerosTCRregistered": false,
-        "lastActiveDay": "20005",
-        "openingTimestamp": "1728604800",
-        "outcomeTokenAmounts": [
-            "11891063615324747630",
-            "4120741557285983705"
-        ],
-        "outcomeTokenMarginalPrices": [
-            "0.2573564637380667754436733404886161",
-            "0.7426435362619332245563266595113839"
-        ],
-        "outcomes": [
-            "Yes",
-            "No"
-        ],
-        "question": {
-            "__typename": "Question",
-            "answers": [],
-            "currentAnswer": null,
-            "data": "Will the storm surge from Hurricane Milton in Tampa Bay exceed 5 feet by October 17, 2024, as verified by scientific reports?␟\"Yes\",\"No\"␟world␟en_US",
-            "id": "0xc57ef840e73f5ad671e87c6c50b54933beaaf5bc101a0b354d389e0528ae93f6",
-            "outcomes": [
-                "Yes",
-                "No"
-            ]
-        },
-        "runningDailyVolumeByHour": [
-            "41582626617824815644",
-            "41582626617824815644",
-            "6932626617824815644",
-            "6932626617824815644",
-            "6932626617824815644",
-            "6932626617824815644",
-            "6323749347574560429",
-            "6323749347574560429",
-            "5024260630790662734",
-            "3003434151757686900",
-            "3003434151757686900",
-            "3003434151757686900",
-            "712418841738709677",
-            "41936790263941820634",
-            "41778390263941820634",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644",
-            "41582626617824815644"
-        ],
-        "scaledLiquidityParameter": "7.000000000000000003",
-        "templateId": "2",
-        "title": "Will the storm surge from Hurricane Milton in Tampa Bay exceed 5 feet by October 17, 2024, as verified by scientific reports?",
-        "usdVolume": "41.93693481010090638612969380330404"
-    },
-    {
-        "__typename": "FixedProductMarketMaker",
-        "answerFinalizedTimestamp": null,
-        "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
-        "category": "politics",
-        "collateralToken": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
-        "collateralVolume": "40900869633489085610",
-        "condition": {
-            "__typename": "Condition",
-            "id": "0x415e6b71ee334bda4b546fa55621e49939fc99bbe8d2de441b118967a54e756b",
-            "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
-            "scalarHigh": null,
-            "scalarLow": null
-        },
-        "creationTimestamp": "1728181130",
-        "creator": "0x89c5cc945dd550bcffb72fe42bff002429f46fec",
-        "curatedByDxDao": false,
-        "currentAnswer": null,
-        "id": "0x15f0c209a31548d286750d84cfb26dd6890767a3",
-        "klerosTCRregistered": false,
-        "lastActiveDay": "20005",
-        "openingTimestamp": "1728604800",
-        "outcomeTokenAmounts": [
-            "23051562859588867460",
-            "2125669322226333943"
-        ],
-        "outcomeTokenMarginalPrices": [
-            "0.08442823686400463138564274355078388",
-            "0.9155717631359953686143572564492161"
-        ],
-        "outcomes": [
-            "Yes",
-            "No"
-        ],
-        "question": {
-            "__typename": "Question",
-            "answers": [],
-            "currentAnswer": null,
-            "data": "Will 80% or more of the affected residents in Sarasota have their power restored within two weeks of Hurricane Milton's landfall, as reported by local utility companies by October 17, 2024?␟\"Yes\",\"No\"␟world␟en_US",
-            "id": "0x04ef8ecfd72e79caf14ae83d113e80076e459cb2222cd2f77647bee4437c275f",
-            "outcomes": [
-                "Yes",
-                "No"
-            ]
-        },
-        "runningDailyVolumeByHour": [
-            "1678537510298017433",
-            "1678537510298017433",
-            "1610959081944525851",
-            "1559818316478720892",
-            "918683474563233810",
-            "918683474563233810",
-            "180652998059258364",
-            "28247903833205733405",
-            "28247903833205733405",
-            "28247903833205733405",
-            "28247903833205733405",
-            "28247903833205733405",
-            "27286291958303300921",
-            "27286291958303300921",
-            "27286291958303300921",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433",
-            "26428537510298017433"
-        ],
-        "scaledLiquidityParameter": "7.000000000000000015",
-        "templateId": "2",
-        "title": "Will 80% or more of the affected residents in Sarasota have their power restored within two weeks of Hurricane Milton's landfall, as reported by local utility companies by October 17, 2024?",
-        "usdVolume": "40.90094764160558742898619916543442"
-    },
-    {
-        "__typename": "FixedProductMarketMaker",
-        "answerFinalizedTimestamp": null,
-        "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
-        "category": "technology",
-        "collateralToken": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
-        "collateralVolume": "35563520466189645460",
-        "condition": {
-            "__typename": "Condition",
-            "id": "0xf4da8375603bb99699665eb684248c5ef7d0f76ea9fb8271d13de66ffe073a6f",
-            "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
-            "scalarHigh": null,
-            "scalarLow": null
-        },
-        "creationTimestamp": "1728179420",
-        "creator": "0x89c5cc945dd550bcffb72fe42bff002429f46fec",
-        "curatedByDxDao": false,
-        "currentAnswer": null,
-        "id": "0x468c285c4b87f69c5a07572cf8cdeb643e7776c5",
-        "klerosTCRregistered": false,
-        "lastActiveDay": "20005",
-        "openingTimestamp": "1728604800",
-        "outcomeTokenAmounts": [
-            "14067264484466045347",
-            "3483264287389269580"
-        ],
-        "outcomeTokenMarginalPrices": [
-            "0.1984706177613954636590913193279932",
-            "0.8015293822386045363409086806720068"
-        ],
-        "outcomes": [
-            "Yes",
-            "No"
-        ],
-        "question": {
-            "__typename": "Question",
-            "answers": [],
-            "currentAnswer": null,
-            "data": "Will Hurricane Milton be classified as a Category 3 hurricane or higher at any point during its path across Florida, as confirmed by meteorological agencies by October 17, 2024?␟\"Yes\",\"No\"␟world␟en_US",
-            "id": "0x35b756d78d80430fc92839ed6ed4e0a981eb41f44a969e7d7a74e29606521521",
-            "outcomes": [
-                "Yes",
-                "No"
-            ]
-        },
-        "runningDailyVolumeByHour": [
-            "13869598203931895715",
-            "13424098203931895715",
-            "12411267586665343502",
-            "12411267586665343502",
-            "11917673501834334896",
-            "11917673501834334896",
-            "11554915746115661203",
-            "11554915746115661203",
-            "11554915746115661203",
-            "552443849366376592",
-            "16672566978465417762",
-            "16672566978465417762",
-            "15522612127086356160",
-            "15522612127086356160",
-            "15522612127086356160",
-            "15522612127086356160",
-            "15522612127086356160",
-            "14831679044035715136",
-            "14831679044035715136",
-            "14831679044035715136",
-            "14831679044035715136",
-            "14831679044035715136",
-            "14831679044035715136",
-            "14831679044035715136"
-        ],
-        "scaledLiquidityParameter": "7.000000000000000011",
-        "templateId": "2",
-        "title": "Will Hurricane Milton be classified as a Category 3 hurricane or higher at any point during its path across Florida, as confirmed by meteorological agencies by October 17, 2024?",
-        "usdVolume": "35.563496196599363549851746778406"
-    },
-    {
-        "__typename": "FixedProductMarketMaker",
-        "answerFinalizedTimestamp": null,
-        "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
-        "category": "technology",
-        "collateralToken": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
-        "collateralVolume": "34262400299836788582",
-        "condition": {
-            "__typename": "Condition",
-            "id": "0x01b467f744d8d32757d6263c5bb0859cdfce0047ef609ff4071d926bdbb6efe0",
-            "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
-            "scalarHigh": null,
-            "scalarLow": null
-        },
-        "creationTimestamp": "1728174435",
-        "creator": "0xffc8029154ecd55abed15bd428ba596e7d23f557",
-        "curatedByDxDao": false,
-        "currentAnswer": null,
-        "id": "0xb7e871977ea88ea8c6c26808e49479709eb71a7a",
-        "klerosTCRregistered": false,
-        "lastActiveDay": "20005",
-        "openingTimestamp": "1728604800",
-        "outcomeTokenAmounts": [
-            "2791730980297145925",
-            "17551834451750986417"
-        ],
-        "outcomeTokenMarginalPrices": [
-            "0.8627708112610778284169535907079249",
-            "0.1372291887389221715830464092920751"
-        ],
-        "outcomes": [
-            "Yes",
-            "No"
-        ],
-        "question": {
-            "__typename": "Question",
-            "answers": [],
-            "currentAnswer": null,
-            "data": "Will the total number of insurance claims filed due to Hurricane Milton exceed 100,000 by October 17, 2024?␟\"Yes\",\"No\"␟world␟en_US",
-            "id": "0x72fd03e31310acc635e6a0770a5333b88c3240e045891435d70cb4ca371886aa",
-            "outcomes": [
-                "Yes",
-                "No"
-            ]
-        },
-        "runningDailyVolumeByHour": [
-            "31631042263729302099",
-            "31631042263729302099",
-            "1931042263729302099",
-            "1931042263729302099",
-            "1931042263729302099",
-            "1931042263729302099",
-            "1931042263729302099",
-            "1931042263729302099",
-            "1020141400610824857",
-            "1020141400610824857",
-            "883378259735389051",
-            "883378259735389051",
-            "430562959667134312",
-            "31944809480697425608",
-            "31944809480697425608",
-            "31944809480697425608",
-            "31631042263729302099",
-            "31631042263729302099",
-            "31631042263729302099",
-            "31631042263729302099",
-            "31631042263729302099",
-            "31631042263729302099",
-            "31631042263729302099",
-            "31631042263729302099"
-        ],
-        "scaledLiquidityParameter": "7.000000000000000008",
-        "templateId": "2",
-        "title": "Will the total number of insurance claims filed due to Hurricane Milton exceed 100,000 by October 17, 2024?",
-        "usdVolume": "34.26250985491410227769691617886875"
-    }
+  {
+      "creationTimestamp": "1728180290",
+      "creator": "0x89c5cc945dd550bcffb72fe42bff002429f46fec",
+      "id": "0xa8a32f9709f2992118f841c857cb435e43e11cfd",
+      "lastActiveDay": "20005",
+      "openingTimestamp": "1728604800",
+      "outcomeTokenAmounts": [
+          "11891063615324747630",
+          "4120741557285983705"
+      ],
+      "outcomeTokenMarginalPrices": [
+          "0.2573564637380667754436733404886161",
+          "0.7426435362619332245563266595113839"
+      ],
+      "outcomes": [
+          "Yes",
+          "No"
+      ],
+      "question": {
+          "__typename": "Question",
+          "answers": [],
+          "currentAnswer": null,
+          "data": "Will the storm surge from Hurricane Milton in Tampa Bay exceed 5 feet by October 17, 2024, as verified by scientific reports?␟\"Yes\",\"No\"␟world␟en_US",
+          "id": "0xc57ef840e73f5ad671e87c6c50b54933beaaf5bc101a0b354d389e0528ae93f6",
+          "outcomes": [
+              "Yes",
+              "No"
+          ]
+      },
+      "title": "Will the storm surge from Hurricane Milton in Tampa Bay exceed 5 feet by October 17, 2024, as verified by scientific reports?",
+      "usdVolume": "41.93693481010090638612969380330404"
+  },
+  {
+      "__typename": "FixedProductMarketMaker",
+      "answerFinalizedTimestamp": null,
+      "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
+      "category": "politics",
+      "collateralVolume": "40900869633489085610",
+      "condition": {
+          "__typename": "Condition",
+          "id": "0x415e6b71ee334bda4b546fa55621e49939fc99bbe8d2de441b118967a54e756b",
+          "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
+          "scalarHigh": null,
+          "scalarLow": null
+      },
+      "creationTimestamp": "1728181130",
+      "creator": "0x89c5cc945dd550bcffb72fe42bff002429f46fec",
+      "curatedByDxDao": false,
+      "currentAnswer": null,
+      "id": "0x15f0c209a31548d286750d84cfb26dd6890767a3",
+      "klerosTCRregistered": false,
+      "lastActiveDay": "20005",
+      "openingTimestamp": "1728604800",
+      "outcomeTokenAmounts": [
+          "23051562859588867460",
+          "2125669322226333943"
+      ],
+      "outcomeTokenMarginalPrices": [
+          "0.08442823686400463138564274355078388",
+          "0.9155717631359953686143572564492161"
+      ],
+      "outcomes": [
+          "Yes",
+          "No"
+      ],
+      "question": {
+          "__typename": "Question",
+          "answers": [],
+          "currentAnswer": null,
+          "data": "Will 80% or more of the affected residents in Sarasota have their power restored within two weeks of Hurricane Milton's landfall, as reported by local utility companies by October 17, 2024?␟\"Yes\",\"No\"␟world␟en_US",
+          "id": "0x04ef8ecfd72e79caf14ae83d113e80076e459cb2222cd2f77647bee4437c275f",
+          "outcomes": [
+              "Yes",
+              "No"
+          ]
+      },
+      "scaledLiquidityParameter": "7.000000000000000015",
+      "templateId": "2",
+      "title": "Will 80% or more of the affected residents in Sarasota have their power restored within two weeks of Hurricane Milton's landfall, as reported by local utility companies by October 17, 2024?",
+      "usdVolume": "40.90094764160558742898619916543442"
+  },
+  {
+      "__typename": "FixedProductMarketMaker",
+      "answerFinalizedTimestamp": null,
+      "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
+      "category": "technology",
+      "collateralVolume": "35563520466189645460",
+      "condition": {
+          "__typename": "Condition",
+          "id": "0xf4da8375603bb99699665eb684248c5ef7d0f76ea9fb8271d13de66ffe073a6f",
+          "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
+          "scalarHigh": null,
+          "scalarLow": null
+      },
+      "creationTimestamp": "1728179420",
+      "creator": "0x89c5cc945dd550bcffb72fe42bff002429f46fec",
+      "curatedByDxDao": false,
+      "currentAnswer": null,
+      "id": "0x468c285c4b87f69c5a07572cf8cdeb643e7776c5",
+      "lastActiveDay": "20005",
+      "openingTimestamp": "1728604800",
+      "outcomeTokenAmounts": [
+          "14067264484466045347",
+          "3483264287389269580"
+      ],
+      "outcomeTokenMarginalPrices": [
+          "0.1984706177613954636590913193279932",
+          "0.8015293822386045363409086806720068"
+      ],
+      "outcomes": [
+          "Yes",
+          "No"
+      ],
+      "question": {
+          "__typename": "Question",
+          "answers": [],
+          "currentAnswer": null,
+          "data": "Will Hurricane Milton be classified as a Category 3 hurricane or higher at any point during its path across Florida, as confirmed by meteorological agencies by October 17, 2024?␟\"Yes\",\"No\"␟world␟en_US",
+          "id": "0x35b756d78d80430fc92839ed6ed4e0a981eb41f44a969e7d7a74e29606521521",
+          "outcomes": [
+              "Yes",
+              "No"
+          ]
+      },
+      "scaledLiquidityParameter": "7.000000000000000011",
+      "templateId": "2",
+      "title": "Will Hurricane Milton be classified as a Category 3 hurricane or higher at any point during its path across Florida, as confirmed by meteorological agencies by October 17, 2024?",
+      "usdVolume": "35.563496196599363549851746778406"
+  },
+  {
+      "__typename": "FixedProductMarketMaker",
+      "answerFinalizedTimestamp": null,
+      "arbitrator": "0xe40dd83a262da3f56976038f1554fe541fa75ecd",
+      "category": "technology",
+      "collateralVolume": "34262400299836788582",
+      "condition": {
+          "__typename": "Condition",
+          "id": "0x01b467f744d8d32757d6263c5bb0859cdfce0047ef609ff4071d926bdbb6efe0",
+          "oracle": "0xab16d643ba051c11962da645f74632d3130c81e2",
+          "scalarHigh": null,
+          "scalarLow": null
+      },
+      "creationTimestamp": "1728174435",
+      "creator": "0xffc8029154ecd55abed15bd428ba596e7d23f557",
+      "curatedByDxDao": false,
+      "currentAnswer": null,
+      "id": "0xb7e871977ea88ea8c6c26808e49479709eb71a7a",
+      "openingTimestamp": "1728604800",
+      "outcomeTokenAmounts": [
+          "2791730980297145925",
+          "17551834451750986417"
+      ],
+      "outcomeTokenMarginalPrices": [
+          "0.8627708112610778284169535907079249",
+          "0.1372291887389221715830464092920751"
+      ],
+      "outcomes": [
+          "Yes",
+          "No"
+      ],
+      "question": {
+          "__typename": "Question",
+          "answers": [],
+          "currentAnswer": null,
+          "data": "Will the total number of insurance claims filed due to Hurricane Milton exceed 100,000 by October 17, 2024?␟\"Yes\",\"No\"␟world␟en_US",
+          "id": "0x72fd03e31310acc635e6a0770a5333b88c3240e045891435d70cb4ca371886aa",
+          "outcomes": [
+              "Yes",
+              "No"
+          ]
+      },
+      "scaledLiquidityParameter": "7.000000000000000008",
+      "templateId": "2",
+      "title": "Will the total number of insurance claims filed due to Hurricane Milton exceed 100,000 by October 17, 2024?",
+      "usdVolume": "34.26250985491410227769691617886875"
+  }
 ]

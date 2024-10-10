@@ -27,12 +27,12 @@ import mockData from './mock_data.json';
 const { Title, Paragraph } = Typography;
 
 const Loader = () => (
-  <Row>
+  <Row gutter={16} style={{ width: '100%', marginTop: 16 }}>
     <Col span={12}>
-      <Skeleton />
+      <Skeleton active />
     </Col>
     <Col span={12}>
-      <Skeleton />
+      <Skeleton active />
     </Col>
   </Row>
 );
