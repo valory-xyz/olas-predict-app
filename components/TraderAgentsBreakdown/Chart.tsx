@@ -18,7 +18,7 @@ export const Chart = () => {
   const { data: agentsAllData, isLoading } = useQuery({
     queryKey: ['getAllTraderAgents'],
     queryFn: async () => getAllTraderAgents(),
-    select: (data) => data.traderAgents,
+    select: (data) => data.traderAgents.filter((agent) => agent.totalBets > 200),
     refetchOnWindowFocus: false,
     refetchInterval: false,
   });
@@ -104,7 +104,7 @@ export const Chart = () => {
       });
 
       animation.play();
-    }, 4000);
+    }, 3000);
 
     series.data.setAll([
       {
