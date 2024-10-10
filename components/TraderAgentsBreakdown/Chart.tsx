@@ -6,9 +6,11 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import { TraderAgent } from 'graphql/types';
 import { useLayoutEffect } from 'react';
 
+import { getAgentName } from 'utils/agents';
+
 import chartData from './chart-data.json';
 
-type TraderAgentInfo = Pick<TraderAgent, 'id' | 'totalBets'>;
+type TraderAgentInfo = Pick<TraderAgent, 'id' | 'totalBets'> | 'name';
 
 export const Chart = () => {
   useLayoutEffect(() => {
@@ -42,9 +44,10 @@ export const Chart = () => {
         maskContent: false, //!important with zoomable containers
         topDepth: 1,
         valueField: 'totalBets',
-        categoryField: 'id',
+        categoryField: 'name',
         childDataField: 'children',
         nodePadding: 12,
+        // tooltipText: '{name}: {totalBets}',
       }),
     );
 
@@ -54,31 +57,12 @@ export const Chart = () => {
       strokeOpacity: 0,
     });
 
-    // series.circles.template.adapters.add('fill', (fill, target) => {
-    //   const dataItem = target.dataItem;
-    //   if (dataItem) {
-    //     const totalBets = (dataItem.dataContext as TraderAgentInfo).totalBets;
-    //     if (totalBets < 100) {
-    //       return am5.color(0x0000ff); // blue
-    //     } else if (totalBets > 100 && totalBets < 200) {
-    //       return am5.color(0x00ff00); // green
-    //     } else if (totalBets >= 200 && totalBets < 300) {
-    //       return am5.color(0xffff00); // yellow
-    //     } else if (totalBets >= 300 && totalBets < 400) {
-    //       return am5.color(0xffa500); // orange
-    //     } else if (totalBets >= 400 && totalBets < 500) {
-    //       return am5.color(0xff0000); // red
-    //     } else if (totalBets >= 500) {
-    //       return am5.color(0x8a2be2); // blueviolet
-    //     }
-    //   }
-    //   return fill;
-    // });
-
     setInterval(async () => {
+      const randomIndex = 1 || Math.floor(Math.random() * chartData.length);
+
       const allInnerCircles = series.circles;
       // console.log('allInnerCircles', allInnerCircles);
-      const circle = allInnerCircles.values[1];
+      const circle = allInnerCircles.values[randomIndex];
       // allInnerCircles._values.forEach((circle) => {
       // const circle = dataItem.get('circle');
       // console.log('dataItem', dataItem);
@@ -93,24 +77,22 @@ export const Chart = () => {
       if (circle) {
         const animation = circle.animate({
           key: 'y',
-          from: -20,
-          to: 20,
-          loops: 4,
-          duration: 100,
+          from: -30,
+          to: 30,
+          loops: 2,
+          duration: 200,
           easing: am5.ease.yoyo(am5.ease.cubic),
         });
 
-        await new Promise((resolve) => setTimeout(resolve, 300)); // 3 sec
+        // wait for the animation to finish
+        await new Promise((resolve) => setTimeout(resolve, 300));
 
-        // animation.events.on('stopped', () => {
         circle.animate({
           key: 'y',
           to: 0,
           duration: 50,
           easing: am5.ease.out(am5.ease.cubic),
         });
-        // .play();
-        // });
 
         animation.play();
       }
@@ -144,7 +126,11 @@ export const Chart = () => {
     series.data.setAll([
       {
         name: 'Root',
-        children: chartData,
+        children: chartData.map((data) => ({
+          id: data.id,
+          name: getAgentName(data.id),
+          totalBets: data.totalBets,
+        })),
       },
     ]);
 

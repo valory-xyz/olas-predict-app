@@ -82,7 +82,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const { isDesktop } = useScreen();
   const { pathname } = useRouter();
 
-  const isFullWidthPage = ['/agents/trader-agents-breakdown'].includes(pathname);
+  const isFullWidthPage = ['/agents/trader-agents-breakdown', '/articles'].includes(pathname);
 
   return (
     <CustomLayout>
@@ -93,7 +93,7 @@ export const Layout = ({ children }: LayoutProps) => {
           </Sider>
         )}
         <Content>
-          <ContentInner maxWidth={isFullWidthPage ? 1200 : undefined}>
+          <ContentInner maxWidth={isFullWidthPage ? 1024 : undefined}>
             <BetaBanner>Beta</BetaBanner>
             {!isDesktop && <MobileMenu />}
             {children}

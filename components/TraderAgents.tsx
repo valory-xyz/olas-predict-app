@@ -78,7 +78,7 @@ export const TraderAgents = () => {
               <Link href={`/agents/${id}`}>
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                  <b>{getAgentName(id, 'trader')}</b>
+                  <b>{getAgentName(id)}</b>
                 </Flex>
               </Link>
             ),
