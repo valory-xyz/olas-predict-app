@@ -32,7 +32,7 @@ type ProgressBarProps = {
 
 const ELLIPSIS_TEXT_STYLE = { maxWidth: '30%' };
 
-const ProgressBar = ({
+export const ProgressBar = ({
   leftPercentage,
   type,
   outcomes,

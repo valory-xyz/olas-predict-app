@@ -12,9 +12,15 @@ import { fromHex } from 'viem';
 
 import { LoadingError } from 'components/ErrorState';
 import { Answer } from 'components/shared/Answer';
+import { ProgressBar } from 'components/shared/PredictionBar';
 import { Card, CardHeader, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
-import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
+import {
+  convertToPercentage,
+  getAnswer,
+  getAnswerType,
+  getPredictedAnswerIndex,
+} from 'utils/questions';
 
 const { Title, Paragraph } = Typography;
 
@@ -55,6 +61,10 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
     return <Skeleton />;
   }
 
+  const leftPercentage = outcomeTokenMarginalPrices?.[0]
+    ? convertToPercentage(outcomeTokenMarginalPrices[0])
+    : 50;
+
   return (
     <StyledLink href={`/questions/${market.id}`} style={{ width: '50%' }}>
       <Card type={answerType}>
@@ -64,6 +74,12 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
               {market.title}
             </QuestionTitle>
             <Answer type={answerType} answer={answer} questionId={market.question?.id} />
+            <ProgressBar
+              leftPercentage={leftPercentage}
+              type={answerType}
+              outcomes={market.outcomes}
+              hasOutcomePercentages={typeof leftPercentage === 'number'}
+            />
           </Flex>
         </CardHeader>
       </Card>
