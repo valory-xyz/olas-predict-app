@@ -6,6 +6,7 @@ import {
   FixedProductMarketMaker_OrderBy,
   OrderDirection,
 } from 'graphql/types';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -121,8 +122,15 @@ const ArticlesPage = () => {
             <a target="_blank" className="flex items-center" href={articleUrl}>
               <b>{articleUrl}</b>
             </a>
-            <Paragraph>{showAll ? text : `${articleParagraph.substring(0, 250)}`}</Paragraph>
-            <a onClick={() => setShowAll(!showAll)}>Show {showAll ? 'less' : 'more'}</a>
+            <Paragraph className="m-0">
+              {showAll ? articleParagraph : `${articleParagraph.substring(0, 250)}`}
+            </Paragraph>
+            <a onClick={() => setShowAll(!showAll)}>
+              <Flex align="center" gap={4}>
+                Show {showAll ? 'less' : 'more'}
+                {showAll ? <ArrowUp /> : <ArrowDown />}
+              </Flex>
+            </a>
 
             <Flex wrap className="md:grid-cols-3 full-width">
               {isLoading && <Loader />}
