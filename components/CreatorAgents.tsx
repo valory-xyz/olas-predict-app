@@ -48,7 +48,7 @@ export const CreatorAgents = () => {
               >
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                  <b>{getAgentName(id, 'creator')}</b>
+                  <b>{getAgentName(id)}</b>
                 </Flex>
               </a>
             ),
