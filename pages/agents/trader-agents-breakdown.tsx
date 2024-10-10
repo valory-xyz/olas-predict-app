@@ -1,6 +1,6 @@
 import { Flex } from 'antd';
 
-import { TraderAgentsBreakdown } from 'components/TraderAgentsBreakdown';
+import { TraderAgentsBreakdown } from 'components/TraderAgentsBreakdown/TraderAgentsBreakdown';
 import { useScreen } from 'hooks/useScreen';
 
 const TraderAgentsBreakdownPage = () => {

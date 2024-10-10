@@ -157,7 +157,7 @@ export const MechAgents = () => {
               >
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                  <b>{getAgentName(id, 'mech')}</b>
+                  <b>{getAgentName(id)}</b>
                 </Flex>
               </a>
             ),

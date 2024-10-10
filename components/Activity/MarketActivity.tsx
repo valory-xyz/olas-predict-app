@@ -36,7 +36,7 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
     return {
       id: item.id,
       creator: item.creator.id,
-      name: getAgentName(item.creator.id, 'trader'),
+      name: getAgentName(item.creator.id),
       value: outcomeValue ? `$${betAmount} ${outcomeValue}` : NA,
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
       time: new Date(item.creationTimestamp * 1000).toLocaleString(),
