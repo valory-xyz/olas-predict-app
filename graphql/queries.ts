@@ -115,6 +115,7 @@ const getMarketsQuery = (
           `
             : ''
         }
+        ${params.id ? 'where: { id: $id }' : ''}
         ${params.scaledLiquidityParameter_gt !== undefined ? 'scaledLiquidityParameter_gt: $scaledLiquidityParameter_gt' : ''}
       }
     ) {
