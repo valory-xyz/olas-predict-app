@@ -1,18 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
-import { Flex, Typography } from 'antd';
+import { Col, Flex, Row, Skeleton, Typography } from 'antd';
 import { getMarkets } from 'graphql/queries';
-import { FixedProductMarketMaker } from 'graphql/types';
+import {
+  FixedProductMarketMaker,
+  FixedProductMarketMaker_OrderBy,
+  OrderDirection,
+} from 'graphql/types';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { fromHex } from 'viem';
 
-import { LoaderCard } from 'components/AgentDetailsCard/LoaderCard';
 import { LoadingError } from 'components/ErrorState';
 import { Answer } from 'components/shared/Answer';
 import { Card, CardHeader, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
-import { Console } from 'console';
 
 const { Title, Paragraph } = Typography;
 
@@ -22,6 +24,17 @@ const StyledLink = styled(Link)`
     color: inherit;
   }
 `;
+
+const Loader = () => (
+  <Row>
+    <Col span={12}>
+      <Skeleton />
+    </Col>
+    <Col span={12}>
+      <Skeleton />
+    </Col>
+  </Row>
+);
 
 type ArticlesCardProp = {
   market: FixedProductMarketMaker;
@@ -39,15 +52,17 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
   const answer = getAnswer(predictedAnswerIndex, currentAnswerIndex, market.outcomes);
 
   if (isLoading) {
-    return <LoaderCard />;
+    return <Skeleton />;
   }
 
   return (
-    <StyledLink href={`/questions/${market.id}`}>
+    <StyledLink href={`/questions/${market.id}`} style={{ width: '50%' }}>
       <Card type={answerType}>
         <CardHeader gap={24}>
           <Flex vertical gap={16}>
-            <QuestionTitle>{market.title}</QuestionTitle>
+            <QuestionTitle style={{ fontSize: 16, lineHeight: '1.2' }}>
+              {market.title}
+            </QuestionTitle>
             <Answer type={answerType} answer={answer} questionId={market.question?.id} />
           </Flex>
         </CardHeader>
@@ -56,19 +71,30 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
   );
 };
 
-const articleurl = 'https://olas.network/';
-const marketId = '0xa8a32f9709f2992118f841c857cb435e43e11cfd';
+const articleParagraph =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec eros vitae est efficitur a nec est. Sed pretium faucibus eros, et libero dapibusvel. Quisque dui tortor, porta finibus ligula id, condimentum semper libero. Donec ipsum at augue aliquam accumsan vitae at metus. Fusceat lacus egetporta.';
+// const nowTimestamp = Math.floor(Date.now() / 1000);
+const articleUrl = 'https://olas.network/';
+const marketId1 = '0xe8c725b66d02dd97242c00c872ae43885693c701';
+const marketId2 = '0x2a1e5f3e8678d202569f2e696f3f6c99a03afa37';
 
 const ArticlesPage = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['getMarkets', marketId],
-    queryFn: async () => getMarkets({ id: marketId }),
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['getMarketsForArticle', articleUrl],
+    queryFn: async () =>
+      getMarkets({
+        first: 10,
+        skip: 0,
+        id_in: [marketId1, marketId2],
+        orderBy: FixedProductMarketMaker_OrderBy.UsdVolume,
+        orderDirection: OrderDirection.Desc,
+        // scaledLiquidityParameter_gt: 0,
+        // openingTimestamp_gt: nowTimestamp,
+        // usdVolume_gt: 10,
+      }),
   });
 
   const markets = data?.fixedProductMarketMakers;
-
-  console.log(markets);
-  console.log(error);
 
   return (
     <Card type="ongoing">
@@ -78,24 +104,20 @@ const ArticlesPage = () => {
         <>
           <Flex vertical gap={12} align="center">
             <Title>TOPIC</Title>
-            <a target="_blank" className="flex items-center" href={articleurl}>
-              <b>{articleurl}</b>
+            <a target="_blank" className="flex items-center" href={articleUrl}>
+              <b>{articleUrl}</b>
             </a>
-            <Paragraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec eros vitae est
-              tristique efficitur a nec est. Sed pretium faucibus eros, et fermentum libero dapibus
-              vel. Quisque dui tortor, porta finibus ligula id, condimentum semper libero. Donec
-              eget ipsum at augue aliquam accumsan vitae at metus. Fusce consectetur at lacus eget
-              porta.
-            </Paragraph>
+            <Paragraph>{articleParagraph}</Paragraph>
 
-            <Flex wrap className="md:grid-cols-3">
-              {isLoading && (
-                <>
-                  <LoaderCard />
-                </>
-              )}
-              {markets?.map((market) => <ArticleCard market={market} key={market.id} />)}
+            <Flex wrap className="md:grid-cols-3 full-width">
+              {isLoading && <Loader />}
+              <Row gutter={[16, 0]} style={{ width: '100%' }}>
+                {markets?.map((market) => (
+                  <Col key={market.id} span={12}>
+                    <ArticleCard market={market} />
+                  </Col>
+                ))}
+              </Row>
             </Flex>
           </Flex>
         </>
