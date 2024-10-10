@@ -22,6 +22,8 @@ import {
   getPredictedAnswerIndex,
 } from 'utils/questions';
 
+import mockData from './mock_data.json';
+
 const { Title, Paragraph } = Typography;
 
 const Loader = () => (
@@ -123,24 +125,26 @@ const articleParagraph = (
 );
 const articleUrl =
   'https://www.theguardian.com/us-news/2024/oct/09/hurricane-milton-makes-landfall-florida';
-const marketId1 = '0xe8c725b66d02dd97242c00c872ae43885693c701';
-const marketId2 = '0x2a1e5f3e8678d202569f2e696f3f6c99a03afa37';
+const marketId1 = '0x4a81560d84a1f0fad5b9183ea9920d21b7a6ff78';
 
 const ArticlesPage = () => {
+  const [showAll, setShowAll] = useState(true);
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['getMarketsForArticle', articleUrl],
     queryFn: async () =>
       getMarkets({
         first: 10,
         skip: 0,
-        id_in: [marketId1, marketId2],
+        id_in: [marketId1],
         orderBy: FixedProductMarketMaker_OrderBy.UsdVolume,
         orderDirection: OrderDirection.Desc,
       }),
   });
 
-  const markets = data?.fixedProductMarketMakers;
-  const [showAll, setShowAll] = useState(true);
+  const markets = data?.fixedProductMarketMakers
+    ? [...data.fixedProductMarketMakers, ...(mockData as unknown as FixedProductMarketMaker[])]
+    : [];
 
   return (
     <Card type="ongoing">
@@ -178,7 +182,7 @@ const ArticlesPage = () => {
 
             <Flex wrap className="md:grid-cols-3 full-width">
               {isLoading && <Loader />}
-              <Row gutter={[16, 0]} style={{ width: '100%' }}>
+              <Row gutter={[16, 16]} style={{ width: '100%' }}>
                 {markets?.map((market) => (
                   <Col key={market.id} span={12}>
                     <ArticleCard market={market} />
