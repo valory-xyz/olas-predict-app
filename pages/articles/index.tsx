@@ -89,7 +89,6 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
 
 const articleParagraph =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec eros vitae est efficitur a nec est. Sed pretium faucibus eros, et libero dapibusvel. Quisque dui tortor, porta finibus ligula id, condimentum semper libero. Donec ipsum at augue aliquam accumsan vitae at metus. Fusceat lacus egetporta.';
-// const nowTimestamp = Math.floor(Date.now() / 1000);
 const articleUrl = 'https://olas.network/';
 const marketId1 = '0xe8c725b66d02dd97242c00c872ae43885693c701';
 const marketId2 = '0x2a1e5f3e8678d202569f2e696f3f6c99a03afa37';
@@ -104,9 +103,6 @@ const ArticlesPage = () => {
         id_in: [marketId1, marketId2],
         orderBy: FixedProductMarketMaker_OrderBy.UsdVolume,
         orderDirection: OrderDirection.Desc,
-        // scaledLiquidityParameter_gt: 0,
-        // openingTimestamp_gt: nowTimestamp,
-        // usdVolume_gt: 10,
       }),
   });
 
