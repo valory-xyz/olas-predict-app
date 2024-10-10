@@ -85,46 +85,51 @@ const marketDataFragment = gql`
 
 const getMarketsQuery = (
   params: QueryFixedProductMarketMakersArgs & FixedProductMarketMaker_Filter,
-) => gql`
-  query GetMarkets(
-    $first: Int!
-    $skip: Int!
-    $openingTimestamp_gt: Int
-    $answerFinalizedTimestamp_lt: Int
-    $scaledLiquidityParameter_gt: Int
-    $usdVolume_gt: Int
-    $orderBy: String
-    $orderDirection: String
-  ) {
-    fixedProductMarketMakers(
-      first: $first
-      skip: $skip
-      orderBy: $orderBy
-      orderDirection: $orderDirection
-      where: {
-        outcomeSlotCount: 2
-        id_not_in: [${BROKEN_MARKETS.map((address) => `"${address}"`)}]
-        creator_in: [${CREATOR_ADDRESSES.map((address) => `"${address}"`)}]
-        ${params.openingTimestamp_gt ? 'openingTimestamp_gt: $openingTimestamp_gt' : ''}
-        ${params.usdVolume_gt ? 'usdVolume_gt: $usdVolume_gt' : ''}
-        ${
-          params.answerFinalizedTimestamp_lt
-            ? `
-          answerFinalizedTimestamp_lt: $answerFinalizedTimestamp_lt,
-          currentAnswer_not: "${INVALID_ANSWER_HEX}"
-          `
-            : ''
-        }
-        ${params.scaledLiquidityParameter_gt !== undefined ? 'scaledLiquidityParameter_gt: $scaledLiquidityParameter_gt' : ''}
-      }
+) => {
+  const idsIn = params.id_in ? params.id_in.map((id) => `${id}`) : null;
+  return gql`
+    query GetMarkets(
+      $first: Int!
+      $skip: Int!
+      $openingTimestamp_gt: Int
+      $answerFinalizedTimestamp_lt: Int
+      $scaledLiquidityParameter_gt: Int
+      $usdVolume_gt: Int
+      $orderBy: String
+      $orderDirection: String
+      $ids: [ID!]
     ) {
-      ...marketData
-      __typename
+      fixedProductMarketMakers(
+        first: $first
+        skip: $skip
+        orderBy: $orderBy
+        orderDirection: $orderDirection
+        where: {
+          outcomeSlotCount: 2
+          id_not_in: [${BROKEN_MARKETS.map((address) => `"${address}"`)}]
+          creator_in: [${CREATOR_ADDRESSES.map((address) => `"${address}"`)}]
+          ${params.openingTimestamp_gt ? 'openingTimestamp_gt: $openingTimestamp_gt' : ''}
+          ${params.usdVolume_gt ? 'usdVolume_gt: $usdVolume_gt' : ''}
+          ${
+            params.answerFinalizedTimestamp_lt
+              ? `
+            answerFinalizedTimestamp_lt: $answerFinalizedTimestamp_lt,
+            currentAnswer_not: "${INVALID_ANSWER_HEX}"
+            `
+              : ''
+          }
+          ${idsIn ? `id_in: ${JSON.stringify(params.id_in)}` : ''}
+          ${params.scaledLiquidityParameter_gt !== undefined ? 'scaledLiquidityParameter_gt: $scaledLiquidityParameter_gt' : ''}
+        }
+      ) {
+        ...marketData
+        __typename
+      }
     }
-  }
 
-  ${marketDataFragment}
-`;
+    ${marketDataFragment}
+  `;
+};
 
 const getMarketTradesQuery = gql`
   query GetMarketUserTrades(
