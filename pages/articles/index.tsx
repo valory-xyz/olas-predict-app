@@ -24,6 +24,8 @@ import {
   getPredictedAnswerIndex,
 } from 'utils/questions';
 
+import mockData from './mock_data.json';
+
 const { Title, Paragraph } = Typography;
 
 const StyledLink = styled(Link)`
@@ -34,12 +36,12 @@ const StyledLink = styled(Link)`
 `;
 
 const Loader = () => (
-  <Row>
+  <Row gutter={16} style={{ width: '100%', marginTop: 16 }}>
     <Col span={12}>
-      <Skeleton />
+      <Skeleton active />
     </Col>
     <Col span={12}>
-      <Skeleton />
+      <Skeleton active />
     </Col>
   </Row>
 );
@@ -108,7 +110,9 @@ const ArticlesPage = () => {
       }),
   });
 
-  const markets = data?.fixedProductMarketMakers;
+  const markets = data?.fixedProductMarketMakers
+    ? [...data.fixedProductMarketMakers, ...(mockData as unknown as FixedProductMarketMaker[])]
+    : [];
   const [showAll, setShowAll] = useState(false);
 
   return (
@@ -133,14 +137,17 @@ const ArticlesPage = () => {
             </a>
 
             <Flex wrap className="md:grid-cols-3 full-width">
-              {isLoading && <Loader />}
-              <Row gutter={[16, 0]} style={{ width: '100%' }}>
-                {markets?.map((market) => (
-                  <Col key={market.id} span={12}>
-                    <ArticleCard market={market} />
-                  </Col>
-                ))}
-              </Row>
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <Row gutter={[16, 0]} style={{ width: '100%' }}>
+                  {markets?.map((market) => (
+                    <Col key={market.id} span={12}>
+                      <ArticleCard market={market} />
+                    </Col>
+                  ))}
+                </Row>
+              )}
             </Flex>
           </Flex>
         </>
