@@ -1,4 +1,5 @@
 import { Layout as AntdLayout } from 'antd';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -54,12 +55,12 @@ export const CustomLayout = styled(AntdLayout)`
   }
 `;
 
-const ContentInner = styled.div`
+const ContentInner = styled.div<{ maxWidth?: number }>`
   display: flex;
   flex-direction: column;
   flex: auto;
   margin: 0 auto;
-  max-width: 720px;
+  max-width: ${({ maxWidth }) => maxWidth || 720}px;
   width: 100%;
 `;
 
@@ -79,6 +80,9 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
   const { isDesktop } = useScreen();
+  const { pathname } = useRouter();
+
+  const isFullWidthPage = ['/agents/trader-agents-breakdown', '/articles'].includes(pathname);
 
   return (
     <CustomLayout>
@@ -89,7 +93,7 @@ export const Layout = ({ children }: LayoutProps) => {
           </Sider>
         )}
         <Content>
-          <ContentInner>
+          <ContentInner maxWidth={isFullWidthPage ? 980 : undefined}>
             <BetaBanner>Beta</BetaBanner>
             {!isDesktop && <MobileMenu />}
             {children}

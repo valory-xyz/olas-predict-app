@@ -36,7 +36,7 @@ export const AgentDetailsCard = ({ agent }: AgentDetailsCardProps) => {
         />
         <Flex vertical gap={8}>
           <Title level={4} className="m-0 mb-8">
-            {getAgentName(agent.id, 'trader')}
+            {getAgentName(agent.id)}
           </Title>
           <Text type="secondary">Specialization</Text>
           <Tag icon={<ChartSpline size={20} color={COLOR.PRIMARY} />}>Trader</Tag>

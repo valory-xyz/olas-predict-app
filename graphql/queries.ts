@@ -313,6 +313,15 @@ const getTraderAgentsQuery = gql`
   }
 `;
 
+const getAllTraderAgentsQuery = gql`
+  query GetOlasTraderAgents {
+    traderAgents(first: 1000, where: { totalBets_gt: 0 }) {
+      id
+      totalBets
+    }
+  }
+`;
+
 const getCreatorAgentsQuery = gql`
   query GetOlasCreatorAgents {
     creatorAgents(orderBy: totalQuestions, orderDirection: desc) {
@@ -470,6 +479,9 @@ export const getGlobal = async () =>
 
 export const getTraderAgents = async (params: { first: number; skip: number }) =>
   request<TraderAgents>(OLAS_AGENTS_SUBGRAPH_URL, getTraderAgentsQuery, params);
+
+export const getAllTraderAgents = async () =>
+  request<TraderAgents>(OLAS_AGENTS_SUBGRAPH_URL, getAllTraderAgentsQuery);
 
 export const getCreatorAgents = async () =>
   request<CreatorAgents>(OLAS_AGENTS_SUBGRAPH_URL, getCreatorAgentsQuery);
