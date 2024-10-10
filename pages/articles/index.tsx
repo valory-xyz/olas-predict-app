@@ -121,7 +121,7 @@ const ArticlesPage = () => {
             <a target="_blank" className="flex items-center" href={articleUrl}>
               <b>{articleUrl}</b>
             </a>
-            <Paragraph>{showAll ? text : `${articleParagraph.substring(0, 250)}`}</Paragraph>
+            <Paragraph>{showAll ? articleParagraph : `${articleParagraph.substring(0, 250)}`}</Paragraph>
             <a onClick={() => setShowAll(!showAll)}>Show {showAll ? 'less' : 'more'}</a>
 
             <Flex wrap className="md:grid-cols-3 full-width">
