@@ -88,9 +88,12 @@ const ArticleCard = ({ market }: ArticlesCardProp) => {
   );
 };
 
+const articleTitle =
+  'Hurricane Milton: nearly 3 million without power in Florida as category 3 storm makes landfall';
 const articleParagraph =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec eros vitae est efficitur a nec est. Sed pretium faucibus eros, et libero dapibusvel. Quisque dui tortor, porta finibus ligula id, condimentum semper libero. Donec ipsum at augue aliquam accumsan vitae at metus. Fusceat lacus egetporta.';
-const articleUrl = 'https://olas.network/';
+const articleUrl =
+  'https://www.theguardian.com/us-news/2024/oct/09/hurricane-milton-makes-landfall-florida';
 const marketId1 = '0xe8c725b66d02dd97242c00c872ae43885693c701';
 const marketId2 = '0x2a1e5f3e8678d202569f2e696f3f6c99a03afa37';
 
@@ -117,11 +120,15 @@ const ArticlesPage = () => {
       ) : (
         <>
           <Flex vertical gap={12} align="center">
-            <Title>TOPIC</Title>
-            <a target="_blank" className="flex items-center" href={articleUrl}>
-              <b>{articleUrl}</b>
-            </a>
-            <Paragraph>{showAll ? articleParagraph : `${articleParagraph.substring(0, 250)}`}</Paragraph>
+            <Title>
+              {articleTitle}
+              <a target="_blank" href={articleUrl}>
+                ↗
+              </a>
+            </Title>
+            <Paragraph>
+              {showAll ? articleParagraph : `${articleParagraph.substring(0, 250)}`}
+            </Paragraph>
             <a onClick={() => setShowAll(!showAll)}>Show {showAll ? 'less' : 'more'}</a>
 
             <Flex wrap className="md:grid-cols-3 full-width">
