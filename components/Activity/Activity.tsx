@@ -23,6 +23,7 @@ export const Activity = <T,>({
   getActivityItems,
 }: ActivityProps<T>) => {
   const [trades, setTrades] = useState<T[]>([]);
+  const items = timelineItems(trades);
 
   useEffect(() => {
     if (!data) return;
@@ -55,13 +56,13 @@ export const Activity = <T,>({
         </NoDataContainer>
       )}
 
-      {!isLoading && timelineItems.length === 0 && (
+      {!isLoading && items.length === 0 && (
         <NoDataContainer>
           <Text>No data available</Text>
         </NoDataContainer>
       )}
 
-      {!isLoading && timelineItems.length > 0 && (
+      {!isLoading && items.length > 0 && (
         <InfiniteScroll
           dataLength={trades.length}
           next={loadMoreData}
@@ -71,7 +72,7 @@ export const Activity = <T,>({
         >
           <Timeline
             pending={data && trades.length < data.fpmmTrades.length ? 'Loading...' : null}
-            items={timelineItems(trades)}
+            items={items}
           />
         </InfiniteScroll>
       )}

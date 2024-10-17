@@ -12,7 +12,7 @@ import { AGENT_REGISTRY_ABI, AGENT_REGISTRY_ADDRESS } from 'constants/contracts/
 import { GNOSIS_SCAN_URL } from 'constants/index';
 import { COLOR } from 'constants/theme';
 import { wagmiConfig } from 'constants/wagmiConfig';
-import { getAgentName } from 'utils/agents';
+import { generateName } from 'utils/agents';
 import { getIpfsResponse } from 'utils/ipfs';
 
 const { Title, Paragraph } = Typography;
@@ -157,7 +157,7 @@ export const MechAgents = () => {
               >
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                  <b>{getAgentName(id, 'mech')}</b>
+                  <b>{generateName(id)}</b>
                 </Flex>
               </a>
             ),
