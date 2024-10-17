@@ -92,12 +92,15 @@ export const PredictedAnswer = styled.div<{ type: AnswerType }>`
   }
 `;
 
-export const ProofLink = styled.a`
+export const DashedLink = styled.a`
   display: flex;
   gap: 4px;
   align-items: center;
   color: ${COLOR.SECONDARY};
   z-index: 10;
+  max-width: max-content;
+  font-size: 14px;
+  border-bottom: 1px dashed ${COLOR.WHITE_TRANSPARENT_50};
 `;
 
 export const ProgressBarContainer = styled.div`

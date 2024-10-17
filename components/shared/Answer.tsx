@@ -4,7 +4,7 @@ import { AnswerType } from 'types';
 
 import { REALITY_QUESTION_URL } from 'constants/index';
 
-import { PredictedAnswer, ProofLink } from './styles';
+import { DashedLink, PredictedAnswer } from './styles';
 
 const { Text } = Typography;
 
@@ -32,13 +32,13 @@ export const Answer = ({ answer, type, questionId }: AnswerProps) => {
           Final answer - <b>{answer}</b>
         </Text>
       </PredictedAnswer>
-      <ProofLink
+      <DashedLink
         target="_blank"
         href={`${REALITY_QUESTION_URL}${questionId}`}
         onClick={(e) => e.stopPropagation()}
       >
-        Proof <ArrowUpRight />
-      </ProofLink>
+        Proof <ArrowUpRight size={16} />
+      </DashedLink>
     </Flex>
   );
 };

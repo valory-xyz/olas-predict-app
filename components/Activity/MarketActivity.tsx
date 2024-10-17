@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { GNOSIS_SCAN_URL, NA } from 'constants/index';
 import { useMarketTrades } from 'hooks/useMarketTrades';
-import { getAgentName } from 'utils/agents';
+import { generateName } from 'utils/agents';
 import { getTimeAgo } from 'utils/time';
 
 import { Activity } from './Activity';
@@ -36,7 +36,7 @@ const getActivityItems = (trades: FpmmTrade[]): ActivityItem[] => {
     return {
       id: item.id,
       creator: item.creator.id,
-      name: getAgentName(item.creator.id, 'trader'),
+      name: generateName(item.creator.id),
       value: outcomeValue ? `$${betAmount} ${outcomeValue}` : NA,
       timeAgo: getTimeAgo(item.creationTimestamp * 1000),
       time: new Date(item.creationTimestamp * 1000).toLocaleString(),

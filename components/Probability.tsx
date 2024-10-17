@@ -48,16 +48,16 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
     enabled: !!tradesData,
     queryKey: ['getMarketOutcomesHistory', marketId],
     queryFn: async () => {
-      if (!tradesData) return;
+      if (!tradesData) return null;
 
       // Get all block numbers of trades based on their creation timestamps.
       const timestamps = [...tradesData.fpmmTrades]
         .reverse()
         .map((trade) => trade.creationTimestamp);
-      if (timestamps.length === 0) return;
+      if (timestamps.length === 0) return null;
 
       const blockByTimestamps = await getBlocksByTimestamps({ timestamps });
-      if (!blockByTimestamps) return;
+      if (!blockByTimestamps) return null;
 
       // Ensure block numbers are unique
       const blockNumbers = Array.from(

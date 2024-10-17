@@ -14,6 +14,7 @@ import { getTimeAgo } from 'utils/time';
 
 import { Creator } from './Creator';
 import { LoaderCard } from './LoaderCard';
+import { Source } from './Source';
 import { TradesAndVolume } from './TradesAndVolume';
 
 const { Text } = Typography;
@@ -46,6 +47,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
           <Text type="secondary">Created {getTimeAgo(market.creationTimestamp * 1000)}</Text>
           {isMobile && <Thumbnail marketId={market.id} />}
           <QuestionTitle>{market.title}</QuestionTitle>
+          <Source id={market.id} creator={market.creator} />
           <Answer type={answerType} answer={answer} questionId={market.question?.id} />
         </Flex>
         {!isMobile && <Thumbnail marketId={market.id} />}

@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 import { Card } from 'components/shared/styles';
-import { getAgentName } from 'utils/agents';
+import { generateName } from 'utils/agents';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -64,7 +64,7 @@ export const TraderAgents = () => {
               <Link href={`/agents/${id}`}>
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                  <b>{getAgentName(id, 'trader')}</b>
+                  <b>{generateName(id)}</b>
                 </Flex>
               </Link>
             ),
