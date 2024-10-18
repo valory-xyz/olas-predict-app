@@ -45,3 +45,9 @@ export const CONDITIONAL_TOKENS_SUBGRAPH_URL = `https://gateway-arbitrum.network
 export const OLAS_AGENTS_SUBGRAPH_URL =
   'https://api.studio.thegraph.com/query/67875/olas-agents/v0.0.25';
 export const OLAS_MECH_SUBGRAPH_URL = 'https://api.studio.thegraph.com/query/57238/mech/v0.0.1';
+
+export const ARTICLE_SOURCE_BY_CREATOR: Record<string, string> = {
+  '0x89c5cc945dd550bcffb72fe42bff002429f46fec': 'https://marketserver.autonolas.tech/market',
+  '0xffc8029154ecd55abed15bd428ba596e7d23f557':
+    'https://market-approval-pearl.autonolas.tech/market',
+};

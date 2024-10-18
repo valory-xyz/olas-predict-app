@@ -101,6 +101,9 @@ export const GlobalStyle = createGlobalStyle`
   .mb-8 {
     margin-bottom: 8px !important;
   }
+  .mb-16 {
+    margin-bottom: 16px !important;
+  }
   .ml-4 {
     margin-left: 4px !important;
   }

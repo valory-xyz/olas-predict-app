@@ -5,7 +5,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 
 import { Card } from 'components/shared/styles';
 import { GNOSIS_SCAN_URL } from 'constants/index';
-import { getAgentName } from 'utils/agents';
+import { generateName } from 'utils/agents';
 import { getTimeAgo } from 'utils/time';
 
 const { Title, Text, Paragraph } = Typography;
@@ -48,7 +48,7 @@ export const CreatorAgents = () => {
               >
                 <Flex gap={12}>
                   <Jazzicon diameter={24} seed={jsNumberForAddress(id)} />
-                  <b>{getAgentName(id, 'creator')}</b>
+                  <b>{generateName(id)}</b>
                 </Flex>
               </a>
             ),

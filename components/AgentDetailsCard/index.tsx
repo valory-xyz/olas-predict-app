@@ -8,7 +8,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { Card } from 'components/shared/styles';
 import { COLOR } from 'constants/theme';
 import { useScreen } from 'hooks/useScreen';
-import { getAgentName } from 'utils/agents';
+import { generateName } from 'utils/agents';
 import { getTimeAgo } from 'utils/time';
 
 const { Title, Text } = Typography;
@@ -36,7 +36,7 @@ export const AgentDetailsCard = ({ agent }: AgentDetailsCardProps) => {
         />
         <Flex vertical gap={8}>
           <Title level={4} className="m-0 mb-8">
-            {getAgentName(agent.id, 'trader')}
+            {generateName(agent.id)}
           </Title>
           <Text type="secondary">Specialization</Text>
           <Tag icon={<ChartSpline size={20} color={COLOR.PRIMARY} />}>Trader</Tag>
