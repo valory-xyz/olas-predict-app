@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { LoadingError } from 'components/ErrorState';
+import { LiveAgentsBanner } from 'components/LiveAgentsBanner';
 import { Pagination } from 'components/Pagination';
 import { QuestionCard } from 'components/QuestionCard';
 import { LoaderCard } from 'components/QuestionCard/LoaderCard';
@@ -20,20 +21,6 @@ const Filters = styled(Segmented)`
 
   ${MEDIA_QUERY.mobile} {
     margin-bottom: 0;
-  }
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  font-family: 'Anonymous Pro';
-  font-size: 24px;
-  font-style: italic;
-  font-weight: 700;
-  line-height: 1.5;
-
-  ${MEDIA_QUERY.mobile} {
-    font-size: 20px;
-    margin-bottom: 24px;
   }
 `;
 
@@ -87,7 +74,8 @@ const QuestionsPage = () => {
 
   return (
     <Flex vertical gap={isMobile ? 16 : 40} align="center" className="flex-auto">
-      <Title>AI agents predict the future.</Title>
+      <LiveAgentsBanner />
+
       {isError ? (
         <LoadingError />
       ) : (
