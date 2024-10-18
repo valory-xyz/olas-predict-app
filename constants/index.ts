@@ -51,3 +51,8 @@ export const ARTICLE_SOURCE_BY_CREATOR: Record<string, string> = {
   '0xffc8029154ecd55abed15bd428ba596e7d23f557':
     'https://market-approval-pearl.autonolas.tech/market',
 };
+
+export const DUNE_QUERY_URL = 'https://dune.com/queries';
+export const PREDICTION_DAA_QUERY_ID = '4165113';
+export const PREDICTION_ECONOMY_DASHBOARD_URL =
+  'https://dune.com/adrian0x/the-olas-predict-agent-economy';
