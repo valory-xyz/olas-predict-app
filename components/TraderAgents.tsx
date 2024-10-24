@@ -4,6 +4,7 @@ import { getGlobal, getTraderAgents } from 'graphql/queries';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { formatUnits } from 'viem';
 
 import { Card } from 'components/shared/styles';
 import { generateName } from 'utils/agents';
@@ -90,21 +91,25 @@ export const TraderAgents = () => {
           //       <Text type="secondary">10%</Text>
           //     ),
           // },
-          // {
-          //   title: 'Total earnings',
-          //   dataIndex: 'earnings',
-          //   key: 'earnings',
-          //   className: 'text-end',
-          //   width: 130,
-          //   render: () =>
-          //     isLoading ? (
-          //       <Skeleton.Input size="small" active />
-          //     ) : (
-          //       <Text type="secondary" strong>
-          //         $1,385.00
-          //       </Text>
-          //     ),
-          // },
+          {
+            title: 'Total earnings',
+            key: 'earnings',
+            className: 'text-end',
+            width: 130,
+            render: (_, record) => {
+              const totalEarnings =
+                parseFloat(formatUnits(BigInt(record.totalPayout), 18)) -
+                parseFloat(formatUnits(BigInt(record.totalTraded), 18));
+              return (
+                <Text type="secondary" strong>
+                  {Math.max(totalEarnings, 0).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                  })}
+                </Text>
+              );
+            },
+          },
         ]}
         loading={isGlobalLoading || isAgentsLoading}
         dataSource={data}

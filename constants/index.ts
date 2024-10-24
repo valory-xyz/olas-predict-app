@@ -43,7 +43,7 @@ export const XDAI_BLOCKS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegra
 export const CONDITIONAL_TOKENS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/7s9rGBffUTL8kDZuxvvpuc46v44iuDarbrADBFw5uVp2`;
 
 export const OLAS_AGENTS_SUBGRAPH_URL =
-  'https://api.studio.thegraph.com/query/67875/olas-agents/v0.0.25';
+  'https://api.studio.thegraph.com/query/67875/test2/version/latest';
 export const OLAS_MECH_SUBGRAPH_URL = 'https://api.studio.thegraph.com/query/57238/mech/v0.0.1';
 
 export const ARTICLE_SOURCE_BY_CREATOR: Record<string, string> = {
