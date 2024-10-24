@@ -332,7 +332,7 @@ const getTraderAgentQuery = gql`
   query GetOlasTraderAgent($id: ID!) {
     traderAgent(id: $id) {
       id
-      firstParticipation
+      blockTimestamp
       totalBets
     }
   }

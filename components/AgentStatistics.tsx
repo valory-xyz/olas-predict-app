@@ -137,7 +137,7 @@ export const AgentStatistics = ({ agent }: AgentStatisticsProps) => {
         numberOfClosedBets !== 0 &&
         numberOfWonBets !== undefined
           ? ((numberOfWonBets / numberOfClosedBets) * 100).toFixed(0)
-          : '-';
+          : '';
 
       return successRate;
     },
@@ -158,7 +158,7 @@ export const AgentStatistics = ({ agent }: AgentStatisticsProps) => {
       </Row>
       <Row>
         {/* <Statistic title="Total earnings" value="TBD" /> */}
-        <Statistic title="Created" value={getTimeAgo(Number(agent.firstParticipation) * 1000)} />
+        <Statistic title="Created" value={getTimeAgo(Number(agent.blockTimestamp) * 1000)} />
       </Row>
     </Card>
   );
