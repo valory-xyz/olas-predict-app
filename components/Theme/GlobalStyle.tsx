@@ -137,4 +137,7 @@ export const GlobalStyle = createGlobalStyle`
   .full-width {
     width: 100% !important;
   }
+  .max-w-max {
+    max-width: max-content !important;
+  }
 `;

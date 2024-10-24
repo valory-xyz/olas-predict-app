@@ -1,3 +1,5 @@
+import { formatUnits } from 'viem';
+
 const phoneticSyllables = [
   'ba',
   'bi',
@@ -239,4 +241,15 @@ export const generateName = (address: string): string => {
   const lastNameNumber = parseInt(address.slice(-4), 16) % 100;
 
   return `${firstName}-${lastNamePrefix}${lastNameNumber.toString().padStart(2, '0')}`;
+};
+
+export const getAgentTotalEarnings = (totalPayout: string, totalTraded: string) => {
+  const totalEarnings =
+    parseFloat(formatUnits(BigInt(totalPayout), 18)) -
+    parseFloat(formatUnits(BigInt(totalTraded), 18));
+
+  return Math.max(totalEarnings, 0).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 };

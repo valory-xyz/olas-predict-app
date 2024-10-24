@@ -8,11 +8,13 @@ import {
   TraderAgent,
   UserPosition,
 } from 'graphql/types';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { fromHex } from 'viem';
 
 import { Card } from 'components/shared/styles';
 import { INVALID_ANSWER_HEX, NA } from 'constants/index';
+import { getAgentTotalEarnings } from 'utils/agents';
 import { getTimeAgo } from 'utils/time';
 
 const { Title, Text } = Typography;
@@ -39,7 +41,7 @@ const Statistic = ({
   isLoading,
 }: {
   title: string;
-  value: string;
+  value: string | number;
   isLoading?: boolean;
 }) => (
   <Col span={12}>
@@ -143,6 +145,11 @@ export const AgentStatistics = ({ agent }: AgentStatisticsProps) => {
     },
   });
 
+  const totalEarnings = useMemo(
+    () => getAgentTotalEarnings(agent.totalPayout, agent.totalTraded),
+    [agent.totalPayout, agent.totalTraded],
+  );
+
   return (
     <Card type="ongoing">
       <Title level={4} className="m-0">
@@ -157,7 +164,7 @@ export const AgentStatistics = ({ agent }: AgentStatisticsProps) => {
         />
       </Row>
       <Row>
-        {/* <Statistic title="Total earnings" value="TBD" /> */}
+        <Statistic title="Total earnings" value={totalEarnings} />
         <Statistic title="Created" value={getTimeAgo(Number(agent.firstParticipation) * 1000)} />
       </Row>
     </Card>

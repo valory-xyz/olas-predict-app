@@ -4,10 +4,9 @@ import { getGlobal, getTraderAgents } from 'graphql/queries';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { formatUnits } from 'viem';
 
 import { Card } from 'components/shared/styles';
-import { generateName } from 'utils/agents';
+import { generateName, getAgentTotalEarnings } from 'utils/agents';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -97,15 +96,9 @@ export const TraderAgents = () => {
             className: 'text-end',
             width: 130,
             render: (_, record) => {
-              const totalEarnings =
-                parseFloat(formatUnits(BigInt(record.totalPayout), 18)) -
-                parseFloat(formatUnits(BigInt(record.totalTraded), 18));
               return (
                 <Text type="secondary" strong>
-                  {Math.max(totalEarnings, 0).toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  })}
+                  {getAgentTotalEarnings(record.totalPayout, record.totalTraded)}
                 </Text>
               );
             },

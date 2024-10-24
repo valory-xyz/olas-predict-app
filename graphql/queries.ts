@@ -336,6 +336,8 @@ const getTraderAgentQuery = gql`
       id
       firstParticipation
       totalBets
+      totalTraded
+      totalPayout
     }
   }
 `;
