@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { NA, PREDICTION_ECONOMY_DASHBOARD_URL } from 'constants/index';
 import { COLOR, MEDIA_QUERY } from 'constants/theme';
-import { getPredictionDaa } from 'utils/dune';
+import { getPredictionDaa } from 'utils/flipside';
 
 const Root = styled(Flex)`
   width: 100%;
