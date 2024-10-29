@@ -1,14 +1,18 @@
-import { Flex, Skeleton } from 'antd';
-import Image from 'next/image';
-import styled from 'styled-components';
-import { AnswerType } from 'types';
+import { Flex, Skeleton } from "antd";
+import Image from "next/image";
+import styled from "styled-components";
+import { AnswerType } from "types";
 
-import { CHART_HEIGHT, QUESTION_IMAGE_MOBILE_SIZE, QUESTION_IMAGE_SIZE } from 'constants/index';
-import { COLOR, MEDIA_QUERY } from 'constants/theme';
+import {
+  CHART_HEIGHT,
+  QUESTION_IMAGE_MOBILE_SIZE,
+  QUESTION_IMAGE_SIZE,
+} from "constants/index";
+import { COLOR, MEDIA_QUERY } from "constants/theme";
 
 const ANSWER_BACKGROUNDS_BY_TYPE = {
-  predicted_right: 'rgba(0, 153, 65, 0.4)',
-  predicted_wrong: 'rgba(153, 0, 59, 0.4)',
+  predicted_right: "rgba(0, 153, 65, 0.4)",
+  predicted_wrong: "rgba(153, 0, 59, 0.4)",
   ongoing: COLOR.WHITE_TRANSPARENT_10,
 };
 
@@ -31,7 +35,7 @@ export const Card = styled.div<{ type: AnswerType }>`
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -41,7 +45,7 @@ export const Card = styled.div<{ type: AnswerType }>`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: ${({ type }) => (type === 'ongoing' ? 0.5 : 0.9)};
+    opacity: ${({ type }) => (type === "ongoing" ? 0.5 : 0.9)};
     z-index: 1;
   }
 
@@ -113,9 +117,9 @@ export const ProgressBarContainer = styled.div`
 
 export const LeftLine = styled.div<{ width: number; type: AnswerType }>`
   background: ${({ type }) =>
-    type === 'ongoing'
-      ? 'linear-gradient(180deg, #884DFF 0%, #6A38FF 100%)'
-      : 'linear-gradient(180deg, #ffffff 0%, #bfbfbf 100%)'};
+    type === "ongoing"
+      ? "linear-gradient(180deg, #884DFF 0%, #6A38FF 100%)"
+      : "linear-gradient(180deg, #ffffff 0%, #bfbfbf 100%)"};
   height: 24px;
   border-radius: 2px;
   position: absolute;
@@ -144,7 +148,8 @@ export const OutcomesValues = styled.div<{ type: AnswerType }>`
   > span {
     font-weight: 500;
     z-index: 1;
-    mix-blend-mode: ${({ type }) => (type === 'ongoing' ? 'normal' : 'difference')};
+    mix-blend-mode: ${({ type }) =>
+      type === "ongoing" ? "normal" : "difference"};
   }
 `;
 
@@ -183,5 +188,5 @@ export const NoDataContainer = styled.div`
 export const CardFooter = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;  
-  `;
+  width: 100%;
+`;
