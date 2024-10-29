@@ -1,7 +1,7 @@
-import { Button } from "antd";
-import { Share2 } from "lucide-react";
-import { useState } from "react";
-import styled from "styled-components";
+import { Button } from 'antd';
+import { Share2 } from 'lucide-react';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 interface ShareButtonProps {
   marketId?: string;
@@ -45,7 +45,7 @@ const ShareButton = ({ marketId }: ShareButtonProps) => {
         setNotificationVisible(false);
       }, 2000);
     } catch (error) {
-      console.error("Failed to copy: ", error);
+      console.error('Failed to copy: ', error);
     }
   };
 

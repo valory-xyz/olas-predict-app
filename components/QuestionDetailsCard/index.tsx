@@ -1,27 +1,27 @@
-import { Flex, Typography } from "antd";
-import { FixedProductMarketMaker } from "graphql/types";
-import { fromHex } from "viem";
+import { Flex, Typography } from 'antd';
+import { FixedProductMarketMaker } from 'graphql/types';
+import { fromHex } from 'viem';
 
-import { Answer } from "components/shared/Answer";
-import { Countdown } from "components/shared/Countdown";
-import { PredictionBar } from "components/shared/PredictionBar";
-import { Thumbnail } from "components/shared/Thumbnail";
-import { Card, QuestionTitle } from "components/shared/styles";
-import { useOutcomeTokenMarginalPrices } from "hooks/useOutcomeTokenMarginalPrices";
-import { useScreen } from "hooks/useScreen";
+import { Answer } from 'components/shared/Answer';
+import { Countdown } from 'components/shared/Countdown';
+import { PredictionBar } from 'components/shared/PredictionBar';
+import { Thumbnail } from 'components/shared/Thumbnail';
+import { Card, QuestionTitle } from 'components/shared/styles';
+import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
+import { useScreen } from 'hooks/useScreen';
 import {
   getAnswer,
   getAnswerType,
   getPredictedAnswerIndex,
-} from "utils/questions";
-import { getTimeAgo } from "utils/time";
+} from 'utils/questions';
+import { getTimeAgo } from 'utils/time';
 
-import { Creator } from "./Creator";
-import { LoaderCard } from "./LoaderCard";
-import { Source } from "./Source";
-import { TradesAndVolume } from "./TradesAndVolume";
-import { CardFooter } from "components/shared/styles";
-import ShareButton from "components/shared/ShareButton";
+import { Creator } from './Creator';
+import { LoaderCard } from './LoaderCard';
+import { Source } from './Source';
+import { TradesAndVolume } from './TradesAndVolume';
+import { CardFooter } from 'components/shared/styles';
+import ShareButton from 'components/shared/ShareButton';
 
 const { Text } = Typography;
 
@@ -39,7 +39,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
     outcomeTokenMarginalPrices
   );
   const currentAnswerIndex = market.question?.currentAnswer
-    ? fromHex(market.question.currentAnswer, "number")
+    ? fromHex(market.question.currentAnswer, 'number')
     : null;
 
   const answerType = getAnswerType(predictedAnswerIndex, currentAnswerIndex);
@@ -57,7 +57,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
     <Card type={answerType}>
       <Flex gap={24}>
         <Flex vertical gap={16}>
-          <Text type="secondary">
+          <Text type='secondary'>
             Created {getTimeAgo(market.creationTimestamp * 1000)}
           </Text>
           {isMobile && <Thumbnail marketId={market.id} />}

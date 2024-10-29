@@ -43,7 +43,10 @@ const Root = styled.div`
   }
 `;
 
-export const Countdown = ({ openingTimestamp, answerFinalizedTimestamp }: CountdownProps) => {
+export const Countdown = ({
+  openingTimestamp,
+  answerFinalizedTimestamp,
+}: CountdownProps) => {
   const deadline = +openingTimestamp * 1000;
   const now = Date.now();
 
@@ -52,10 +55,12 @@ export const Countdown = ({ openingTimestamp, answerFinalizedTimestamp }: Countd
   if (isOngoing) {
     return (
       <Root>
-        <Clock width={20} height={20} className="mr-4" />
+        <Clock width={20} height={20} className='mr-4' />
         <AntdCountdown
           format={
-            deadline && deadline < Date.now() + ONE_DAY_IN_MS ? 'H[h] m[m] s[s]' : 'D[d] H[h]'
+            deadline && deadline < Date.now() + ONE_DAY_IN_MS
+              ? 'H[h] m[m] s[s]'
+              : 'D[d] H[h]'
           }
           value={deadline}
           onFinish={() => {
@@ -67,7 +72,11 @@ export const Countdown = ({ openingTimestamp, answerFinalizedTimestamp }: Countd
       </Root>
     );
   } else if (answerFinalizedTimestamp) {
-    return <Root>Resolved on {formatTimestamp(answerFinalizedTimestamp * 1000)}</Root>;
+    return (
+      <Root>
+        Resolved on {formatTimestamp(answerFinalizedTimestamp * 1000)}
+      </Root>
+    );
   } else {
     return null;
   }
