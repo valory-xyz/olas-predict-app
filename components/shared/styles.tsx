@@ -3,11 +3,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { AnswerType } from 'types';
 
-import {
-  CHART_HEIGHT,
-  QUESTION_IMAGE_MOBILE_SIZE,
-  QUESTION_IMAGE_SIZE,
-} from 'constants/index';
+import { CHART_HEIGHT, QUESTION_IMAGE_MOBILE_SIZE, QUESTION_IMAGE_SIZE } from 'constants/index';
 import { COLOR, MEDIA_QUERY } from 'constants/theme';
 
 const ANSWER_BACKGROUNDS_BY_TYPE = {
@@ -148,8 +144,7 @@ export const OutcomesValues = styled.div<{ type: AnswerType }>`
   > span {
     font-weight: 500;
     z-index: 1;
-    mix-blend-mode: ${({ type }) =>
-      type === 'ongoing' ? 'normal' : 'difference'};
+    mix-blend-mode: ${({ type }) => (type === 'ongoing' ? 'normal' : 'difference')};
   }
 `;
 

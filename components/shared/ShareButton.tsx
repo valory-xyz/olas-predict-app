@@ -54,9 +54,7 @@ const ShareButton = ({ marketId }: ShareButtonProps) => {
       <StyledButton onClick={handleShare}>
         <Share2 />
       </StyledButton>
-      {notificationVisible && (
-        <Notification>Link copied to clipboard</Notification>
-      )}
+      {notificationVisible && <Notification>Link copied to clipboard</Notification>}
     </>
   );
 };
