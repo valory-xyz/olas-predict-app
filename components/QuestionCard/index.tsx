@@ -11,7 +11,6 @@ import ShareButton from 'components/shared/ShareButton';
 import { Thumbnail } from 'components/shared/Thumbnail';
 import { Card, CardFooter, CardHeader, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
-
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
 import { LoaderCard } from './LoaderCard';
 
