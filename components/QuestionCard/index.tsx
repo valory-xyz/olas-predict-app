@@ -13,6 +13,8 @@ import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPric
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
 
 import { LoaderCard } from './LoaderCard';
+import ShareButton from 'components/shared/ShareButton';
+import { CardFooter } from 'components/shared/styles';
 
 const StyledLink = styled(Link)`
   width: 100%;
@@ -56,10 +58,13 @@ export const QuestionCard = ({ market }: QuestionCardProps) => {
           outcomes={market.outcomes}
           outcomeTokenMarginalPrices={outcomeTokenMarginalPrices}
         />
-        <Countdown
-          openingTimestamp={market.openingTimestamp}
-          answerFinalizedTimestamp={market.answerFinalizedTimestamp}
-        />
+        <CardFooter>
+          <Countdown
+            openingTimestamp={market.openingTimestamp}
+            answerFinalizedTimestamp={market.answerFinalizedTimestamp}
+          />
+          <ShareButton marketId={market.id} />
+        </CardFooter>
       </Card>
     </StyledLink>
   );

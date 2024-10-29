@@ -16,6 +16,8 @@ import { Creator } from './Creator';
 import { LoaderCard } from './LoaderCard';
 import { Source } from './Source';
 import { TradesAndVolume } from './TradesAndVolume';
+import { CardFooter } from 'components/shared/styles';
+import ShareButton from 'components/shared/ShareButton';
 
 const { Text } = Typography;
 
@@ -60,10 +62,13 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
         outcomes={market.outcomes}
         outcomeTokenMarginalPrices={outcomeTokenMarginalPrices}
       />
-      <Countdown
-        openingTimestamp={market.openingTimestamp}
-        answerFinalizedTimestamp={market.answerFinalizedTimestamp}
-      />
+      <CardFooter>
+        <Countdown
+          openingTimestamp={market.openingTimestamp}
+          answerFinalizedTimestamp={market.answerFinalizedTimestamp}
+        />
+        <ShareButton />
+      </CardFooter>
     </Card>
   );
 };

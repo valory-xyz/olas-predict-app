@@ -22,6 +22,7 @@ const Root = styled.div`
   gap: 6px;
   padding: 12px 8px;
   border-radius: 8px;
+  width: 90%;
   background: ${COLOR.BLACK_TRANSPARENT_20};
   color: ${COLOR.SECONDARY};
 
