@@ -52,7 +52,7 @@ export const Countdown = ({ openingTimestamp, answerFinalizedTimestamp }: Countd
   if (isOngoing) {
     return (
       <Root>
-        <Clock width={20} height={20} className='mr-4' />
+        <Clock width={20} height={20} className="mr-4" />
         <AntdCountdown
           format={
             deadline && deadline < Date.now() + ONE_DAY_IN_MS ? 'H[h] m[m] s[s]' : 'D[d] H[h]'

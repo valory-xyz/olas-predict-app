@@ -5,8 +5,9 @@ import { fromHex } from 'viem';
 import { Answer } from 'components/shared/Answer';
 import { Countdown } from 'components/shared/Countdown';
 import { PredictionBar } from 'components/shared/PredictionBar';
+import ShareButton from 'components/shared/ShareButton';
 import { Thumbnail } from 'components/shared/Thumbnail';
-import { Card, QuestionTitle } from 'components/shared/styles';
+import { Card, CardFooter, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
 import { useScreen } from 'hooks/useScreen';
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
@@ -16,8 +17,6 @@ import { Creator } from './Creator';
 import { LoaderCard } from './LoaderCard';
 import { Source } from './Source';
 import { TradesAndVolume } from './TradesAndVolume';
-import { CardFooter } from 'components/shared/styles';
-import ShareButton from 'components/shared/ShareButton';
 
 const { Text } = Typography;
 
@@ -46,7 +45,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
     <Card type={answerType}>
       <Flex gap={24}>
         <Flex vertical gap={16}>
-          <Text type='secondary'>Created {getTimeAgo(market.creationTimestamp * 1000)}</Text>
+          <Text type="secondary">Created {getTimeAgo(market.creationTimestamp * 1000)}</Text>
           {isMobile && <Thumbnail marketId={market.id} />}
           <QuestionTitle>{market.title}</QuestionTitle>
           <Source id={market.id} creator={market.creator} />
