@@ -70,12 +70,9 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
       }))
     : [];
 
-  // const data = rawData.map((item) => ({ ...item, timestamp: new Date(item.timestamp) }));
-
   const outcome = outcomes ? outcomes[0] : NA;
   const isLoading = isTradesLoading || isHistoryLoading;
 
-  // useRenderCount('Probability trend', 'yellow');
   return (
     <Card type="ongoing">
       <Title level={4} className="m-0">
@@ -104,8 +101,3 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
     </Card>
   );
 };
-
-/**
- * 
-
- */

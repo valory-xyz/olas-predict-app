@@ -10,7 +10,6 @@ import { Card, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
 import { useScreen } from 'hooks/useScreen';
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
-// import { useRenderCount } from 'utils/renderCount';
 import { getTimeAgo } from 'utils/time';
 
 import { Creator } from './Creator';
@@ -37,7 +36,6 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
   const answerType = getAnswerType(predictedAnswerIndex, currentAnswerIndex);
   const answer = getAnswer(predictedAnswerIndex, currentAnswerIndex, market.outcomes);
 
-  // useRenderCount('Question Details Card', 'green');
   if (isLoading) {
     return <LoaderCard />;
   }

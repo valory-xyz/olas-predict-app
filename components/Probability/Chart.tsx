@@ -63,14 +63,13 @@ export const Chart = ({ outcome, data }: ChartProps) => {
         />
         <Tooltip
           content={({ payload, label }) => {
-            const date = new Date(label);
             const value = payload?.[0]?.value;
             return (
               <TooltipContainer vertical gap={4}>
                 <span>
                   <b>{`${outcome} ${value}%`}</b>
                 </span>
-                <span>{formattedDate(date)}</span>
+                <span>{formattedDate(label)}</span>
               </TooltipContainer>
             );
           }}
