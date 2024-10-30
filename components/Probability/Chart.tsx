@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import styled from 'styled-components';
 
+import { CHART_HEIGHT } from 'constants/index';
 import { COLOR } from 'constants/theme';
 
 const TooltipContainer = styled(Flex)`
@@ -37,7 +38,7 @@ type ChartProps = {
 
 export const Chart = ({ outcome, data }: ChartProps) => {
   return (
-    <ResponsiveContainer width="100%" height={240}>
+    <ResponsiveContainer width="100%" height={CHART_HEIGHT}>
       <LineChart data={data}>
         <CartesianGrid stroke="#6A5C9A" strokeDasharray="3 3" opacity={0.3} />
         <XAxis
@@ -74,7 +75,13 @@ export const Chart = ({ outcome, data }: ChartProps) => {
             );
           }}
         />
-        <Line type="monotone" dataKey="value" stroke="#ffffff" strokeWidth={2} dot={false} />
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke={COLOR.TEXT_PRIMARY}
+          strokeWidth={2}
+          dot={false}
+        />
       </LineChart>
     </ResponsiveContainer>
   );

@@ -2,40 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import { Flex, Spin, Typography } from 'antd';
 import { getBlocksByTimestamps, getMarginalPrices } from 'graphql/queries';
 import { FixedProductMarketMaker } from 'graphql/types';
-import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 
 import { Card, NoDataContainer } from 'components/shared/styles';
-import { CHART_HEIGHT, NA } from 'constants/index';
+import { NA } from 'constants/index';
 import { COLOR } from 'constants/theme';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { convertToPercentage } from 'utils/questions';
 
-// import rawData from './data.json';
 import { Chart } from './Chart';
 
-// import { useRenderCount } from 'utils/renderCount';
-
-const LineChart = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
-  ssr: false,
-});
-
 const { Title, Text } = Typography;
-
-const CHART_CONFIG = {
-  xField: 'timestamp',
-  yField: 'value',
-  theme: 'classicDark',
-  scale: { y: { domainMax: 100, domainMin: 0 } },
-  axis: {
-    y: { position: 'right', labelFormatter: (value: string) => `${value}%` },
-  },
-  height: CHART_HEIGHT,
-  style: {
-    stroke: COLOR.TEXT_PRIMARY,
-    lineWidth: 3,
-  },
-};
 
 const Legend = styled.div`
   width: 32px;
@@ -123,28 +100,6 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
             <Chart data={data} outcome={outcome} />
           )}
         </>
-      )}
-
-      {!isLoading && data.length > 0 && (
-        <LineChart
-          data={data}
-          {...CHART_CONFIG}
-          interaction={{
-            tooltip: {
-              // @ts-expect-error:next-line
-              render: (_, { title, items }: { title: string; items: { value: string }[] }) => {
-                const value = items[0].value;
-                return (
-                  <div key={title}>
-                    <b>{`${outcome} ${value}%`}</b>
-                    <br />
-                    {title}
-                  </div>
-                );
-              },
-            },
-          }}
-        />
       )}
     </Card>
   );
