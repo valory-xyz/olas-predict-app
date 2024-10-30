@@ -6,7 +6,7 @@ export const useMarketTrades = (marketId: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['getMarketTrades', marketId],
     queryFn: async () =>
-      getMarketTrades({
+      await getMarketTrades({
         first: 1000,
         fpmm: marketId,
         orderBy: FpmmTrade_OrderBy.CreationTimestamp,

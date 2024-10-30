@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import { MarketActivity } from 'components/Activity/MarketActivity';
 import { LoadingError, QuestionNotFoundError } from 'components/ErrorState';
-import { Probability } from 'components/Probability';
+import { Probability } from 'components/Probability/Probability';
 import { QuestionDetailsCard } from 'components/QuestionDetailsCard';
 import { LoaderCard } from 'components/QuestionDetailsCard/LoaderCard';
 import { BROKEN_MARKETS, INVALID_ANSWER_HEX } from 'constants/index';

@@ -11,9 +11,11 @@ import { COLOR } from 'constants/theme';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { convertToPercentage } from 'utils/questions';
 
+// import { Chart } from './Chart';
+
 // import { useRenderCount } from 'utils/renderCount';
 
-const LineChart = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
+const LineChartV1 = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
   ssr: false,
 });
 
@@ -24,7 +26,9 @@ const CHART_CONFIG = {
   yField: 'value',
   theme: 'classicDark',
   scale: { y: { domainMax: 100, domainMin: 0 } },
-  axis: { y: { position: 'right', labelFormatter: (value: string) => `${value}%` } },
+  axis: {
+    y: { position: 'right', labelFormatter: (value: string) => `${value}%` },
+  },
   height: CHART_HEIGHT,
   style: {
     stroke: COLOR.TEXT_PRIMARY,
@@ -113,8 +117,9 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
         </NoDataContainer>
       )}
 
+      {/* <Chart data={data} /> */}
       {!isLoading && data.length > 0 && (
-        <LineChart
+        <LineChartV1
           data={data}
           {...CHART_CONFIG}
           interaction={{

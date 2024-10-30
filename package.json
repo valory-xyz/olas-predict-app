@@ -23,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-jazzicon": "^1.0.4",
+    "recharts": "^2.13.1",
     "styled-components": "^6.0.7",
     "viem": "^2.21.1",
     "wagmi": "^2.12.16"
