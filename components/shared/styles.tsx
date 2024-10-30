@@ -179,3 +179,9 @@ export const NoDataContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const CardFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;

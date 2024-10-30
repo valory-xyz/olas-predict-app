@@ -5,8 +5,9 @@ import { fromHex } from 'viem';
 import { Answer } from 'components/shared/Answer';
 import { Countdown } from 'components/shared/Countdown';
 import { PredictionBar } from 'components/shared/PredictionBar';
+import ShareButton from 'components/shared/ShareButton';
 import { Thumbnail } from 'components/shared/Thumbnail';
-import { Card, QuestionTitle } from 'components/shared/styles';
+import { Card, CardFooter, QuestionTitle } from 'components/shared/styles';
 import { useOutcomeTokenMarginalPrices } from 'hooks/useOutcomeTokenMarginalPrices';
 import { useScreen } from 'hooks/useScreen';
 import { getAnswer, getAnswerType, getPredictedAnswerIndex } from 'utils/questions';
@@ -62,10 +63,13 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
         outcomes={market.outcomes}
         outcomeTokenMarginalPrices={outcomeTokenMarginalPrices}
       />
-      <Countdown
-        openingTimestamp={market.openingTimestamp}
-        answerFinalizedTimestamp={market.answerFinalizedTimestamp}
-      />
+      <CardFooter>
+        <Countdown
+          openingTimestamp={market.openingTimestamp}
+          answerFinalizedTimestamp={market.answerFinalizedTimestamp}
+        />
+        <ShareButton />
+      </CardFooter>
     </Card>
   );
 };
