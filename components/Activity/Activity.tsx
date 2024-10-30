@@ -5,6 +5,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { Card, NoDataContainer } from 'components/shared/styles';
 
+// import { useRenderCount } from 'utils/renderCount';
+
 const { Title, Text } = Typography;
 
 const PAGE_SIZE = 10;
@@ -44,6 +46,7 @@ export const Activity = <T,>({
     }
   };
 
+  // useRenderCount('Latest activity', 'red');
   return (
     <Card type="ongoing">
       <Title level={4} className="m-0">

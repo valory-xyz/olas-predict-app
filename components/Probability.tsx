@@ -11,6 +11,8 @@ import { COLOR } from 'constants/theme';
 import { useMarketTrades } from 'hooks/useMarketTrades';
 import { convertToPercentage } from 'utils/questions';
 
+// import { useRenderCount } from 'utils/renderCount';
+
 const LineChart = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
   ssr: false,
 });
@@ -88,6 +90,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
 
   const isLoading = isTradesLoading || isHistoryLoading;
 
+  // useRenderCount('Probability trend', 'yellow');
   return (
     <Card type="ongoing">
       <Title level={4} className="m-0">

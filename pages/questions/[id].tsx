@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { Flex } from 'antd';
 import { getMarket } from 'graphql/queries';
 import { FixedProductMarketMaker } from 'graphql/types';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import { MarketActivity } from 'components/Activity/MarketActivity';
 import { LoadingError, QuestionNotFoundError } from 'components/ErrorState';
-import { Probability } from 'components/Probability';
+// import { Probability } from 'components/Probability';
 import { QuestionDetailsCard } from 'components/QuestionDetailsCard';
 import { LoaderCard } from 'components/QuestionDetailsCard/LoaderCard';
 import { BROKEN_MARKETS, INVALID_ANSWER_HEX } from 'constants/index';
@@ -18,8 +18,9 @@ const isMarketInvalid = (market: FixedProductMarketMaker) =>
   market.currentAnswer === INVALID_ANSWER_HEX;
 
 const QuestionPage = () => {
-  const params = useParams();
-  const id = params?.id;
+  const router = useRouter();
+  const id = router.query.id;
+
   const { data, isLoading, isFetched, isError } = useQuery({
     enabled: !!id,
     queryKey: ['getMarket', id],
@@ -43,7 +44,7 @@ const QuestionPage = () => {
     return (
       <Flex vertical gap={40} align="center" className="flex-auto">
         <QuestionDetailsCard market={data} />
-        <Probability marketId={data.id} outcomes={data.outcomes} />
+        {/* <Probability marketId={data.id} outcomes={data.outcomes} /> */}
         <MarketActivity marketId={data.id} />
       </Flex>
     );
