@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+// import { useQuery } from '@tanstack/react-query';
 import { Flex, Spin, Typography } from 'antd';
-import { getBlocksByTimestamps, getMarginalPrices } from 'graphql/queries';
+// import { getBlocksByTimestamps, getMarginalPrices } from 'graphql/queries';
 import { FixedProductMarketMaker } from 'graphql/types';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
@@ -8,14 +8,16 @@ import styled from 'styled-components';
 import { Card, NoDataContainer } from 'components/shared/styles';
 import { CHART_HEIGHT, NA } from 'constants/index';
 import { COLOR } from 'constants/theme';
-import { useMarketTrades } from 'hooks/useMarketTrades';
-import { convertToPercentage } from 'utils/questions';
+
+// import { useMarketTrades } from 'hooks/useMarketTrades';
+// import { convertToPercentage } from 'utils/questions';
+import rawData from './data.json';
 
 // import { Chart } from './Chart';
 
 // import { useRenderCount } from 'utils/renderCount';
 
-const LineChartV1 = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
+const LineChart = dynamic(() => import('@ant-design/plots').then((mod) => mod.Line), {
   ssr: false,
 });
 
@@ -48,51 +50,57 @@ type ProbabilityProps = {
 };
 
 export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
-  const { data: tradesData, isLoading: isTradesLoading } = useMarketTrades(marketId);
+  // const { data: tradesData, isLoading: isTradesLoading } = useMarketTrades(marketId);
 
-  const { data: outcomesHistory, isLoading: isHistoryLoading } = useQuery({
-    enabled: !!tradesData,
-    queryKey: ['getMarketOutcomesHistory', marketId],
-    queryFn: async () => {
-      if (!tradesData) return null;
+  // const { data: outcomesHistory, isLoading: isHistoryLoading } = useQuery({
+  //   enabled: !!tradesData,
+  //   queryKey: ['getMarketOutcomesHistory', marketId],
+  //   queryFn: async () => {
+  //     if (!tradesData) return null;
 
-      // Get all block numbers of trades based on their creation timestamps.
-      const timestamps = [...tradesData.fpmmTrades]
-        .reverse()
-        .map((trade) => trade.creationTimestamp);
-      if (timestamps.length === 0) return null;
+  //     // Get all block numbers of trades based on their creation timestamps.
+  //     const timestamps = [...tradesData.fpmmTrades]
+  //       .reverse()
+  //       .map((trade) => trade.creationTimestamp);
+  //     if (timestamps.length === 0) return null;
 
-      const blockByTimestamps = await getBlocksByTimestamps({ timestamps });
-      if (!blockByTimestamps) return null;
+  //     const blockByTimestamps = await getBlocksByTimestamps({ timestamps });
+  //     if (!blockByTimestamps) return null;
 
-      // Ensure block numbers are unique
-      const blockNumbers = Array.from(
-        new Set(Object.values(blockByTimestamps).map((value) => Number(value[0].number))),
-      );
+  //     // Ensure block numbers are unique
+  //     const blockNumbers = Array.from(
+  //       new Set(Object.values(blockByTimestamps).map((value) => Number(value[0].number))),
+  //     );
 
-      // Fetch marginal prices at the specified block numbers
-      // so that we can build the history of predictions
-      const marginalPrices = await getMarginalPrices({
-        id: marketId,
-        blockNumbers,
-      });
+  //     // Fetch marginal prices at the specified block numbers
+  //     // so that we can build the history of predictions
+  //     const marginalPrices = await getMarginalPrices({
+  //       id: marketId,
+  //       blockNumbers,
+  //     });
 
-      return Object.values(marginalPrices).map((value, index) => ({
-        time: timestamps[index],
-        0: value.outcomeTokenMarginalPrices[0],
-        1: value.outcomeTokenMarginalPrices[1],
-      }));
-    },
-  });
+  //     return Object.values(marginalPrices).map((value, index) => ({
+  //       time: timestamps[index],
+  //       0: value.outcomeTokenMarginalPrices[0],
+  //       1: value.outcomeTokenMarginalPrices[1],
+  //     }));
+  //   },
+  // });
 
-  const data = outcomesHistory
-    ? outcomesHistory.map((item) => ({
-        timestamp: new Date(item.time * 1000),
-        value: convertToPercentage(item[0]),
-      }))
-    : [];
+  // const data = outcomesHistory
+  //   ? outcomesHistory.map((item) => ({
+  //       timestamp: new Date(item.time * 1000),
+  //       value: convertToPercentage(item[0]),
+  //     }))
+  //   : [];
 
-  const isLoading = isTradesLoading || isHistoryLoading;
+  const data = rawData.map((item) => ({ ...item, timestamp: new Date(item.timestamp) }));
+
+  const outcome = outcomes ? outcomes[0] : NA;
+  const isLoading = false;
+  // const isLoading = isTradesLoading || isHistoryLoading;
+
+  window.console.log({ isLoading, marketId });
 
   // useRenderCount('Probability trend', 'yellow');
   return (
@@ -102,7 +110,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
       </Title>
       <Flex gap={16} align="center">
         <Legend />
-        <Text>{outcomes ? outcomes[0] : NA}</Text>
+        <Text>{outcome}</Text>
       </Flex>
 
       {isLoading && (
@@ -119,7 +127,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
 
       {/* <Chart data={data} /> */}
       {!isLoading && data.length > 0 && (
-        <LineChartV1
+        <LineChart
           data={data}
           {...CHART_CONFIG}
           interaction={{
@@ -129,7 +137,7 @@ export const Probability = ({ marketId, outcomes }: ProbabilityProps) => {
                 const value = items[0].value;
                 return (
                   <div key={title}>
-                    <b>{`${outcomes ? outcomes[0] : NA} ${value}%`}</b>
+                    <b>{`${outcome} ${value}%`}</b>
                     <br />
                     {title}
                   </div>
