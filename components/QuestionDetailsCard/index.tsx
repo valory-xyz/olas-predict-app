@@ -37,18 +37,7 @@ export const QuestionDetailsCard = ({ market }: QuestionDetailsCardProps) => {
   const answerType = getAnswerType(predictedAnswerIndex, currentAnswerIndex);
   const answer = getAnswer(predictedAnswerIndex, currentAnswerIndex, market.outcomes);
 
-  console.log('Rendering "Question Details Card"');
-
-  // useRef to hold the render count
-  // const renderCount = useRef(0);
-
-  // // Increment render count on every render
-  // useEffect(() => {
-  //   renderCount.current += 1;
-  //   console.log(`Render count: ${renderCount.current}`);
-  // });
-  useRenderCount('Question Details Card');
-
+  useRenderCount('Question Details Card', 'green');
   if (isLoading) {
     return <LoaderCard />;
   }
