@@ -42,22 +42,23 @@ export const Chart = ({ outcome, data }: ChartProps) => {
         <CartesianGrid stroke="#6A5C9A" strokeDasharray="3 3" opacity={0.3} />
         <XAxis
           dataKey="timestamp"
-          tickFormatter={(timestamp) => {
-            const date = new Date(timestamp);
-            return date.toLocaleDateString('default', {
-              month: 'short',
-              day: 'numeric',
-            });
-          }}
+          tickFormatter={(timestamp) =>
+            new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(timestamp)
+          }
           tick={{ fill: COLOR.SECONDARY, fontSize: 12 }}
           interval="preserveEnd"
           minTickGap={20}
           allowDataOverflow
+          axisLine={false}
+          tickLine={false}
         />
         <YAxis
+          orientation="right"
           tickFormatter={(value) => `${value}%`}
           tick={{ fill: COLOR.SECONDARY, fontSize: 12 }}
           domain={[0, 100]}
+          axisLine={false}
+          tickLine={false}
         />
         <Tooltip
           content={({ payload, label }) => {
