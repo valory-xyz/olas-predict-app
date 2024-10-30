@@ -17,7 +17,9 @@ const Card = styled(Flex)`
   padding: 24px;
 `;
 
-const MobileCard = styled(Flex)<{ isOpen?: boolean }>`
+const MobileCard = styled(Flex).withConfig({
+  shouldForwardProp: (prop) => !['isOpen'].includes(prop),
+})<{ isOpen?: boolean }>`
   max-width: 100%;
   border-radius: ${({ isOpen }) => (isOpen ? '12px 12px 0 0' : '12px')};
   transition: border-radius 0.3s ease;
@@ -39,7 +41,9 @@ const MobileCardContent = styled(MobileCard)`
   }
 `;
 
-const Backdrop = styled.div<{ isOpen: boolean }>`
+const Backdrop = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isOpen'].includes(prop),
+})<{ isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
