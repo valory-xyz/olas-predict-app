@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Flex } from 'antd';
 import { getMarket } from 'graphql/queries';
 import { FixedProductMarketMaker } from 'graphql/types';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import { MarketActivity } from 'components/Activity/MarketActivity';
 import { LoadingError, QuestionNotFoundError } from 'components/ErrorState';
@@ -18,8 +18,9 @@ const isMarketInvalid = (market: FixedProductMarketMaker) =>
   market.currentAnswer === INVALID_ANSWER_HEX;
 
 const QuestionPage = () => {
-  const params = useParams();
-  const id = params?.id;
+  const router = useRouter();
+  const id = router.query.id;
+
   const { data, isLoading, isFetched, isError } = useQuery({
     enabled: !!id,
     queryKey: ['getMarket', id],

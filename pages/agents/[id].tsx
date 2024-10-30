@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Flex } from 'antd';
 import { getTraderAgent } from 'graphql/queries';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import { AgentActivity } from 'components/Activity/AgentActivity';
 import { AgentDetailsCard } from 'components/AgentDetailsCard';
@@ -10,8 +10,8 @@ import { AgentStatistics } from 'components/AgentStatistics';
 import { AgentNotFoundError, LoadingError } from 'components/ErrorState';
 
 const AgentPage = () => {
-  const params = useParams();
-  const id = params?.id;
+  const router = useRouter();
+  const id = router.query.id;
   const { data, isLoading, isFetched, isError } = useQuery({
     enabled: !!id,
     queryKey: ['getAgent', id],
