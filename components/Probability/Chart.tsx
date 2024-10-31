@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 import styled from 'styled-components';
 
-import { CHART_HEIGHT } from 'constants/index';
+import { CHART_HEIGHT, NA } from 'constants/index';
 import { COLOR } from 'constants/theme';
 
 const TooltipContainer = styled(Flex)`
@@ -44,7 +44,10 @@ export const Chart = ({ outcome, data }: ChartProps) => {
         <XAxis
           dataKey="timestamp"
           tickFormatter={(timestamp) =>
-            new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(timestamp)
+            new Intl.DateTimeFormat('en-US', {
+              month: 'short',
+              day: '2-digit',
+            }).format(timestamp)
           }
           tick={{ fill: COLOR.SECONDARY, fontSize: 12 }}
           interval="preserveEnd"
@@ -69,7 +72,7 @@ export const Chart = ({ outcome, data }: ChartProps) => {
                 <span>
                   <b>{`${outcome} ${value}%`}</b>
                 </span>
-                <span>{formattedDate(label)}</span>
+                <span>{label ? formattedDate(label) : NA}</span>
               </TooltipContainer>
             );
           }}
