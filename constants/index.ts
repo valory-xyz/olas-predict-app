@@ -37,10 +37,10 @@ export const GNOSIS_SCAN_URL = 'https://gnosisscan.io';
 export const IPFS_GATEWAY_URL = 'https://gateway.autonolas.tech/ipfs/';
 
 const SUBGRAPH_API_KEY = process.env.NEXT_PUBLIC_SUBGRAPH_API_KEY;
-export const OMEN_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/9fUVQpFwzpdWS9bq5WkAnmKbNNcoBwatMR4yZq81pbbz`;
+export const OMEN_SUBGRAPH_URL = 'https://omen.subgraph.autonolas.tech';
 export const OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/EWN14ciGK53PpUiKSm7kMWQ6G4iz3tDrRLyZ1iXMQEdu`;
-export const XDAI_BLOCKS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/D58aXwnRLfosFtRaVJAbAjjvKZ11bEsbdiDLkJJRdSC9`;
-export const CONDITIONAL_TOKENS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/7s9rGBffUTL8kDZuxvvpuc46v44iuDarbrADBFw5uVp2`;
+export const XDAI_BLOCKS_SUBGRAPH_URL = 'https://gnosis.subgraph.autonolas.tech';
+export const CONDITIONAL_TOKENS_SUBGRAPH_URL = 'https://conditional-tokens.subgraph.autonolas.tech';
 
 export const OLAS_AGENTS_SUBGRAPH_URL = 'https://predict-agents.subgraph.autonolas.tech';
 export const OLAS_MECH_SUBGRAPH_URL = 'https://subgraph.autonolas.tech/subgraphs/name/mech';
