@@ -37,14 +37,15 @@ export const GNOSIS_SCAN_URL = 'https://gnosisscan.io';
 export const IPFS_GATEWAY_URL = 'https://gateway.autonolas.tech/ipfs/';
 
 const SUBGRAPH_API_KEY = process.env.NEXT_PUBLIC_SUBGRAPH_API_KEY;
-export const OMEN_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/9fUVQpFwzpdWS9bq5WkAnmKbNNcoBwatMR4yZq81pbbz`;
+export const OMEN_SUBGRAPH_URL = 'https://omen.subgraph.autonolas.tech';
 export const OMEN_THUMBNAIL_MAPPING_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/EWN14ciGK53PpUiKSm7kMWQ6G4iz3tDrRLyZ1iXMQEdu`;
-export const XDAI_BLOCKS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/D58aXwnRLfosFtRaVJAbAjjvKZ11bEsbdiDLkJJRdSC9`;
-export const CONDITIONAL_TOKENS_SUBGRAPH_URL = `https://gateway-arbitrum.network.thegraph.com/api/${SUBGRAPH_API_KEY}/subgraphs/id/7s9rGBffUTL8kDZuxvvpuc46v44iuDarbrADBFw5uVp2`;
+export const XDAI_BLOCKS_SUBGRAPH_URL = 'https://gnosis.subgraph.autonolas.tech';
+export const CONDITIONAL_TOKENS_SUBGRAPH_URL = 'https://conditional-tokens.subgraph.autonolas.tech';
 
-export const OLAS_AGENTS_SUBGRAPH_URL =
-  'https://api.studio.thegraph.com/query/67875/olas-agents/v0.0.25';
-export const OLAS_MECH_SUBGRAPH_URL = 'https://api.studio.thegraph.com/query/57238/mech/v0.0.1';
+export const OLAS_AGENTS_SUBGRAPH_URL = 'https://predict-agents.subgraph.autonolas.tech';
+export const OLAS_MECH_SUBGRAPH_URL = 'https://subgraph.autonolas.tech/subgraphs/name/mech';
+export const GNOSIS_STAKING_SUBGRAPH_URL =
+  'https://gateway.thegraph.com/api/5c035877a4af18d178c96afe55ed41ae/subgraphs/id/F3iqL2iw5UTrP1qbb4S694pGEkBwzoxXp1TRikB2K4e';
 
 export const ARTICLE_SOURCE_BY_CREATOR: Record<string, string> = {
   '0x89c5cc945dd550bcffb72fe42bff002429f46fec': 'https://marketserver.autonolas.tech/market',
@@ -56,3 +57,8 @@ export const DUNE_QUERY_URL = 'https://dune.com/queries';
 export const PREDICTION_DAA_QUERY_ID = '4165113';
 export const PREDICTION_ECONOMY_DASHBOARD_URL =
   'https://dune.com/adrian0x/the-olas-predict-agent-economy';
+
+export const COINGECKO_OLAS_IN_USD_PRICE_URL =
+  'https://api.coingecko.com/api/v3/simple/token_price/xdai?contract_addresses=0xcE11e14225575945b8E6Dc0D4F2dD4C570f79d9f&vs_currencies=usd';
+
+export const OLAS_ADDRESS = '0xce11e14225575945b8e6dc0d4f2dd4c570f79d9f';

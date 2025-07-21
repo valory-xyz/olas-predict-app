@@ -37,4 +37,10 @@ jobs:
           wget https://github.com/zricethezav/gitleaks/releases/download/v8.10.1/gitleaks_8.10.1_linux_x64.tar.gz && \
           tar -xzf gitleaks_8.10.1_linux_x64.tar.gz && \
           sudo install gitleaks /usr/bin && \
-          gitleaks detect --report-format json --report-path leak_report -v
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "Scanning PR commits from origin/${{ github.base_ref }} to HEAD"
+            gitleaks detect --source=. --log-opts="origin/${{ github.base_ref }}..HEAD" --report-format json --report-path leak_report -v
+          else
+            echo "Scanning recent push commits"
+            gitleaks detect --source=. --log-opts="HEAD~1..HEAD" --report-format json --report-path leak_report -v
+          fi

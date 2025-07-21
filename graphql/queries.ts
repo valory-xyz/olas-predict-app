@@ -4,6 +4,7 @@ import {
   BROKEN_MARKETS,
   CONDITIONAL_TOKENS_SUBGRAPH_URL,
   CREATOR_ADDRESSES,
+  GNOSIS_STAKING_SUBGRAPH_URL,
   INVALID_ANSWER_HEX,
   OLAS_AGENTS_SUBGRAPH_URL,
   OLAS_MECH_SUBGRAPH_URL,
@@ -18,8 +19,11 @@ import {
   FixedProductMarketMaker,
   FixedProductMarketMaker_Filter,
   FpmmTrade_Filter,
+  GetMechSenderParams,
   MechAgents,
+  MechSender,
   OmenThumbnailMapping,
+  OpenMarketsQuestion,
   OutcomeTokenMarginalPricesResponse,
   Query,
   QueryConditionArgs,
@@ -29,7 +33,9 @@ import {
   QueryFpmmTradesArgs,
   QueryUserPositionArgs,
   QueryUserPositionsArgs,
+  Service,
   TraderAgent,
+  TraderAgentBets,
   TraderAgents,
   UserPosition,
 } from './types';
@@ -332,8 +338,16 @@ const getTraderAgentQuery = gql`
   query GetOlasTraderAgent($id: ID!) {
     traderAgent(id: $id) {
       id
+      serviceId
       blockTimestamp
+      firstParticipation
       totalBets
+      totalTraded
+      totalPayout
+      totalFees
+      bets(first: 1, orderBy: timestamp, orderDirection: desc) {
+        timestamp
+      }
     }
   }
 `;
@@ -411,6 +425,51 @@ const getConditionMarketQuery = gql`
   }
 
   ${marketDataFragment}
+`;
+
+const getTraderAgentBetsQuery = gql`
+  query GetOlasTraderAgentBets($id: ID!) {
+    traderAgent(id: $id) {
+      id
+      bets(first: 1000, orderBy: timestamp, orderDirection: desc) {
+        outcomeIndex
+        fixedProductMarketMaker {
+          id
+          currentAnswer
+        }
+      }
+    }
+  }
+`;
+
+const getMechSenderQuery = gql`
+  query MechSender($id: ID!, $timestamp_gt: Int!) {
+    sender(id: $id) {
+      totalRequests
+      requests(first: 1000, where: { blockTimestamp_gt: $timestamp_gt }) {
+        id
+        questionTitle
+      }
+    }
+  }
+`;
+
+const getOpenMarketsQuery = gql`
+  query Fpmms($timestamp_gt: Int!) {
+    questions(where: { fixedProductMarketMaker_: { blockTimestamp_gt: $timestamp_gt } }) {
+      id
+      question
+    }
+  }
+`;
+
+const getStakingServiceQuery = gql`
+  query StakingService($id: ID!) {
+    service(id: $id) {
+      id
+      olasRewardsEarned
+    }
+  }
 `;
 
 export const getMarkets = async (
@@ -491,3 +550,23 @@ export const getUserPositions = async (params: QueryUserPositionArgs & QueryUser
 
 export const getConditionMarket = async (params: QueryConditionArgs) =>
   request<Pick<Query, 'conditions'>>(OMEN_SUBGRAPH_URL, getConditionMarketQuery, params);
+
+export const getTraderAgentBets = async (params: { id: string }) =>
+  request<{ traderAgent: TraderAgentBets | null }>(
+    OLAS_AGENTS_SUBGRAPH_URL,
+    getTraderAgentBetsQuery,
+    params,
+  );
+
+export const getMechSender = async (params: GetMechSenderParams) =>
+  request<{ sender: MechSender | null }>(OLAS_MECH_SUBGRAPH_URL, getMechSenderQuery, params);
+
+export const getOpenMarkets = async (params: { timestamp_gt: number }) =>
+  request<{ questions: OpenMarketsQuestion[] }>(
+    OLAS_AGENTS_SUBGRAPH_URL,
+    getOpenMarketsQuery,
+    params,
+  );
+
+export const getStakingService = async (params: { id: string }) =>
+  request<{ service: Service | null }>(GNOSIS_STAKING_SUBGRAPH_URL, getStakingServiceQuery, params);

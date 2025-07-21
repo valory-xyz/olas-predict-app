@@ -72,6 +72,10 @@ export const THEME_CONFIG: ThemeConfig = {
       headerColor: COLOR.WHITE_TRANSPARENT_50,
       rowHoverBg: COLOR.WHITE_TRANSPARENT_5,
     },
+    Tooltip: {
+      paddingXS: 16,
+      paddingSM: 32,
+    },
   },
   algorithm: theme.darkAlgorithm,
 };
