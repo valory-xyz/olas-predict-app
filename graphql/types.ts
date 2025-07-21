@@ -5039,6 +5039,10 @@ export type TraderAgent = {
   blockNumber: string;
   blockTimestamp: string;
   transactionHash: string;
+  totalFees: string;
+  bets: {
+    timestamp: number;
+  }[];
 }
 
 export type TraderAgents = { traderAgents:  Array<TraderAgent>}
@@ -5198,4 +5202,39 @@ export type UserPosition = {
   totalBalance: Scalars['BigInt']['output'];
   user: User;
   wrappedBalance: Scalars['BigInt']['output'];
+};
+
+export type TraderAgentBets = {
+  id: string;
+  bets: {
+    outcomeIndex: string;
+    fixedProductMarketMaker: {
+      id: string;
+      currentAnswer: string;
+    };
+  }[];
+};
+
+export type GetMechSenderParams = {
+  id: string;
+  timestamp_gt: number;
+};
+
+
+export type MechSender = {
+  totalRequests: number;
+  requests: {
+    id: string;
+    questionTitle: string;
+  }[];
+};
+
+export type Service = {
+  id: string;
+  olasRewardsEarned: string;
+};
+
+export type OpenMarketsQuestion = {
+  id: string;
+  question: string;
 };
