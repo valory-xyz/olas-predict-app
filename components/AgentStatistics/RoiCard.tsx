@@ -20,7 +20,7 @@ type RoiCardProps = {
   agent: TraderAgent;
 };
 
-// Returns the timestamp for 00:00 UTC N days ago
+/* returns the timestamp for 00:00 UTC N days ago */
 const getMidnightUtcTimestampDaysAgo = (daysAgo: number) => {
   const now = new Date();
   const utcMidnightToday = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());

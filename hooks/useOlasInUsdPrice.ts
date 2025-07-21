@@ -17,11 +17,15 @@ export const useOlasInUsdPrice = () => {
       const response = await fetch(COINGECKO_OLAS_IN_USD_PRICE_URL);
       if (!response.ok) throw new Error('Failed to fetch OLAS price');
 
-      const result = await response.json();
-      if (result) {
-        const priceInEth = (result as CoingeckoResponse)[OLAS_ADDRESS]?.usd || 0;
-        return BigInt(Math.floor(Number(priceInEth) * 1e18));
+      return response.json();
+    },
+    select: (result) => {
+      const tokenData = (result as unknown as CoingeckoResponse)[OLAS_ADDRESS];
+
+      if (tokenData && typeof tokenData.usd === 'number') {
+        return BigInt(Math.floor(Number(tokenData.usd) * 1e18));
       }
+
       return null;
     },
   });
